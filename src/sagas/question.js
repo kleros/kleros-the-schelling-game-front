@@ -3,14 +3,14 @@ import { takeLatest, call } from 'redux-saga/effects'
 import * as questionActions from '../actions/question'
 import { fetchSaga } from '../utils/saga'
 
+import questionApi from './api/question-api'
+
 /**
  * Fetches the question.
  * @returns {object} - The question.
  */
 export function* fetchQuestion() {
-  const question = yield call(fetch, 'http://138.68.22.25:3000/questions')
-
-  return question
+  return yield call(questionApi.getQuestion)
 }
 
 /**
