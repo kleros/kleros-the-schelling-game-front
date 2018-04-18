@@ -3,6 +3,7 @@ import { delay } from 'redux-saga'
 import { spawn, call, all } from 'redux-saga/effects'
 
 import walletSaga from './wallet'
+import questionSaga from './question'
 
 /**
  * Makes a saga restart after an uncaught error.
@@ -20,18 +21,19 @@ export function makeRestartable(saga) {
         )
       } catch (err) {
         /* istanbul ignore if  */
-        if (process.env.NODE_ENV !== 'test')
+        if (process.env.NODE_ENV !== 'test') {
           console.info(
             'Saga error, the saga will be restarted after 3 seconds.',
             err
           )
+        }
         yield call(delay, 3000)
       }
     }
   }
 }
 
-const rootSagas = [walletSaga].map(makeRestartable)
+const rootSagas = [walletSaga, questionSaga].map(makeRestartable)
 
 /**
  * The root saga.
