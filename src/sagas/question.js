@@ -10,8 +10,6 @@ import { fetchSaga } from '../utils/saga'
 export function* fetchQuestion() {
   const question = yield call(fetch, 'http://138.68.22.25:3000/questions')
 
-  console.log(question)
-
   return question
 }
 
