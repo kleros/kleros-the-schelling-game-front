@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import TelegramLoginButton from 'react-telegram-login'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { RenderIf } from 'lessdux'
@@ -28,6 +29,8 @@ class Balance extends PureComponent {
     fetchQuestion()
   }
 
+  handleUserInfo = response => console.log(response)
+
   render() {
     const { balance } = this.props
 
@@ -50,6 +53,10 @@ class Balance extends PureComponent {
                     seed="Placeholder"
                     className="Balance-message-identicon"
                   />, You have {balance.data.toString()} ETH.
+                  <TelegramLoginButton
+                    dataOnauth={this.handleUserInfo}
+                    botName="schelling_bot"
+                  />
                 </span>
               )
             }
