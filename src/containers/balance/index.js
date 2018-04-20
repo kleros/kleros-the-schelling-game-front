@@ -6,7 +6,7 @@ import { RenderIf } from 'lessdux'
 
 import * as walletActions from '../../actions/wallet'
 import * as walletSelectors from '../../reducers/wallet'
-import * as questionActions from '../../actions/question'
+import * as profileActions from '../../actions/profile'
 import Identicon from '../../components/identicon'
 
 import './balance.css'
@@ -18,18 +18,19 @@ class Balance extends PureComponent {
 
     // Action Dispatchers
     fetchBalance: PropTypes.func.isRequired,
-
-    // Action Dispatchers
-    fetchQuestion: PropTypes.func.isRequired
+    createProfile: PropTypes.func.isRequired
   }
 
   componentDidMount() {
-    const { fetchBalance, fetchQuestion } = this.props
+    const { fetchBalance } = this.props
     fetchBalance()
-    fetchQuestion()
   }
 
-  handleUserInfo = response => console.log(response)
+  handleUserInfo = response => {
+    const { createProfile } = this.props
+    console.log(response)
+    createProfile(response)
+  }
 
   render() {
     const { balance } = this.props
@@ -82,10 +83,10 @@ class Balance extends PureComponent {
 export default connect(
   state => ({
     balance: state.wallet.balance,
-    question: state.question.question
+    profile: state.profile.profile
   }),
   {
     fetchBalance: walletActions.fetchBalance,
-    fetchQuestion: questionActions.fetchQuestion
+    createProfile: profileActions.createProfile
   }
 )(Balance)

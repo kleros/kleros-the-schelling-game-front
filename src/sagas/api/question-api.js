@@ -1,6 +1,6 @@
 const questionApi = {
   getQuestion() {
-    return fetch(`http://138.68.22.25:3000/questions`)
+    return fetch(`https://gamedrop.io/questions`)
       .then(statusHelper)
       .then(response => response.json())
       .catch(err => err)

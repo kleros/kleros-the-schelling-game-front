@@ -4,11 +4,13 @@ import { reducer as form } from 'redux-form'
 
 import wallet from './wallet'
 import question from './question'
+import profile from './profile'
 
 // Export root reducer
 export default combineReducers({
   router,
   form,
   wallet,
-  question
+  question,
+  profile
 })
