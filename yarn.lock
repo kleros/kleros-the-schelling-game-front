@@ -7498,9 +7498,9 @@ left-pad@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/left-pad/-/left-pad-1.2.0.tgz#d30a73c6b8201d8f7d8e7956ba9616087a68e0ee"
 
-lessdux@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/lessdux/-/lessdux-0.3.0.tgz#74cc04899ba2de4e17353f11bac4eca67639e2d1"
+lessdux@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/lessdux/-/lessdux-0.4.1.tgz#7fda548b5ca52a1c29e5b7516b89b6b44bd94a25"
   dependencies:
     prop-types "^15.6.0"
 

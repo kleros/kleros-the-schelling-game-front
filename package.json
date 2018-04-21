@@ -1,10 +1,10 @@
 {
-  "name": "dapper",
+  "name": "schelling-game",
   "version": "0.2.0",
   "description": "A boilerplate for Ethereum dapps.",
   "keywords": ["blockchain", "ethereum", "dapp", "boilerplate", "frontend"],
   "repository": "https://github.com/kleros/dapper",
-  "author": "Kleros",
+  "author": "Wagner Nicolas",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -73,7 +73,7 @@
     "create-redux-form": "^0.1.2",
     "ethjs": "^0.3.3",
     "history": "^4.7.2",
-    "lessdux": "^0.3.0",
+    "lessdux": "^0.4.1",
     "normalize.css": "^8.0.0",
     "react": "^16.2.0",
     "react-addons-css-transition-group": "^15.6.2",
