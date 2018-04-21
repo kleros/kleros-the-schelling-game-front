@@ -10,6 +10,7 @@ import profileApi from './api/profile-api'
  * @returns {object} - The profile.
  */
 export function* createProfile({ payload: { profile } }) {
+  console.log('payload', profile)
   return yield call(profileApi.postProfile, profile)
 }
 
