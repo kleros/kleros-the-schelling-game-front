@@ -1,5 +1,5 @@
 <p align="center">
-  <b style="font-size: 32px;">the-schelling-game</b>
+  <b style="font-size: 32px;">the schelling game</b>
 </p>
 
 <p align="center">
