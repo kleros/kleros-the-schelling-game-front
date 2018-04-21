@@ -4,6 +4,7 @@ import { spawn, call, all } from 'redux-saga/effects'
 
 import walletSaga from './wallet'
 import questionSaga from './question'
+import profileSaga from './profile'
 
 /**
  * Makes a saga restart after an uncaught error.
@@ -33,7 +34,7 @@ export function makeRestartable(saga) {
   }
 }
 
-const rootSagas = [walletSaga, questionSaga].map(makeRestartable)
+const rootSagas = [walletSaga, questionSaga, profileSaga].map(makeRestartable)
 
 /**
  * The root saga.
