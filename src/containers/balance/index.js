@@ -28,6 +28,7 @@ class Balance extends PureComponent {
 
   handleUserInfo = response => {
     const { createProfile } = this.props
+    console.log(response)
     createProfile(response)
   }
 

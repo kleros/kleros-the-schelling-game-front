@@ -1,5 +1,5 @@
 const profileApi = {
-  postProfile(profile) {
+  postProfile (profile) {
     return fetch(`https://gamedrop.io/profiles`, {
       method: 'POST',
       headers: {
