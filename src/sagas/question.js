@@ -1,7 +1,7 @@
 import { takeLatest, call } from 'redux-saga/effects'
 
 import * as questionActions from '../actions/question'
-import { fetchSaga } from '../utils/saga'
+import { lessduxSaga } from '../utils/saga'
 
 import questionApi from './api/question-api'
 
@@ -20,7 +20,8 @@ export default function* walletSaga() {
   // Question
   yield takeLatest(
     questionActions.question.FETCH,
-    fetchSaga,
+    lessduxSaga,
+    'fetch',
     questionActions.question,
     fetchQuestion
   )

@@ -1,7 +1,7 @@
 import { takeLatest, call } from 'redux-saga/effects'
 
 import * as profileActions from '../actions/profile'
-import { fetchSaga } from '../utils/saga'
+import { lessduxSaga } from '../utils/saga'
 
 import profileApi from './api/profile-api'
 
@@ -19,7 +19,8 @@ export function* createProfile({ payload: { profile } }) {
 export default function* walletSaga() {
   yield takeLatest(
     profileActions.profile.CREATE,
-    fetchSaga,
+    lessduxSaga,
+    'create',
     profileActions.profile,
     createProfile
   )
