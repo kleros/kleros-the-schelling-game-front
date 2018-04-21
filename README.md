@@ -23,6 +23,26 @@ A boilerplate for Ethereum dapps.
 3. Configure MetaMask on the Kovan Test Network.
 4. Run `yarn` to install dependencies and then `yarn start` to start the dev server.
 
+## Create the both
+
+Use bot father, create a new bot and use `/setdomain` command.
+
+## Developement
+
+Telegram works only with a domain on the 80 port.
+To change the local domain, you can edit `/eth/hosts`.
+
+```
+# /etc/hosts
+127.0.0.1	mydomain.local localhost
+```
+
+and run `create-react-app` with the `PORT=80`
+
+```
+sudo PORT=80 yarn Start
+```
+
 ## Other Scripts
 
 * `yarn run prettify` - Apply prettier to the entire project.
