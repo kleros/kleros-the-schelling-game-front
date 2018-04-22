@@ -9,8 +9,8 @@ import profileApi from './api/profile-api'
  * Creates the profile.
  * @returns {object} - The profile.
  */
-export function* createProfile ({ type, payload: { Profile } }) {
-  return yield call(profileApi.postProfile, Profile)
+export function* createProfile ({ type, payload: { profileGet } }) {
+  return yield call(profileApi.postProfile, profileGet)
 }
 
 /**

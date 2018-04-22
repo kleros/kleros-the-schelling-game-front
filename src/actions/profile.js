@@ -12,7 +12,7 @@ export const profile = {
 /* Action Creators */
 
 // Profile
-export const createProfile = Profile => ({
+export const createProfile = profileGet => ({
   type: profile.CREATE,
-  payload: { Profile }
+  payload: { profileGet }
 })

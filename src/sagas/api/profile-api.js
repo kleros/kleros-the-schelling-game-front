@@ -1,6 +1,6 @@
 const profileApi = {
   postProfile (profile) {
-    return fetch(`https://gamedrop.io/profiles`, {
+    return fetch(`http://localhost:8080/profiles`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

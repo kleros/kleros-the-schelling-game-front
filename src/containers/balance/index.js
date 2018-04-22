@@ -4,26 +4,17 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { RenderIf } from 'lessdux'
 
-import * as walletActions from '../../actions/wallet'
-import * as walletSelectors from '../../reducers/wallet'
 import * as profileActions from '../../actions/profile'
-import Identicon from '../../components/identicon'
 
 import './balance.css'
 
 class Balance extends PureComponent {
   static propTypes = {
-    // Redux State
-    balance: walletSelectors.balanceShape.isRequired,
-
     // Action Dispatchers
-    fetchBalance: PropTypes.func.isRequired,
     createProfile: PropTypes.func.isRequired
   }
 
   componentDidMount() {
-    const { fetchBalance } = this.props
-    fetchBalance()
   }
 
   handleUserInfo = response => {
@@ -33,44 +24,33 @@ class Balance extends PureComponent {
   }
 
   render() {
-    const { balance } = this.props
+    const { profile } = this.props
 
     return (
       <div className="Balance">
         <div className="Balance-message">
-          <b>Hello CryptoWorld</b>
+          <b>SCGELLINGGAME</b>
         </div>
-        <br />
-        <br />
         <div className="Balance-message">
+          {
+            true && (
+              <TelegramLoginButton
+                dataOnauth={this.handleUserInfo}
+                botName="schelling_bot"
+              />
+            )
+          }
           <RenderIf
-            resource={balance}
-            loading="Loading balance..."
+            resource={profile}
+            loading="Loading profile..."
             done={
-              balance.data && (
-                <span>
-                  Welcome{' '}
-                  <Identicon
-                    seed="Placeholder"
-                    className="Balance-message-identicon"
-                  />, You have {balance.data.toString()} ETH.
-                  <TelegramLoginButton
-                    dataOnauth={this.handleUserInfo}
-                    botName="schelling_bot"
-                  />
-                </span>
+              profile.data && profile.data.telegram_id !== undefined && (
+                <h1>Start</h1>
               )
             }
             failedLoading={
               <span>
-                There was an error fetching your balance. Make sure{' '}
-                <a
-                  className="Balance-message-link"
-                  href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
-                >
-                  MetaMask
-                </a>{' '}
-                is unlocked and refresh the page.
+                <button>Start</button>
               </span>
             }
           />
@@ -82,11 +62,9 @@ class Balance extends PureComponent {
 
 export default connect(
   state => ({
-    balance: state.wallet.balance,
     profile: state.profile.profile
   }),
   {
-    fetchBalance: walletActions.fetchBalance,
     createProfile: profileActions.createProfile
   }
 )(Balance)
