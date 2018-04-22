@@ -5,6 +5,7 @@ import { reducer as form } from 'redux-form'
 import wallet from './wallet'
 import question from './question'
 import profile from './profile'
+import vote from './vote'
 
 // Export root reducer
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
   form,
   wallet,
   question,
-  profile
+  profile,
+  vote
 })

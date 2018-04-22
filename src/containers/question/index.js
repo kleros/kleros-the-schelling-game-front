@@ -7,12 +7,13 @@ import { Redirect } from 'react-router'
 
 import * as profileActions from '../../actions/profile'
 import * as questionActions from '../../actions/question'
+import * as voteActions from '../../actions/vote'
 
 import './question.css'
 
 class Question extends PureComponent {
   state = {
-    start: false
+    success: null
   }
 
   static propTypes = {
@@ -27,22 +28,30 @@ class Question extends PureComponent {
     }
   }
 
-  handleStart = () => this.setState({ start: true })
+  handleVote = e => {
+    const { profile, question, createVote } = this.props
+    console.log(question.data._id, profile.data.hash)
 
-  static propTypes = {
+    createVote(profile.data.hash, question.data._id, e.target.value)
   }
+
+  static propTypes = {}
 
   render() {
     const { start } = this.state
-    const { question, profile } = this.props
+    const { question, profile, vote } = this.props
 
-   if (start) {
-     return <Redirect to='/game' />;
-   }
+    if (start) {
+      return <Redirect to="/game" />
+    }
 
-   if (!profile.data) {
-     return <Redirect to='/' />;
-   }
+    if (!profile.data) {
+      return <Redirect to="/" />
+    }
+
+    if (vote.data && vote.data.result === 'loose') {
+      return <Redirect to="/scores" />
+    }
 
     return (
       <div className="">
@@ -53,15 +62,15 @@ class Question extends PureComponent {
             question.data && (
               <div>
                 <h1>{question.data.question}</h1>
-                {question.data.proposals.map(
-                  p => <button key={p}>{p}</button>
-                )}
+                {question.data.proposals.map((p, index) => (
+                  <button value={index} key={index} onClick={this.handleVote}>
+                    {p}
+                  </button>
+                ))}
               </div>
             )
           }
-          failedLoading={
-            <span></span>
-          }
+          failedLoading={<span />}
         />
       </div>
     )
@@ -71,9 +80,11 @@ class Question extends PureComponent {
 export default connect(
   state => ({
     profile: state.profile.profile,
-    question: state.question.question
+    question: state.question.question,
+    vote: state.vote.vote
   }),
   {
-    fetchQuestion: questionActions.fetchQuestion
+    fetchQuestion: questionActions.fetchQuestion,
+    createVote: voteActions.createVote
   }
 )(Question)
