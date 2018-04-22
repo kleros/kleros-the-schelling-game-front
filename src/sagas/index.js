@@ -6,6 +6,7 @@ import walletSaga from './wallet'
 import questionSaga from './question'
 import profileSaga from './profile'
 import voteSaga from './vote'
+import scoresSaga from './scores'
 
 /**
  * Makes a saga restart after an uncaught error.
@@ -35,7 +36,7 @@ export function makeRestartable(saga) {
   }
 }
 
-const rootSagas = [walletSaga, questionSaga, profileSaga, voteSaga].map(
+const rootSagas = [walletSaga, questionSaga, profileSaga, voteSaga, scoresSaga].map(
   makeRestartable
 )
 

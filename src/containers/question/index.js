@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { RenderIf } from 'lessdux'
 import { Redirect } from 'react-router'
+import { Link } from 'react-router-dom'
 
 import * as profileActions from '../../actions/profile'
 import * as questionActions from '../../actions/question'
@@ -59,7 +60,7 @@ class Question extends PureComponent {
           resource={question}
           loading="Loading question..."
           done={
-            question.data && (
+            question.data && question.data.question ? (
               <div>
                 <h1>{question.data.question}</h1>
                 {question.data.proposals.map((p, index) => (
@@ -67,6 +68,11 @@ class Question extends PureComponent {
                     {p}
                   </button>
                 ))}
+              </div>
+            ) : (
+              <div>
+                Kudos! You have answered all the questions correctly.
+                <Link to='/scores'>See scores</Link>
               </div>
             )
           }

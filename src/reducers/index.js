@@ -6,6 +6,7 @@ import wallet from './wallet'
 import question from './question'
 import profile from './profile'
 import vote from './vote'
+import scores from './scores'
 
 // Export root reducer
 export default combineReducers({
@@ -14,5 +15,6 @@ export default combineReducers({
   wallet,
   question,
   profile,
-  vote
+  vote,
+  scores
 })

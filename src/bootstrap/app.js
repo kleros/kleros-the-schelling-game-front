@@ -7,6 +7,7 @@ import { Switch, Route } from 'react-router-dom'
 
 import Balance from '../containers/home'
 import Question from '../containers/question'
+import Scores from '../containers/scores'
 import PageNotFound from '../components/page-not-found'
 
 import Initializer from './initializer'
@@ -25,6 +26,7 @@ const App = ({ store, history, testElement }) => (
             <Switch>
               <Route exact path="/" component={Balance} />
               <Route exact path="/question" component={Question} />
+              <Route exact path="/scores" component={Scores} />
               <Route component={PageNotFound} />
             </Switch>
           </div>
