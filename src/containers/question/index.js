@@ -6,12 +6,25 @@ import { RenderIf } from 'lessdux'
 import { Redirect } from 'react-router'
 
 import * as profileActions from '../../actions/profile'
+import * as questionActions from '../../actions/question'
 
 import './question.css'
 
 class Question extends PureComponent {
   state = {
     start: false
+  }
+
+  static propTypes = {
+    // Action Dispatchers
+    fetchQuestion: PropTypes.func.isRequired
+  }
+
+  componentDidMount() {
+    const { fetchQuestion, profile } = this.props
+    if (profile.data) {
+      fetchQuestion(profile.data.hash)
+    }
   }
 
   handleStart = () => this.setState({ start: true })
@@ -21,15 +34,35 @@ class Question extends PureComponent {
 
   render() {
     const { start } = this.state
-    const { profile } = this.props
+    const { question, profile } = this.props
 
    if (start) {
      return <Redirect to='/game' />;
    }
 
+   if (!profile.data) {
+     return <Redirect to='/' />;
+   }
+
     return (
       <div className="">
-        Question
+        <RenderIf
+          resource={question}
+          loading="Loading question..."
+          done={
+            question.data && (
+              <div>
+                <h1>{question.data.question}</h1>
+                {question.data.proposals.map(
+                  p => <button key={p}>{p}</button>
+                )}
+              </div>
+            )
+          }
+          failedLoading={
+            <span></span>
+          }
+        />
       </div>
     )
   }
@@ -37,7 +70,10 @@ class Question extends PureComponent {
 
 export default connect(
   state => ({
-    profile: state.profile.profile
+    profile: state.profile.profile,
+    question: state.question.question
   }),
-  {}
+  {
+    fetchQuestion: questionActions.fetchQuestion
+  }
 )(Question)

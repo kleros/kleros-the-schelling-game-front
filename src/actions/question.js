@@ -8,4 +8,7 @@ export const question = createActions('QUESTION')
 /* Action Creators */
 
 // Balance
-export const fetchQuestion = () => ({ type: question.FETCH })
+export const fetchQuestion = hash => ({
+  type: question.FETCH,
+  payload: { hash }
+})
