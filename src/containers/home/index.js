@@ -3,37 +3,42 @@ import TelegramLoginButton from 'react-telegram-login'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { RenderIf } from 'lessdux'
+import { Redirect } from 'react-router'
 
 import * as profileActions from '../../actions/profile'
 
-import './balance.css'
+import './home.css'
 
-class Balance extends PureComponent {
+class Home extends PureComponent {
+  state = {
+    start: false
+  }
+
   static propTypes = {
     // Action Dispatchers
     createProfile: PropTypes.func.isRequired
   }
 
-  componentDidMount() {
-  }
+  handleUserInfo = profile => this.props.createProfile(profile)
 
-  handleUserInfo = response => {
-    const { createProfile } = this.props
-    console.log('response handleUserInfo', response)
-    createProfile(response)
-  }
+  handleStart = () => this.setState({ start: true })
 
   render() {
+    const { start } = this.state
     const { profile } = this.props
+
+   if (start) {
+     return <Redirect to='/question' />;
+   }
 
     return (
       <div className="Balance">
         <div className="Balance-message">
-          <b>SCGELLINGGAME</b>
+          <b>SCHELLINGGAME</b>
         </div>
         <div className="Balance-message">
           {
-            true && (
+             !(profile.data && profile.data.telegram_id) && (
               <TelegramLoginButton
                 dataOnauth={this.handleUserInfo}
                 botName="schelling_bot"
@@ -44,14 +49,12 @@ class Balance extends PureComponent {
             resource={profile}
             loading="Loading profile..."
             done={
-              profile.data && profile.data.telegram_id !== undefined && (
-                <h1>Start</h1>
+              profile.data && profile.data.telegram_id && (
+                <button onClick={this.handleStart}>Start</button>
               )
             }
             failedLoading={
-              <span>
-                <button>Start</button>
-              </span>
+              <span></span>
             }
           />
         </div>
@@ -67,4 +70,4 @@ export default connect(
   {
     createProfile: profileActions.createProfile
   }
-)(Balance)
+)(Home)

@@ -1,6 +1,8 @@
+const env = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV'
+
 const profileApi = {
   postProfile (profile) {
-    return fetch(`http://localhost:8080/profiles`, {
+    return fetch(`${process.env[`REACT_APP_${env}_API`]}/profiles`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
