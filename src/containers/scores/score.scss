@@ -1,21 +1,9 @@
 /* @define Balance */
-.score {
-  background: #273142;
+.Scores {
+  background: #fff;
   height: 100%;
 
-  &-message {
-    color: white;
-    font-size: 40px;
-    padding-top: 10%;
+  &-title {
     text-align: center;
-
-    &-identicon {
-      display: inline-block;
-    }
-
-    &-link {
-      color: #999;
-      text-decoration: none;
-    }
   }
 }

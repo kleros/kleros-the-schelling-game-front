@@ -55,19 +55,30 @@ class Question extends PureComponent {
     }
 
     return (
-      <div className="">
+      <div className="Question">
         <RenderIf
           resource={question}
           loading="Loading question..."
           done={
             question.data && question.data.question ? (
-              <div>
-                <h1>{question.data.question}</h1>
-                {question.data.proposals.map((p, index) => (
-                  <button value={index} key={index} onClick={this.handleVote}>
-                    {p}
-                  </button>
-                ))}
+              <div className="Question-content">
+                <div className="Question-content-head">
+                  <div>
+                    <h1>{question.data.question}</h1>
+                  </div>
+                </div>
+                <div className="Question-content-proposals">
+                  {question.data.proposals.map((p, index) => (
+                    <div
+                      value={index}
+                      key={index}
+                      onClick={this.handleVote}
+                      className="Question-content-proposals-proposal"
+                    >
+                      {p}
+                    </div>
+                  ))}
+                </div>
               </div>
             ) : (
               <div>

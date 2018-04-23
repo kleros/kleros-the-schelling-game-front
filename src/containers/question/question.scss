@@ -1,21 +1,37 @@
-/* @define Balance */
-.homescreen {
-  background: #273142;
-  height: 100%;
-
-  &-message {
-    color: white;
-    font-size: 40px;
-    padding-top: 10%;
-    text-align: center;
-
-    &-identicon {
-      display: inline-block;
+/* @define Question */
+.Question {
+  background: #fff;
+  &-content {
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+    height: 100vh;
+    &-head {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      flex: 1;
+      border-bottom: 1px solid black;
+      h1 {
+        text-align: center;
+      }
     }
-
-    &-link {
-      color: #999;
-      text-decoration: none;
+    &-proposals {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      &-proposal {
+        width: 50%;
+        border: 1px solid black;
+        padding: 10% 0;
+        text-align: center;
+        font-size: 2em;
+        &:hover {
+          color: #fff;
+          background: #000;
+          cursor: pointer;
+        }
+      }
     }
   }
 }

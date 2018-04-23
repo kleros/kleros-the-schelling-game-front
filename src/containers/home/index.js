@@ -34,7 +34,9 @@ class Home extends PureComponent {
     return (
       <div className="Home">
         <div className="Home-title">
-          <h1>SCHELLINGGAME</h1>
+          <div>
+            <h1>SCHELLIN<b>GG</b>AME</h1>
+          </div>
         </div>
         <div className="Home-logIn">
           {

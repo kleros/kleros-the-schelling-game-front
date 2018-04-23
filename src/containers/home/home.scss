@@ -1,13 +1,27 @@
-/* @define Balance */
+/* @define Home */
 .Home {
+  display: flex;
+  flex-direction: column;
   background: #fff;
-  height: 100%;
+  height: 100vw;
 
-  h1 {
-    text-align: center;
+  &-title {
+    display: flex;
+    flex-direction: column;
+    flex: 1 100%;
+    justify-content: space-around;
+    font-size: 2.5em;
+    h1 {
+      text-align: center;
+      font-weight: lighter;
+      b {
+        font-weight: bold;
+      }
+    }
   }
 
   &-logIn {
+    flex: 1 100%;
     text-align: center;
   }
 }

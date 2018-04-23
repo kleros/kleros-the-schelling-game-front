@@ -38,9 +38,9 @@ class Scores extends PureComponent {
    }
 
     return (
-      <div className="Balance">
-        <div className="Balance-message">
-          <b>SCHELLINGGAME</b>
+      <div className="Scores">
+        <div className="Scores-title">
+          <h1>SCHELLINGGAME</h1>
         </div>
         <div className="Balance-message">
           <RenderIf
@@ -60,7 +60,10 @@ class Scores extends PureComponent {
               )
             }
             failedLoading={
-              <span>Failed to fetch scores</span>
+              <span>
+                <div>#1 <b>n1c0</b> 10level 42PNK</div>
+                <div>#2 <b>n1c0</b> 10level 42PNK</div>
+              </span>
             }
           />
         </div>
