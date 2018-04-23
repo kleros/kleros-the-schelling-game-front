@@ -1,21 +1,13 @@
 /* @define Balance */
-.homescreen {
-  background: #273142;
+.Home {
+  background: #fff;
   height: 100%;
 
-  &-message {
-    color: white;
-    font-size: 40px;
-    padding-top: 10%;
+  h1 {
     text-align: center;
+  }
 
-    &-identicon {
-      display: inline-block;
-    }
-
-    &-link {
-      color: #999;
-      text-decoration: none;
-    }
+  &-logIn {
+    text-align: center;
   }
 }

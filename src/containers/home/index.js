@@ -32,11 +32,11 @@ class Home extends PureComponent {
    }
 
     return (
-      <div className="Balance">
-        <div className="Balance-message">
-          <b>SCHELLINGGAME</b>
+      <div className="Home">
+        <div className="Home-title">
+          <h1>SCHELLINGGAME</h1>
         </div>
-        <div className="Balance-message">
+        <div className="Home-logIn">
           {
              !(profile.data && profile.data.telegram_id) && (
               <TelegramLoginButton
