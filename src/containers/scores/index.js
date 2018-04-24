@@ -5,26 +5,14 @@ import { connect } from 'react-redux'
 import { RenderIf } from 'lessdux'
 import { Redirect } from 'react-router'
 import queryString from 'query-string'
-import { toastr } from 'react-redux-toastr'
+import { Link } from 'react-router-dom'
 
 import * as profileActions from '../../actions/profile'
 import * as scoresActions from '../../actions/scores'
 
 import './score.css'
 
-const toastrOptions = {
-  timeOut: 3000,
-  showCloseButton: false
-}
-
-toastr.success(`It's not the Schelling Point`, toastrOptions)
-toastr.success('msg', toastrOptions)
-
 class Scores extends PureComponent {
-  state = {
-    start: false
-  }
-
   static propTypes = {
     // Action Dispatchers
     createProfile: PropTypes.func.isRequired
@@ -33,25 +21,13 @@ class Scores extends PureComponent {
   componentDidMount() {
     const { fetchScores } = this.props
     fetchScores()
-
-    const { msg } = queryString.parse(this.props.location.search)
-
   }
 
   handleUserInfo = profile => this.props.createProfile(profile)
 
-  handleStart = () => {
-    toastr.info('The title', 'The message')
-  }
-
   render() {
-    const { start } = this.state
     const { profile, scores } = this.props
     const { username, msg } = queryString.parse(this.props.location.search)
-
-   if (start) {
-     return <Redirect to='/question' />;
-   }
 
     return (
       <div className="Scores">
@@ -67,7 +43,7 @@ class Scores extends PureComponent {
                 <span>
                   {msg === 'loose' && (
                     <div>
-                      <button onClick={this.handleStart}>Replay</button>
+                      <Link to='/question'>Replay</Link>
                     </div>
                   )}
                   {username && username !== 'undefined' && (
@@ -81,7 +57,6 @@ class Scores extends PureComponent {
                       <hr />
                     </div>
                   ))}
-
                 </span>
               )
             }

@@ -20,7 +20,8 @@ const toastrOptions = {
 
 class Question extends PureComponent {
   state = {
-    success: null
+    success: null,
+    msg: true
   }
 
   static propTypes = {
@@ -35,17 +36,16 @@ class Question extends PureComponent {
     }
   }
 
-  handleVote = e => {
+  handleVote = voteId => e => {
     const { profile, question, createVote } = this.props
-    console.log(question.data._id, profile.data.hash)
 
-    createVote(profile.data.hash, question.data._id, e.target.value)
+    createVote(profile.data.hash, question.data._id, voteId)
   }
 
   static propTypes = {}
 
   render() {
-    const { start } = this.state
+    const { start, msg } = this.state
     const { question, profile, vote } = this.props
 
     if (start) {
@@ -56,12 +56,12 @@ class Question extends PureComponent {
       return <Redirect to="/" />
     }
 
-    if (vote.data && vote.data.msg && vote.data.msg === 'You made 10 sessions. Try tomorrow.') {
+    if (question.data && question.data.msg && question.data.msg === 'You made 10 sessions. Try tomorrow.') {
       toastr.warning('You made 10 sessions. Try tomorrow.', toastrOptions)
       return <Redirect to={`/scores`} />
     }
 
-    if (vote.data && (vote.data.msg && vote.data.msg === 'no question' || vote.data.msg === 'You have answered all the questions. You can try tomorrow or add new question.')) {
+    if (question.data && (question.data.msg && question.data.msg === 'no question' || question.data.msg === 'You have answered all the questions. You can try tomorrow or add new question.')) {
       toastr.info('No question.', toastrOptions)
       return <Redirect to={`/scores`} />
     }
@@ -87,9 +87,8 @@ class Question extends PureComponent {
                 <div className="Question-content-proposals">
                   {question.data.proposals.map((p, index) => (
                     <div
-                      value={index}
                       key={index}
-                      onClick={this.handleVote}
+                      onClick={this.handleVote(index)}
                       className="Question-content-proposals-proposal"
                     >
                       {p}
@@ -98,10 +97,7 @@ class Question extends PureComponent {
                 </div>
               </div>
             ) : (
-              <div>
-                Kudos! You have answered all the questions correctly.
-                <Link to='/scores'>See scores</Link>
-              </div>
+              <div></div>
             )
           }
           failedLoading={<span />}

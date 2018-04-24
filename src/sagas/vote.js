@@ -1,16 +1,24 @@
-import { takeLatest, call } from 'redux-saga/effects'
+import { takeLatest, call, put } from 'redux-saga/effects'
 
 import * as voteActions from '../actions/vote'
+import * as questionActions from '../actions/question'
 import { lessduxSaga } from '../utils/saga'
+import { action } from '../utils/action'
 
 import voteApi from './api/vote-api'
 
 /**
- * Creates the profile.
- * @returns {object} - The profile.
+ * Adds the vote.
+ * @returns {object} - The vote.
  */
-export function* createVote({ type, payload: { hash, questionId, voteId } }) {
-  return yield call(voteApi.postVote, hash, questionId, voteId)
+export function* createVote ({ type, payload: { hash, questionId, voteId } }) {
+  const vote = yield call(voteApi.postVote, hash, questionId, voteId)
+  if (vote.result === 'win') {
+    const nextQuestion = yield call(questionActions.fetchQuestion, hash)
+    yield put(nextQuestion)
+  }
+
+  return vote
 }
 
 /**

@@ -10,9 +10,7 @@ import questionApi from './api/question-api'
  * @returns {object} - The question.
  */
 export function* fetchQuestion({ type, payload: { hash } }) {
-  const q = yield call(questionApi.getQuestion, hash)
-  console.log(q)
-  return q
+  return yield call(questionApi.getQuestion, hash)
 }
 
 /**

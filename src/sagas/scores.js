@@ -1,6 +1,7 @@
-import { takeLatest, call } from 'redux-saga/effects'
+import { takeLatest, call, put } from 'redux-saga/effects'
 
 import * as scoresActions from '../actions/scores'
+import * as voteActions from '../actions/vote'
 import { lessduxSaga } from '../utils/saga'
 
 import scoresApi from './api/scores-api'
