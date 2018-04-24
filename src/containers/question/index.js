@@ -51,7 +51,7 @@ class Question extends PureComponent {
     }
 
     if (vote.data && vote.data.result === 'loose') {
-      return <Redirect to="/scores" />
+      return <Redirect to={`/scores?result=loose&username=${profile.username}#target`} />
     }
 
     return (

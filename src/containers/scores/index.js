@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { RenderIf } from 'lessdux'
 import { Redirect } from 'react-router'
+import queryString from 'query-string'
 
 import * as profileActions from '../../actions/profile'
 import * as scoresActions from '../../actions/scores'
@@ -32,6 +33,7 @@ class Scores extends PureComponent {
   render() {
     const { start } = this.state
     const { profile, scores } = this.props
+    const { username, result } = queryString.parse(this.props.location.search)
 
    if (start) {
      return <Redirect to='/question' />;
@@ -44,18 +46,30 @@ class Scores extends PureComponent {
         </div>
         <div className="Balance-message">
           <RenderIf
-            resource={profile}
-            loading="Loading profile..."
+            resource={scores}
+            loading="Loading scores..."
             done={
-              profile.data && profile.data.telegram_id && scores.data && (
+              scores.data && (
                 <span>
+                  {result === 'loose' && (
+                    <div>
+                      It's not the Schelling Point
+                      <button onClick={this.handleStart}>Replay</button>
+
+                    </div>
+                  )}
+                  {username && (
+                    <div>
+                      Hello {username}
+                    </div>
+                  )}
                   {scores.data.map((s, index) => (
-                    <div value={index} key={index}>
+                    <div value={index} key={index} className={s.username === username ? "Scores-target" : ""} id="target">
                       {`${s.username} ${s.amount}PNK`}
                       <hr />
                     </div>
                   ))}
-                  <button onClick={this.handleStart}>Replay</button>
+
                 </span>
               )
             }
@@ -64,6 +78,9 @@ class Scores extends PureComponent {
             }
           />
         </div>
+        <ScrollableAnchor id={'section2'}>
+          <div> How are you world? </div>
+        </ScrollableAnchor>
       </div>
     )
   }

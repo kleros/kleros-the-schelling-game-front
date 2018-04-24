@@ -26,7 +26,7 @@ const App = ({ store, history, testElement }) => (
             <Switch>
               <Route exact path="/" component={Balance} />
               <Route exact path="/question" component={Question} />
-              <Route exact path="/scores" component={Scores} />
+              <Route exact path="/scores/:result?/:user?" component={Scores} />
               <Route component={PageNotFound} />
             </Switch>
           </div>
