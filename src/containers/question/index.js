@@ -5,12 +5,18 @@ import { connect } from 'react-redux'
 import { RenderIf } from 'lessdux'
 import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
+import { toastr } from 'react-redux-toastr'
 
 import * as profileActions from '../../actions/profile'
 import * as questionActions from '../../actions/question'
 import * as voteActions from '../../actions/vote'
 
 import './question.css'
+
+const toastrOptions = {
+  timeOut: 3000,
+  showCloseButton: false
+}
 
 class Question extends PureComponent {
   state = {
@@ -50,8 +56,19 @@ class Question extends PureComponent {
       return <Redirect to="/" />
     }
 
+    if (vote.data && vote.data.msg && vote.data.msg === 'You made 10 sessions. Try tomorrow.') {
+      toastr.warning('You made 10 sessions. Try tomorrow.', toastrOptions)
+      return <Redirect to={`/scores`} />
+    }
+
+    if (vote.data && (vote.data.msg && vote.data.msg === 'no question' || vote.data.msg === 'You have answered all the questions. You can try tomorrow or add new question.')) {
+      toastr.info('No question.', toastrOptions)
+      return <Redirect to={`/scores`} />
+    }
+
     if (vote.data && vote.data.result === 'loose') {
-      return <Redirect to={`/scores?result=loose&username=${profile.username}#target`} />
+      toastr.info('You are not in the Schelling Point', toastrOptions)
+      return <Redirect to={`/scores?msg=loose&username=${profile.username}#target`} />
     }
 
     return (

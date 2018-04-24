@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import { routerReducer as router } from 'react-router-redux'
 import { reducer as form } from 'redux-form'
+import { reducer as toastr } from 'react-redux-toastr'
 
 import wallet from './wallet'
 import question from './question'
@@ -16,5 +17,6 @@ export default combineReducers({
   question,
   profile,
   vote,
-  scores
+  scores,
+  toastr
 })

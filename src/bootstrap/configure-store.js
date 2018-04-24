@@ -1,28 +1,30 @@
 /* eslint-disable global-require */
 import { applyMiddleware, compose, createStore } from 'redux'
-import createSagaMiddleware from 'redux-saga'
 import { routerMiddleware } from 'react-router-redux'
+import createSagaMiddleware from 'redux-saga'
 import createHistory from 'history/createBrowserHistory'
+import ReactTooltip from 'react-tooltip'
 
 import rootReducer from '../reducers'
 import rootSaga from '../sagas'
 
-let store
 let sagaMiddleware
+let store
 let rootSagaTask
 
 /**
  * Sets up the redux store.
- * @param {object} [initialState={}] - The initial state for the redux store, defaults to an empty object.
- * @param {{ dispatchSpy: function }} [integrationTestParams=[]] - Parameters necessary to setup integration tests.
- * @returns {{ store: object, history: object }} - An object with the store and the history objects.
+ * @export default configureStore
+ * @param {object} [initialState={}] The initial state for the redux store, defaults to an empty object.
+ * @param {object} { dispatchSpy } Parameters necessary to setup integration tests.
+ * @returns {object} An object with the store and the history objects.
  */
 export default function configureStore(
   initialState = {},
   { dispatchSpy } = {}
 ) {
-  sagaMiddleware = createSagaMiddleware()
   const history = createHistory()
+  sagaMiddleware = createSagaMiddleware()
   const enhancers = []
   const middleware = []
   const composeEnhancers =
@@ -31,13 +33,12 @@ export default function configureStore(
       ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
       : compose
 
-  // Development Tools
   if (process.env.NODE_ENV === 'development') {
     const reduxImmutableState = require('redux-immutable-state-invariant')
       .default
     const reduxUnhandledAction = require('redux-unhandled-action').default
+    middleware.push(reduxImmutableState())
     middleware.push(
-      reduxImmutableState(),
       reduxUnhandledAction(action =>
         console.error(
           `${action} didn't lead to creation of a new state object`,
@@ -47,15 +48,22 @@ export default function configureStore(
     )
   }
 
-  // Testing Tools
   if (dispatchSpy) {
-    middleware.push(_store => next => action => {
+    middleware.push(store => next => action => {
       dispatchSpy(action)
       return next(action)
     })
   }
 
-  middleware.push(sagaMiddleware, routerMiddleware(history))
+  // Reattach tooltips if necessary
+  middleware.push(store => next => action => {
+    const prevState = store.getState()
+    const result = next(action)
+    if (prevState !== store.getState()) ReactTooltip.rebuild()
+    return result
+  })
+
+  middleware.push(routerMiddleware(history), sagaMiddleware)
   enhancers.unshift(applyMiddleware(...middleware))
   store = createStore(rootReducer, initialState, composeEnhancers(...enhancers))
   rootSagaTask = sagaMiddleware.run(rootSaga)

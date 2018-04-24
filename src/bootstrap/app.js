@@ -11,6 +11,7 @@ import Scores from '../containers/scores'
 import PageNotFound from '../components/page-not-found'
 
 import Initializer from './initializer'
+import GlobalComponents from './global-components'
 
 import './app.css'
 
@@ -31,6 +32,7 @@ const App = ({ store, history, testElement }) => (
             </Switch>
           </div>
           {testElement}
+          <Route exact path="*" component={GlobalComponents} />
         </div>
       </ConnectedRouter>
     </Initializer>

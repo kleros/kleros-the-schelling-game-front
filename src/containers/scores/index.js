@@ -5,11 +5,20 @@ import { connect } from 'react-redux'
 import { RenderIf } from 'lessdux'
 import { Redirect } from 'react-router'
 import queryString from 'query-string'
+import { toastr } from 'react-redux-toastr'
 
 import * as profileActions from '../../actions/profile'
 import * as scoresActions from '../../actions/scores'
 
 import './score.css'
+
+const toastrOptions = {
+  timeOut: 3000,
+  showCloseButton: false
+}
+
+toastr.success(`It's not the Schelling Point`, toastrOptions)
+toastr.success('msg', toastrOptions)
 
 class Scores extends PureComponent {
   state = {
@@ -24,16 +33,21 @@ class Scores extends PureComponent {
   componentDidMount() {
     const { fetchScores } = this.props
     fetchScores()
+
+    const { msg } = queryString.parse(this.props.location.search)
+
   }
 
   handleUserInfo = profile => this.props.createProfile(profile)
 
-  handleStart = () => this.setState({ start: true })
+  handleStart = () => {
+    toastr.info('The title', 'The message')
+  }
 
   render() {
     const { start } = this.state
     const { profile, scores } = this.props
-    const { username, result } = queryString.parse(this.props.location.search)
+    const { username, msg } = queryString.parse(this.props.location.search)
 
    if (start) {
      return <Redirect to='/question' />;
@@ -51,14 +65,12 @@ class Scores extends PureComponent {
             done={
               scores.data && (
                 <span>
-                  {result === 'loose' && (
+                  {msg === 'loose' && (
                     <div>
-                      It's not the Schelling Point
                       <button onClick={this.handleStart}>Replay</button>
-
                     </div>
                   )}
-                  {username && (
+                  {username && username !== 'undefined' && (
                     <div>
                       Hello {username}
                     </div>
@@ -78,9 +90,6 @@ class Scores extends PureComponent {
             }
           />
         </div>
-        <ScrollableAnchor id={'section2'}>
-          <div> How are you world? </div>
-        </ScrollableAnchor>
       </div>
     )
   }
