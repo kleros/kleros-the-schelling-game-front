@@ -13,7 +13,8 @@ import './dashboard.css'
 
 const toastrOptions = {
   timeOut: 3000,
-  showCloseButton: false
+  showCloseButton: false,
+  password: null
 }
 
 class Dashboard extends PureComponent {
@@ -34,6 +35,12 @@ class Dashboard extends PureComponent {
 
   handleModerate = e => e
 
+  handleSubmit = v => v
+
+  handleChange = v => v
+
+  handleRadioValid = questionId => e => console.log(questionId, e.target.value)
+
   static propTypes = {}
 
   render() {
@@ -44,7 +51,7 @@ class Dashboard extends PureComponent {
           resource={questions}
           loading="Loading question..."
           done={
-            questions.data && questions.data ? (
+            questions.data && questions.data && questions.data[0] ? (
               <div className="Question-content">
                 <div className="">
                   {questions.data.map((q, index) => (
@@ -52,14 +59,17 @@ class Dashboard extends PureComponent {
                       key={index}
                     >
                       {q.question}
-                      <input type="radio" name="valid" value="true" /> true
-                      <input type="radio" name="valid" value="false" /> false
+                      <input type="radio" name="valid" value="true" onChange={this.handleRadioValid(q._id)} /> true
+                      <input type="radio" name="valid" value="false" onChange={this.handleRadioValid(q._id)} /> false
                     </div>
                   ))}
                 </div>
               </div>
             ) : (
-              <div></div>
+              <div>
+                  <input type="text" name="password" />
+                  <button onClick={this.handleSubmit}>Send</button>
+              </div>
             )
           }
           failedLoading={<span />}

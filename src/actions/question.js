@@ -3,7 +3,11 @@ import { createActions } from 'lessdux'
 /* Actions */
 
 // get a question
-export const question = createActions('QUESTION')
+export const question = {
+  ...createActions('QUESTION', {
+    withUpdate: true
+  })
+}
 
 /* Action Creators */
 
