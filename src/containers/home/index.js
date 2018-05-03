@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import TelegramLoginButton from 'react-telegram-login'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { RenderIf } from 'lessdux'
 import { Redirect } from 'react-router'
 
 import * as profileActions from '../../actions/profile'
@@ -10,10 +9,6 @@ import * as profileActions from '../../actions/profile'
 import './home.css'
 
 class Home extends PureComponent {
-  state = {
-    start: false
-  }
-
   static propTypes = {
     // Action Dispatchers
     createProfile: PropTypes.func.isRequired
@@ -21,13 +16,10 @@ class Home extends PureComponent {
 
   handleUserInfo = profile => this.props.createProfile(profile)
 
-  handleStart = () => this.setState({ start: true })
-
   render() {
-    const { start } = this.state
     const { profile } = this.props
 
-   if (start) {
+   if (profile.data && profile.data.telegram_id) {
      return <Redirect to='/question' />;
    }
 
@@ -47,18 +39,6 @@ class Home extends PureComponent {
               />
             )
           }
-          <RenderIf
-            resource={profile}
-            loading="Loading profile..."
-            done={
-              profile.data && profile.data.telegram_id && (
-                <button onClick={this.handleStart}>Start</button>
-              )
-            }
-            failedLoading={
-              <span></span>
-            }
-          />
         </div>
       </div>
     )

@@ -10,32 +10,29 @@ import Question from '../containers/question'
 import Scores from '../containers/scores'
 import PageNotFound from '../components/page-not-found'
 
-import Initializer from './initializer'
 import GlobalComponents from './global-components'
 
 import './app.css'
 
 const App = ({ store, history, testElement }) => (
   <Provider store={store}>
-    <Initializer>
-      <ConnectedRouter history={history}>
-        <div id="router-root">
-          <Helmet>
-            <title>Dapper</title>
-          </Helmet>
-          <div id="scroll-root">
-            <Switch>
-              <Route exact path="/" component={Balance} />
-              <Route exact path="/question" component={Question} />
-              <Route exact path="/scores/:result?/:user?" component={Scores} />
-              <Route component={PageNotFound} />
-            </Switch>
-          </div>
-          {testElement}
-          <Route exact path="*" component={GlobalComponents} />
+    <ConnectedRouter history={history}>
+      <div id="router-root">
+        <Helmet>
+          <title>Dapper</title>
+        </Helmet>
+        <div id="scroll-root">
+          <Switch>
+            <Route exact path="/" component={Balance} />
+            <Route exact path="/question" component={Question} />
+            <Route exact path="/scores/:result?/:user?" component={Scores} />
+            <Route component={PageNotFound} />
+          </Switch>
         </div>
-      </ConnectedRouter>
-    </Initializer>
+        {testElement}
+        <Route exact path="*" component={GlobalComponents} />
+      </div>
+    </ConnectedRouter>
   </Provider>
 )
 
