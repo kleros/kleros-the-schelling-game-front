@@ -5,6 +5,7 @@ import { reducer as toastr } from 'react-redux-toastr'
 
 import wallet from './wallet'
 import question from './question'
+import questions from './questions'
 import profile from './profile'
 import vote from './vote'
 import scores from './scores'
@@ -18,5 +19,6 @@ export default combineReducers({
   profile,
   vote,
   scores,
+  questions,
   toastr
 })

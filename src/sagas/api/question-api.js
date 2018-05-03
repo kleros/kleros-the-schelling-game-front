@@ -7,6 +7,13 @@ const questionApi = {
       .then(response => response.json())
       .catch(err => err)
       .then(data => data)
+  },
+  getQuestions () {
+    return fetch(`${process.env[`REACT_APP_${env}_API`]}/questions`)
+      .then(statusHelper)
+      .then(response => response.json())
+      .catch(err => err)
+      .then(data => data)
   }
 }
 

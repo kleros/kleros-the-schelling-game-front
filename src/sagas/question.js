@@ -1,6 +1,7 @@
 import { takeLatest, call } from 'redux-saga/effects'
 
 import * as questionActions from '../actions/question'
+import * as questionsActions from '../actions/questions'
 import { lessduxSaga } from '../utils/saga'
 
 import questionApi from './api/question-api'
@@ -14,6 +15,14 @@ export function* fetchQuestion({ type, payload: { hash } }) {
 }
 
 /**
+ * Fetches questions.
+ * @returns {array} - Questions.
+ */
+export function* fetchQuestions() {
+  return yield call(questionApi.getQuestions)
+}
+
+/**
  * The root of the wallet saga.
  */
 export default function* walletSaga() {
@@ -24,5 +33,13 @@ export default function* walletSaga() {
     'fetch',
     questionActions.question,
     fetchQuestion
+  )
+  // Questions
+  yield takeLatest(
+    questionsActions.questions.FETCH,
+    lessduxSaga,
+    'fetch',
+    questionsActions.questions,
+    fetchQuestions
   )
 }

@@ -7,7 +7,7 @@ export const question = createActions('QUESTION')
 
 /* Action Creators */
 
-// Balance
+// Question
 export const fetchQuestion = hash => ({
   type: question.FETCH,
   payload: { hash }

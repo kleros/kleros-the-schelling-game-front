@@ -5,8 +5,9 @@ import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import { Switch, Route } from 'react-router-dom'
 
-import Balance from '../containers/home'
+import Home from '../containers/home'
 import Question from '../containers/question'
+import Dashboard from '../containers/dashboard'
 import Scores from '../containers/scores'
 import PageNotFound from '../components/page-not-found'
 
@@ -23,9 +24,10 @@ const App = ({ store, history, testElement }) => (
         </Helmet>
         <div id="scroll-root">
           <Switch>
-            <Route exact path="/" component={Balance} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/question" component={Question} />
             <Route exact path="/scores/:result?/:user?" component={Scores} />
+            <Route exact path="/dashboard" component={Dashboard} />
             <Route component={PageNotFound} />
           </Switch>
         </div>
