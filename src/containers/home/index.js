@@ -33,11 +33,11 @@ class Home extends PureComponent {
         <div className="Home-logIn">
           {
              !(profile.data && profile.data.telegram_id) && (
-              <TelegramLoginButton
-                dataOnauth={this.handleUserInfo}
-                botName="schelling_bot"
-              />
-            )
+                <TelegramLoginButton
+                  dataOnauth={this.handleUserInfo}
+                  botName="schelling_bot"
+                />
+              )
           }
         </div>
       </div>

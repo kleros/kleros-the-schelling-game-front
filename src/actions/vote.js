@@ -4,14 +4,19 @@ import { createActions } from 'lessdux'
 
 export const vote = {
   ...createActions('VOTE', {
-    withCreate: true
-  })
+    withCreate: true,
+    withUpdate: true
+  }),
+  CLEAR: 'CLEAR_VOTE'
 }
 
 /* Action Creators */
 
-// Balance
+// Create vote
 export const createVote = (hash, questionId, voteId) => ({
   type: vote.CREATE,
   payload: { hash, questionId, voteId }
 })
+
+// Clear vote
+export const clearVote = () => ({ type: vote.CLEAR })

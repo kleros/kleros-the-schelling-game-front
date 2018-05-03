@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 
 import * as profileActions from '../../actions/profile'
 import * as scoresActions from '../../actions/scores'
+import * as voteActions from '../../actions/vote'
 
 import './score.css'
 
@@ -19,8 +20,9 @@ class Scores extends PureComponent {
   }
 
   componentDidMount() {
-    const { fetchScores } = this.props
+    const { fetchScores, clearVote } = this.props
     fetchScores()
+    clearVote()
   }
 
   handleUserInfo = profile => this.props.createProfile(profile)
@@ -77,6 +79,7 @@ export default connect(
   }),
   {
     createProfile: profileActions.createProfile,
-    fetchScores: scoresActions.fetchScores
+    fetchScores: scoresActions.fetchScores,
+    clearVote: voteActions.clearVote
   }
 )(Scores)
