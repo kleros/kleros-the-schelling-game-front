@@ -14,6 +14,23 @@ const questionApi = {
       .then(response => response.json())
       .catch(err => err)
       .then(data => data)
+  },
+  putQuestion (questionId, valid) {
+    return fetch(`${process.env[`REACT_APP_${env}_API`]}/admin`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        questionId,
+        valid
+      })
+    })
+      .then(statusHelper)
+      .then(response => response.json())
+      .catch(err => err)
+      .then(data => data)
   }
 }
 

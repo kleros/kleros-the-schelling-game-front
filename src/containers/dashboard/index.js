@@ -41,9 +41,10 @@ class Dashboard extends PureComponent {
 
   handleChange = v => v
 
-  handleRadioValid = questionId => e => console.log(questionId, e.target.value)
-
-  handleChangeValid = v => v
+  handleChangeValid = (questionId, valid) => () => {
+    const { updateQuestions } = this.props
+    updateQuestions(questionId, !valid)
+  }
 
   static propTypes = {}
 
@@ -65,14 +66,14 @@ class Dashboard extends PureComponent {
                   >
                     <div className="Dashboard-content-question-title">
                       <div>
-                        <b>#{index+1} {q.question}</b>
+                        <b>#{++index} {q.question}</b>
                       </div>
 
                       <div>
                         <label htmlFor="normal-switch">
                           <Switch
-                            onChange={this.handleChangeValid}
-                            checked={q.proposals[0].valid ? 'checked' : 'unchecked'}
+                            onChange={this.handleChangeValid(q._id, q.valid)}
+                            checked={q.valid}
                             id="normal-switch"
                           />
                         </label>
@@ -104,8 +105,10 @@ class Dashboard extends PureComponent {
 export default connect(
   state => ({
     questions: state.questions.questions,
+    profile: state.profile.profile
   }),
   {
-    fetchQuestions: questionsActions.fetchQuestions
+    fetchQuestions: questionsActions.fetchQuestions,
+    updateQuestions: questionsActions.updateQuestions
   }
 )(Dashboard)

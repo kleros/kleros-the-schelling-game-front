@@ -23,6 +23,15 @@ export function* fetchQuestions() {
 }
 
 /**
+ * Updates questions.
+ * @returns {array} - Questions.
+ */
+export function* updateQuestions({ type, payload: { questionId, valid } }) {
+  console.log(questionId, valid)
+  return yield call(questionApi.putQuestion, questionId, valid)
+}
+
+/**
  * The root of the wallet saga.
  */
 export default function* walletSaga() {
@@ -41,5 +50,12 @@ export default function* walletSaga() {
     'fetch',
     questionsActions.questions,
     fetchQuestions
+  )
+  yield takeLatest(
+    questionsActions.questions.UPDATE,
+    lessduxSaga,
+    'update',
+    questionsActions.questions,
+    updateQuestions
   )
 }
