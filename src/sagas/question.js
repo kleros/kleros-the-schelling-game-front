@@ -18,17 +18,17 @@ export function* fetchQuestion({ type, payload: { hash } }) {
  * Fetches questions.
  * @returns {array} - Questions.
  */
-export function* fetchQuestions() {
-  return yield call(questionApi.getQuestions)
+export function* fetchQuestions({ type, payload: { password } }) {
+  return yield call(questionApi.getQuestions, password)
 }
 
 /**
  * Updates questions.
  * @returns {array} - Questions.
  */
-export function* updateQuestions({ type, payload: { questionId, valid } }) {
+export function* updateQuestions({ type, payload: { questionId, valid, password } }) {
   console.log(questionId, valid)
-  return yield call(questionApi.putQuestion, questionId, valid)
+  return yield call(questionApi.putQuestion, questionId, valid, password)
 }
 
 /**

@@ -8,15 +8,15 @@ const questionApi = {
       .catch(err => err)
       .then(data => data)
   },
-  getQuestions () {
-    return fetch(`${process.env[`REACT_APP_${env}_API`]}/questions`)
+  getQuestions (password) {
+    return fetch(`${process.env[`REACT_APP_${env}_API`]}/questions?password=${password}`)
       .then(statusHelper)
       .then(response => response.json())
       .catch(err => err)
       .then(data => data)
   },
-  putQuestion (questionId, valid) {
-    return fetch(`${process.env[`REACT_APP_${env}_API`]}/admin`, {
+  putQuestion (questionId, valid, password) {
+    return fetch(`${process.env[`REACT_APP_${env}_API`]}/admin?password=${password}`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -24,7 +24,8 @@ const questionApi = {
       },
       body: JSON.stringify({
         questionId,
-        valid
+        valid,
+        password
       })
     })
       .then(statusHelper)

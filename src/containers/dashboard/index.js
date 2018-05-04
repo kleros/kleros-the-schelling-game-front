@@ -14,15 +14,16 @@ import './dashboard.css'
 
 const toastrOptions = {
   timeOut: 3000,
-  showCloseButton: false,
-  password: null
+  showCloseButton: false
 }
 
 class Dashboard extends PureComponent {
   state = {
     success: null,
     msg: true,
-    checked: false
+    checked: false,
+    setPassword: false,
+    password: null
   }
 
   static propTypes = {
@@ -31,32 +32,33 @@ class Dashboard extends PureComponent {
   }
 
   componentDidMount() {
-    const { fetchQuestions } = this.props
-    fetchQuestions()
+
   }
 
-  handleModerate = e => e
+  handleChangePassword = e => this.setState({password: e.target.value})
 
-  handleSubmit = v => v
-
-  handleChange = v => v
+  handleSetPassword = () => {
+    const { password } = this.state
+    const { fetchQuestions } = this.props
+    this.setState({setPassword: true})
+    fetchQuestions(password)
+  }
 
   handleChangeValid = (questionId, valid) => () => {
+    const { password } = this.state
     const { updateQuestions } = this.props
-    updateQuestions(questionId, !valid)
+    updateQuestions(questionId, !valid, password)
   }
 
   static propTypes = {}
 
   render() {
     const { questions } = this.props
+    const { setPassword } = this.state
     return (
       <div className="Dashboard">
         <div><h1>Dashboard</h1></div>
-        <RenderIf
-          resource={questions}
-          loading="Loading dashboard..."
-          done={
+          {
             questions.data && questions.data && questions.data[0] ? (
               <div className="Dashboard-content">
                 {questions.data.map((q, index) => (
@@ -90,13 +92,11 @@ class Dashboard extends PureComponent {
               </div>
             ) : (
               <div>
-                  <input type="text" name="password" />
-                  <button onClick={this.handleSubmit}>Send password</button>
+                  <input type="text" name="password" onChange={this.handleChangePassword} />
+                  <button onClick={this.handleSetPassword}>Set password</button>
               </div>
             )
           }
-          failedLoading={<span />}
-        />
       </div>
     )
   }

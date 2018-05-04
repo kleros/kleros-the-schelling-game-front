@@ -12,9 +12,12 @@ export const questions = {
 /* Action Creators */
 
 // Questions
-export const fetchQuestions = () => ({ type: questions.FETCH })
+export const fetchQuestions = password => ({
+  type: questions.FETCH,
+  payload: { password }
+})
 
-export const updateQuestions = (questionId, valid) => ({
+export const updateQuestions = (questionId, valid, password) => ({
   type: questions.UPDATE,
-  payload: { questionId, valid }
+  payload: { questionId, valid, password }
 })
