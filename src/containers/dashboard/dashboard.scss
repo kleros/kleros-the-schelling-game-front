@@ -1,35 +1,28 @@
-/* @define Question */
-.Question {
-  background: #fff;
+/* @define Dashboard */
+.Dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   &-content {
-    justify-content: space-between;
-    flex-direction: column;
-    display: flex;
-    height: 100vh;
-    &-head {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      flex: 1;
-      border-bottom: 1px solid black;
-      h1 {
-        text-align: center;
+    min-width: 80vw;
+    &-question {
+      background: #fff;
+      border: 1px solid gray;
+      padding: 2em 2em 0.5em 2em;
+      margin: 2em;
+      &-title {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
       }
-    }
-    &-proposals {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      &-proposal {
-        width: 50%;
-        border: 1px solid black;
-        padding: 4vw 0;
+      &-proposals {
         text-align: center;
-        font-size: 2em;
-        &:hover {
-          color: #fff;
-          background: #000;
-          cursor: pointer;
+        &-proposal {
+          padding: 1em;
+          border-top: 1px solid lightgray;
+          &:first-child {
+            border:none;
+          }
         }
       }
     }

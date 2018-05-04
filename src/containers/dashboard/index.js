@@ -6,6 +6,7 @@ import { RenderIf } from 'lessdux'
 import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
 import { toastr } from 'react-redux-toastr'
+import Switch from 'react-switch'
 
 import * as questionsActions from '../../actions/questions'
 
@@ -20,7 +21,8 @@ const toastrOptions = {
 class Dashboard extends PureComponent {
   state = {
     success: null,
-    msg: true
+    msg: true,
+    checked: false
   }
 
   static propTypes = {
@@ -41,34 +43,54 @@ class Dashboard extends PureComponent {
 
   handleRadioValid = questionId => e => console.log(questionId, e.target.value)
 
+  handleChangeValid = v => v
+
   static propTypes = {}
 
   render() {
     const { questions } = this.props
     return (
-      <div className="Question">
+      <div className="Dashboard">
+        <div><h1>Dashboard</h1></div>
         <RenderIf
           resource={questions}
-          loading="Loading question..."
+          loading="Loading dashboard..."
           done={
             questions.data && questions.data && questions.data[0] ? (
-              <div className="Question-content">
-                <div className="">
-                  {questions.data.map((q, index) => (
-                    <div
-                      key={index}
-                    >
-                      {q.question}
-                      <input type="radio" name="valid" value="true" onChange={this.handleRadioValid(q._id)} /> true
-                      <input type="radio" name="valid" value="false" onChange={this.handleRadioValid(q._id)} /> false
+              <div className="Dashboard-content">
+                {questions.data.map((q, index) => (
+                  <div
+                    key={index}
+                    className="Dashboard-content-question"
+                  >
+                    <div className="Dashboard-content-question-title">
+                      <div>
+                        <b>#{index+1} {q.question}</b>
+                      </div>
+
+                      <div>
+                        <label htmlFor="normal-switch">
+                          <Switch
+                            onChange={this.handleChangeValid}
+                            checked={q.proposals[0].valid ? 'checked' : 'unchecked'}
+                            id="normal-switch"
+                          />
+                        </label>
+                      </div>
                     </div>
-                  ))}
-                </div>
+                    <div className="Dashboard-content-question-proposals">
+                      <div className="Dashboard-content-question-proposals-proposal">{q.proposals[0]}</div>
+                      <div className="Dashboard-content-question-proposals-proposal">{q.proposals[1]}</div>
+                      <div className="Dashboard-content-question-proposals-proposal">{q.proposals[2]}</div>
+                      <div className="Dashboard-content-question-proposals-proposal">{q.proposals[3]}</div>
+                    </div>
+                  </div>
+                ))}
               </div>
             ) : (
               <div>
                   <input type="text" name="password" />
-                  <button onClick={this.handleSubmit}>Send</button>
+                  <button onClick={this.handleSubmit}>Send password</button>
               </div>
             )
           }
