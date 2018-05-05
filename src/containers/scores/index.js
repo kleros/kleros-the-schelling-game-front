@@ -33,30 +33,44 @@ class Scores extends PureComponent {
 
     return (
       <div className="Scores">
-        <div className="Scores-title">
-          <h1>SCORES</h1>
-        </div>
-        <div className="Balance-message">
+        <div className="Scores-content">
+          <div className="Scores-content-title">
+            <h1>SCORES</h1>
+          </div>
           <RenderIf
             resource={scores}
             loading="Loading scores..."
             done={
               scores.data && (
                 <span>
-                  {msg === 'loose' && (
-                    <div>
+                  {scores.data.map((s, index) => (
+                    <span>
+                      {
+                        profile.data && s.username === profile.data.username && (
+                          <div className="Scores-content-username">
+                            <div><b>#{++index}</b></div>
+                            <div>{s.username}</div>
+                            <div>{s.amount}PNK</div>
+                            <div>Score: {s.score}</div>
+                            <div>Best score: {s.best_score}</div>
+                          </div>
+                        )
+                      }
+                    </span>
+                  ))}
+
+                  {msg !== 'loose' && (
+                    <div className="Scores-content-replay">
                       <Link to='/question'>Replay</Link>
                     </div>
                   )}
-                  {username && username !== 'undefined' && (
-                    <div>
-                      Hello {username}
-                    </div>
-                  )}
+
                   {scores.data.map((s, index) => (
-                    <div value={index} key={index} className={s.username === username ? "Scores-target" : ""} id="target">
-                      {`${s.username} ${s.amount}PNK`}
-                      <hr />
+                    <div value={index} key={index} className={`Scores-content-scores ${profile.data && s.username === profile.data.username ? "Scores-target" : ""}`} id="target">
+                      <div><b>#{++index}</b></div>
+                      <div>{s.username}</div>
+                      <div>{Number.parseFloat(s.amount).toPrecision(4)}PNK</div>
+                      <div>{s.best_score}</div>
                     </div>
                   ))}
                 </span>

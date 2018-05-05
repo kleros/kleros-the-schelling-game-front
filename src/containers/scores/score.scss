@@ -1,13 +1,55 @@
 /* @define Balance */
 .Scores {
-  background: #fff;
+  display: flex;
+  flex-direction: column;
   height: 100%;
+  width: 100vw;
+  align-items: center;
 
-  &-title {
-    text-align: center;
-  }
+  &-content {
+    min-width: 80vw;
+    &-title {
+      text-align: center;
+    }
 
-  &-target {
-    background: red;
+    &-username {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 1em;
+      border: 1px solid gray;
+      background: #fff;
+      margin: 2em 0;
+    }
+
+    &-replay {
+      text-align: center;
+      padding-bottom: 2em;
+      a {
+        text-decoration: none;
+        border: 1px solid gray;
+        background: #fff;
+        padding: 0.5em 1em;
+        font-size: 1.4em;
+      }
+      a:hover {
+        background: #f5f5f5;
+      }
+    }
+
+    &-scores {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 1em;
+      background: #fff;
+      &:nth-of-type(odd) {
+        background: #f5f5f5;
+      }
+    }
+
+    &-target {
+      font-weight: bold;
+    }
   }
 }
