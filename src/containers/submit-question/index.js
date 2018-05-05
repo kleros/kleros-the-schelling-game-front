@@ -27,22 +27,25 @@ class SubmitQuestion extends PureComponent {
 
     return (
       <div className="submitQuestion">
-        <div className="submitQuestion-title">
-          <div>
+        <div className="submitQuestion-content">
+          <div className="submitQuestion-content-title">
             <h1>SUBMIT A QUESTION</h1>
           </div>
-        </div>
-        <div className="submitQuestion-content">
-          <label>Question</label>
-          <input name="question" onChange={this.handleChangeQuestion} />
-          {
-            [1,2,3,4].map(index =>
-              <span>
-                <label>Proposal {index}</label>
-                <input name="proposal-{i}" onChange={() => index => index} />
-              </span>
-            )
-          }
+          <div className="submitQuestion-content-question">
+            <input name="question" onChange={this.handleChangeQuestion} placeholder="Question?" />
+            <div className="submitQuestion-content-proposals">
+              {
+                [1,2,3,4].map(index =>
+                  <div>
+                    <input placeholder={`Proposal ${index}`} name="proposal-{i}" onChange={() => index => index} />
+                  </div>
+                )
+              }
+            </div>
+          </div>
+          <div className="submitQuestion-content-submit">
+            <button>SUBMIT</button>
+          </div>
         </div>
       </div>
     )

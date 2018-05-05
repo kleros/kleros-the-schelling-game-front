@@ -1,30 +1,49 @@
-/* @define Home */
-.Home {
+/* @define submitQuestion */
+.submitQuestion {
   display: flex;
   flex-direction: column;
-  background: #fff;
-  height: 100vw;
+  height: 100%;
+  align-items: center;
+  font-size: 1.2em;
 
-  &-title {
-    display: flex;
-    flex-direction: column;
-    flex: 1 100%;
-    justify-content: space-around;
-    font-size: 2.5em;
-    h1 {
-      text-align: center;
-      font-weight: lighter;
-      b {
-        font-weight: bold;
+  &-content {
+    min-width: 80vw;
+    &-question {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      margin-top: 1em;
+    }
+    &-proposals {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      margin-top: 2em;
+    }
+    &-submit {
+      margin-top: 2em;
+      button {
+        padding: 1em 0;
+        width: 100%;
+        font-size: 1.2em;
       }
     }
   }
+}
 
-  &-logIn {
-    flex: 1 100%;
-    text-align: center;
-    &-submitQuestion {
-      margin-top: 5em;
-    }
+input {
+  padding: 1em;
+  width: 100%;
+}
+
+label {
+  padding-right: 3em;
+}
+
+h1 {
+  text-align: center;
+  font-weight: lighter;
+  b {
+    font-weight: bold;
   }
 }
