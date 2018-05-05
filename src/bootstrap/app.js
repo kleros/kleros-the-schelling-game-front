@@ -9,6 +9,7 @@ import Home from '../containers/home'
 import Question from '../containers/question'
 import Dashboard from '../containers/dashboard'
 import Scores from '../containers/scores'
+import SubmitQuestion from '../containers/submit-question'
 import PageNotFound from '../components/page-not-found'
 
 import GlobalComponents from './global-components'
@@ -27,6 +28,7 @@ const App = ({ store, history, testElement }) => (
             <Route exact path="/" component={Home} />
             <Route exact path="/question" component={Question} />
             <Route exact path="/scores/:result?/:user?" component={Scores} />
+            <Route exact path="/submit-question" component={SubmitQuestion} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route component={PageNotFound} />
           </Switch>

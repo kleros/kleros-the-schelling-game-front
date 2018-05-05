@@ -32,7 +32,8 @@ const questionApi = {
       .then(response => response.json())
       .catch(err => err)
       .then(data => data)
-  }
+  },
+  createQuestion (question) {}
 }
 
 /**

@@ -16,6 +16,8 @@ class SubmitQuestion extends PureComponent {
 
   handleUserInfo = profile => this.props.createProfile(profile)
 
+  handleChangeQuestion = e => (e.target.value)
+
   render() {
     const { profile } = this.props
 
@@ -30,8 +32,17 @@ class SubmitQuestion extends PureComponent {
             <h1>SUBMIT A QUESTION</h1>
           </div>
         </div>
-        <div className="submitQuestion-logIn">
-
+        <div className="submitQuestion-content">
+          <label>Question</label>
+          <input name="question" onChange={this.handleChangeQuestion} />
+          {
+            [1,2,3,4].map(index =>
+              <span>
+                <label>Proposal {index}</label>
+                <input name="proposal-{i}" onChange={() => index => index} />
+              </span>
+            )
+          }
         </div>
       </div>
     )

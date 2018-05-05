@@ -27,8 +27,15 @@ export function* fetchQuestions({ type, payload: { password } }) {
  * @returns {array} - Questions.
  */
 export function* updateQuestions({ type, payload: { questionId, valid, password } }) {
-  console.log(questionId, valid)
   return yield call(questionApi.putQuestion, questionId, valid, password)
+}
+
+/**
+ * Creates question.
+ * @returns {object} - Question.
+ */
+export function* createQuestion({ type, payload: { question } }) {
+  return yield call(questionApi.createQuestion, question)
 }
 
 /**
@@ -42,6 +49,13 @@ export default function* walletSaga() {
     'fetch',
     questionActions.question,
     fetchQuestion
+  )
+  yield takeLatest(
+    questionActions.question.CREATE,
+    lessduxSaga,
+    'create',
+    questionActions.question,
+    createQuestion
   )
   // Questions
   yield takeLatest(
