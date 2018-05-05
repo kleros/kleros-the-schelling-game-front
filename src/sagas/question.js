@@ -35,7 +35,7 @@ export function* updateQuestions({ type, payload: { questionId, valid, password 
  * @returns {object} - Question.
  */
 export function* createQuestion({ type, payload: { question } }) {
-  return yield call(questionApi.createQuestion, question)
+  return yield call(questionApi.postQuestion, question)
 }
 
 /**

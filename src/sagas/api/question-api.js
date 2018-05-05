@@ -33,7 +33,24 @@ const questionApi = {
       .catch(err => err)
       .then(data => data)
   },
-  createQuestion (question) {}
+  postQuestion (question) {
+    return fetch(`${process.env[`REACT_APP_${env}_API`]}/questions`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        question: question.question,
+        address: question.address,
+        proposals: question[0] + ',' + question[1] + ',' + question[2] + ',' + question[3]
+      })
+    })
+      .then(statusHelper)
+      .then(response => response.json())
+      .catch(err => err)
+      .then(data => data)
+  }
 }
 
 /**

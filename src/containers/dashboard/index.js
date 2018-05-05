@@ -92,8 +92,8 @@ class Dashboard extends PureComponent {
               </div>
             ) : (
               <div>
-                  <input type="text" name="password" onChange={this.handleChangePassword} />
-                  <button onClick={this.handleSetPassword}>Set password</button>
+                <input type="text" name="password" onChange={this.handleChangePassword} placeholder="Password" />
+                <button onClick={this.handleSetPassword}>Set password</button>
               </div>
             )
           }

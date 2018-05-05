@@ -50,7 +50,7 @@ class Scores extends PureComponent {
                           <div className="Scores-content-username">
                             <div><b>#{++index}</b></div>
                             <div>{s.username}</div>
-                            <div>{s.amount}PNK</div>
+                            <div>{s.amount} PNK</div>
                             <div>Score: {s.score}</div>
                             <div>Best score: {s.best_score}</div>
                           </div>
@@ -69,7 +69,7 @@ class Scores extends PureComponent {
                     <div value={index} key={index} className={`Scores-content-scores ${profile.data && s.username === profile.data.username ? "Scores-target" : ""}`} id="target">
                       <div><b>#{++index}</b></div>
                       <div>{s.username}</div>
-                      <div>{Number.parseFloat(s.amount).toPrecision(4)}PNK</div>
+                      <div>{Number.parseFloat(s.amount).toPrecision(4)} PNK</div>
                       <div>{s.best_score}</div>
                     </div>
                   ))}

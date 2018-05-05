@@ -3,27 +3,44 @@ import TelegramLoginButton from 'react-telegram-login'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
+import { Link } from 'react-router-dom'
 
-import * as profileActions from '../../actions/profile'
+import * as questionActions from '../../actions/question'
 
 import './submit-question.css'
 
 class SubmitQuestion extends PureComponent {
-  static propTypes = {
-    // Action Dispatchers
-    createProfile: PropTypes.func.isRequired
+  state = {
+    question: {}
   }
 
-  handleUserInfo = profile => this.props.createProfile(profile)
+  static propTypes = {
+    // Action Dispatchers
+    createQuestion: PropTypes.func.isRequired
+  }
 
-  handleChangeQuestion = e => (e.target.value)
+  handleChangeQuestion = e => {
+    this.setState({
+      question: {...this.state.question, question: e.target.value}
+    })
+  }
+
+  handleChangeEthereumAddress = e => {
+    this.setState({
+      question: {...this.state.question, address: e.target.value}
+    })
+  }
+
+  handleSubmitQuestion = () => this.props.createQuestion(this.state.question)
+
+  handleChangeProposal = proposalIndex => e => {
+    this.setState({
+      question: {...this.state.question, [proposalIndex]: e.target.value}
+    })
+  }
 
   render() {
-    const { profile } = this.props
-
-   if (profile.data && profile.data.telegram_id) {
-     return <Redirect to='/question' />;
-   }
+    const { question } = this.state
 
     return (
       <div className="submitQuestion">
@@ -35,17 +52,26 @@ class SubmitQuestion extends PureComponent {
             <input name="question" onChange={this.handleChangeQuestion} placeholder="Question?" />
             <div className="submitQuestion-content-proposals">
               {
-                [1,2,3,4].map(index =>
-                  <div>
-                    <input placeholder={`Proposal ${index}`} name="proposal-{i}" onChange={() => index => index} />
+                [0,1,2,3].map(index =>
+                  <div key={index}>
+                    <input placeholder={`Proposal ${index}`} name="proposal-{i}" onChange={this.handleChangeProposal(index)} />
                   </div>
                 )
               }
             </div>
           </div>
-          <div className="submitQuestion-content-submit">
-            <button>SUBMIT</button>
+          <div className="submitQuestion-content-address">
+            <input placeholder="Ethereum address (optional)" name="ethereum-address" onChange={this.handleChangeEthereumAddress} />
           </div>
+          {
+            question.question && question[0] && question[1] && question[2] && question[3] &&
+            <div className="submitQuestion-content-submit">
+              <button onClick={this.handleSubmitQuestion}>SUBMIT</button>
+            </div>
+          }
+        </div>
+        <div className="submitQuestion-content-back">
+          <Link to='/'>← Back</Link>
         </div>
       </div>
     )
@@ -53,10 +79,8 @@ class SubmitQuestion extends PureComponent {
 }
 
 export default connect(
-  state => ({
-    profile: state.profile.profile
-  }),
+  state => ({}),
   {
-    createProfile: profileActions.createProfile
+    createQuestion: questionActions.createQuestion
   }
 )(SubmitQuestion)

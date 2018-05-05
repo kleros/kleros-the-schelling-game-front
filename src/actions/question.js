@@ -18,7 +18,7 @@ export const fetchQuestion = hash => ({
   payload: { hash }
 })
 
-export const createQuestion = question => ({
+export const createQuestion = questionInput => ({
   type: question.CREATE,
-  payload: { question }
+  payload: { question: questionInput }
 })
