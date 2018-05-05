@@ -6,9 +6,9 @@ import { Redirect } from 'react-router'
 
 import * as profileActions from '../../actions/profile'
 
-import './home.css'
+import './submit-question.css'
 
-class Home extends PureComponent {
+class SubmitQuestion extends PureComponent {
   static propTypes = {
     // Action Dispatchers
     createProfile: PropTypes.func.isRequired
@@ -24,24 +24,14 @@ class Home extends PureComponent {
    }
 
     return (
-      <div className="Home">
-        <div className="Home-title">
+      <div className="submitQuestion">
+        <div className="submitQuestion-title">
           <div>
-            <h1>SCHELLIN<b>GG</b>AME</h1>
+            <h1>SUBMIT A QUESTION</h1>
           </div>
         </div>
-        <div className="Home-logIn">
-          {
-           !(profile.data && profile.data.telegram_id) && (
-              <TelegramLoginButton
-                dataOnauth={this.handleUserInfo}
-                botName="schelling_bot"
-              />
-            )
-          }
-          <div className="Home-logIn-submitQuestion">
-            Submit a question
-          </div>
+        <div className="submitQuestion-logIn">
+
         </div>
       </div>
     )
@@ -55,4 +45,4 @@ export default connect(
   {
     createProfile: profileActions.createProfile
   }
-)(Home)
+)(SubmitQuestion)

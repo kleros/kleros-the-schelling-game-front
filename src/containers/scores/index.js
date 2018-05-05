@@ -59,7 +59,7 @@ class Scores extends PureComponent {
                     </span>
                   ))}
 
-                  {msg !== 'loose' && (
+                  {msg === 'loose' && (
                     <div className="Scores-content-replay">
                       <Link to='/question'>Replay</Link>
                     </div>
