@@ -62,7 +62,7 @@ class Question extends PureComponent {
     }
 
     if (question.data && (question.data.msg && question.data.msg === 'no question' || question.data.msg === 'You have answered all the questions. You can try tomorrow or add new question.')) {
-      toastr.info('No question.', toastrOptions)
+      toastr.info(question.data.msg, toastrOptions)
       return <Redirect to={`/scores`} />
     }
 
