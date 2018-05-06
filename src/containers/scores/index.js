@@ -51,7 +51,6 @@ class Scores extends PureComponent {
                             <div><b>#{++index}</b></div>
                             <div>{s.username}</div>
                             <div>{s.amount} PNK</div>
-                            <div>Score: {s.score}</div>
                             <div>Best score: {s.best_score}</div>
                           </div>
                         )
