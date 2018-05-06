@@ -1,10 +1,15 @@
 import { takeLatest, call } from 'redux-saga/effects'
+import { toastr } from 'react-redux-toastr'
 
 import * as questionActions from '../actions/question'
 import * as questionsActions from '../actions/questions'
 import { lessduxSaga } from '../utils/saga'
 
 import questionApi from './api/question-api'
+
+const toastrOptions = {
+  timeOut: 3000
+}
 
 /**
  * Fetches the question.
@@ -35,7 +40,11 @@ export function* updateQuestions({ type, payload: { questionId, valid, password 
  * @returns {object} - Question.
  */
 export function* createQuestion({ type, payload: { question } }) {
-  return yield call(questionApi.postQuestion, question)
+  const questionRes = yield call(questionApi.postQuestion, question)
+
+  yield call(toastr.success, 'Thanks for your contribution. The question is awaiting moderation.', toastrOptions)
+
+  return questionRes
 }
 
 /**

@@ -6,6 +6,7 @@ import { RenderIf } from 'lessdux'
 import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
 import { toastr } from 'react-redux-toastr'
+import { ClipLoader } from 'react-spinners'
 
 import * as profileActions from '../../actions/profile'
 import * as questionActions from '../../actions/question'
@@ -75,7 +76,6 @@ class Question extends PureComponent {
       <div className="Question">
         <RenderIf
           resource={question}
-          loading="Loading question..."
           done={
             question.data && question.data.question ? (
               <div className="Question-content">
@@ -101,6 +101,11 @@ class Question extends PureComponent {
             )
           }
           failedLoading={<span />}
+          loading={
+            <div className="loader">
+              <ClipLoader color={'gray'} loading={1} />
+            </div>
+          }
         />
       </div>
     )
