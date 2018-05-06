@@ -43,6 +43,9 @@ class Home extends PureComponent {
           <div className="Home-logIn-submitQuestion">
             <Link to='/submit-question'>Submit a question</Link>
           </div>
+          <div className="Home-logIn-submitQuestion">
+            <Link to='/dashboard'>Dashboard</Link>
+          </div>
         </div>
       </div>
     )
