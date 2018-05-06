@@ -43,7 +43,8 @@ const questionApi = {
       body: JSON.stringify({
         question: question.question,
         address: question.address,
-        proposals: question[0] + ',' + question[1] + ',' + question[2] + ',' + question[3]
+        proposals: question[0] + ',' + question[1] + ',' + question[2] + ',' + question[3],
+        username: question.telegram
       })
     })
       .then(statusHelper)
