@@ -45,11 +45,11 @@ class Scores extends PureComponent {
               scores.data && (
                 <span>
                   {scores.data.map((s, index) => (
-                    <span>
+                    <span key={index}>
                       {
                         profile && s.username === profile.username && (
                           <div className="Scores-content-username">
-                            <div><b>#{++index}</b></div>
+                            <div><b>#{index+1}</b></div>
                             <div>{s.username}</div>
                             <div>{s.amount} PNK</div>
                             <div>Best score: {s.best_score}</div>
@@ -67,7 +67,7 @@ class Scores extends PureComponent {
 
                   {scores.data.map((s, index) => (
                     <div value={index} key={index} className={`Scores-content-scores ${profile && s.username === profile.username ? "Scores-target" : ""}`} id="target">
-                      <div><b>#{++index}</b></div>
+                      <div><b>#{index+1}</b></div>
                       <div>{s.username}</div>
                       <div>{Number.parseFloat(s.amount).toPrecision(4)} PNK</div>
                       <div>{s.best_score}</div>
