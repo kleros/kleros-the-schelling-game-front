@@ -82,22 +82,21 @@ class Question extends PureComponent {
               <Project
                 animate
                 header={question.data.question}
-            >
+              >
                 {anim => (
-                    <p>
-                      {question.data.proposals.map((p, index) => (
-                        <div
-                          key={index}
-                          onClick={this.handleVote(index)}
-                          className="Question-content-proposals-proposal"
-                        >
-                          <Words animate show={anim.entered}>{p}</Words>
-                        </div>
-                      ))}
-
-                    </p>
+                  <p>
+                    {question.data.proposals.map((p, index) => (
+                      <div
+                        key={index}
+                        onClick={this.handleVote(index)}
+                        className="Question-content-proposals-proposal"
+                      >
+                        <Words animate show={anim.entered}>{p}</Words>
+                      </div>
+                    ))}
+                  </p>
                 )}
-            </Project>
+              </Project>
             ) : (
               <div></div>
             )
