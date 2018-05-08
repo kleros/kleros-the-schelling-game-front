@@ -16,7 +16,8 @@ import './score.css'
 class Scores extends PureComponent {
   static propTypes = {
     // Action Dispatchers
-    createProfile: PropTypes.func.isRequired
+    fetchScores: PropTypes.func.isRequired,
+    clearVote: PropTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -25,11 +26,11 @@ class Scores extends PureComponent {
     clearVote()
   }
 
-  handleUserInfo = profile => this.props.createProfile(profile)
-
   render() {
-    const { profile, scores } = this.props
+    const { scores } = this.props
     const { username, msg } = queryString.parse(this.props.location.search)
+
+    const profile = JSON.parse(localStorage.getItem('storageProfileSchellingGame'))
 
     return (
       <div className="Scores">
@@ -46,7 +47,7 @@ class Scores extends PureComponent {
                   {scores.data.map((s, index) => (
                     <span>
                       {
-                        profile.data && s.username === profile.data.username && (
+                        profile && s.username === profile.username && (
                           <div className="Scores-content-username">
                             <div><b>#{++index}</b></div>
                             <div>{s.username}</div>
@@ -60,12 +61,12 @@ class Scores extends PureComponent {
 
                   {msg === 'loose' && (
                     <div className="Scores-content-replay">
-                      <Link to='/question'>Replay</Link>
+                      <Link to='/game'>Replay</Link>
                     </div>
                   )}
 
                   {scores.data.map((s, index) => (
-                    <div value={index} key={index} className={`Scores-content-scores ${profile.data && s.username === profile.data.username ? "Scores-target" : ""}`} id="target">
+                    <div value={index} key={index} className={`Scores-content-scores ${profile && s.username === profile.username ? "Scores-target" : ""}`} id="target">
                       <div><b>#{++index}</b></div>
                       <div>{s.username}</div>
                       <div>{Number.parseFloat(s.amount).toPrecision(4)} PNK</div>
@@ -87,11 +88,9 @@ class Scores extends PureComponent {
 
 export default connect(
   state => ({
-    profile: state.profile.profile,
     scores: state.scores.scores
   }),
   {
-    createProfile: profileActions.createProfile,
     fetchScores: scoresActions.fetchScores,
     clearVote: voteActions.clearVote
   }

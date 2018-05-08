@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom'
 import { toastr } from 'react-redux-toastr'
 import { ClipLoader } from 'react-spinners'
 
-import * as profileActions from '../../actions/profile'
 import * as questionActions from '../../actions/question'
 import * as voteActions from '../../actions/vote'
 
@@ -31,29 +30,30 @@ class Question extends PureComponent {
   }
 
   componentDidMount() {
-    const { fetchQuestion, profile } = this.props
-    if (profile.data) {
-      fetchQuestion(profile.data.hash)
+    const { fetchQuestion } = this.props
+    const profile = JSON.parse(localStorage.getItem('storageProfileSchellingGame'))
+    if (profile) {
+      fetchQuestion(profile.hash)
     }
   }
 
   handleVote = voteId => e => {
-    const { profile, question, createVote } = this.props
+    const { question, createVote } = this.props
 
-    createVote(profile.data.hash, question.data._id, voteId)
+    const profile = JSON.parse(localStorage.getItem('storageProfileSchellingGame'))
+
+    createVote(profile.hash, question.data._id, voteId)
   }
 
   static propTypes = {}
 
   render() {
-    const { start, msg } = this.state
-    const { question, profile, vote } = this.props
+    const { msg } = this.state
+    const { question, vote } = this.props
 
-    if (start) {
-      return <Redirect to="/game" />
-    }
+    const profile = JSON.parse(localStorage.getItem('storageProfileSchellingGame'))
 
-    if (!profile.data) {
+    if (!profile) {
       return <Redirect to="/" />
     }
 
@@ -103,7 +103,7 @@ class Question extends PureComponent {
           failedLoading={<span />}
           loading={
             <div className="loader">
-              <ClipLoader color={'gray'} loading={1} />
+              <ClipLoader color={'gray'} loading={true} />
             </div>
           }
         />
@@ -114,7 +114,6 @@ class Question extends PureComponent {
 
 export default connect(
   state => ({
-    profile: state.profile.profile,
     question: state.question.question,
     vote: state.vote.vote
   }),

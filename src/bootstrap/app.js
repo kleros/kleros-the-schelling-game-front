@@ -26,7 +26,7 @@ const App = ({ store, history, testElement }) => (
         <div id="scroll-root">
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/question" component={Question} />
+            <Route exact path="/game" component={Question} />
             <Route exact path="/scores/:result?/:user?" component={Scores} />
             <Route exact path="/submit-question" component={SubmitQuestion} />
             <Route exact path="/dashboard" component={Dashboard} />

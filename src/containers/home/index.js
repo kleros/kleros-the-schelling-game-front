@@ -12,18 +12,28 @@ import './home.css'
 const env = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV'
 
 class Home extends PureComponent {
+  state = {
+    isStart: false
+  }
+
   static propTypes = {
     // Action Dispatchers
     createProfile: PropTypes.func.isRequired
   }
 
-  handleUserInfo = profile => this.props.createProfile(profile)
+  handleUserInfo = profile => {
+    this.props.createProfile(profile)
+    localStorage.setItem('storageProfileSchellingGame', JSON.stringify(profile))
+  }
+
+  handleStart = () => this.setState({isStart: true})
 
   render() {
+    const { isStart } = this.state
     const { profile } = this.props
 
-   if (profile.data && profile.data.telegram_id) {
-     return <Redirect to='/question' />;
+   if (isStart) {
+     return <Redirect to="/game" />
    }
 
     return (
@@ -35,11 +45,13 @@ class Home extends PureComponent {
         </div>
         <div className="Home-logIn">
           {
-           !(profile.data && profile.data.telegram_id) && (
+           !(JSON.parse(localStorage.getItem('storageProfileSchellingGame'))) ? (
               <TelegramLoginButton
                 dataOnauth={this.handleUserInfo}
-                botName={`REACT_APP_${env}_TELEGRAM_BOT`}
+                botName={process.env[`REACT_APP_${env}_TELEGRAM_BOT`]}
               />
+            ) : (
+              <button onClick={this.handleStart}>Start</button>
             )
           }
           <div className="Home-logIn-submitQuestion">
