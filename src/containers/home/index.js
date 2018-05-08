@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
-import { Button } from 'arwes'
+import { Words, Heading, Button, Footer, Header } from 'arwes'
 
 import * as profileActions from '../../actions/profile'
 
@@ -39,11 +39,9 @@ class Home extends PureComponent {
 
     return (
       <div className="Home">
-        <div className="Home-title">
-          <div>
-            <h1>SCHELLIN<b>GG</b>AME</h1>
-          </div>
-        </div>
+        <Header animate>
+          <h1 style={{ margin: 0 }}>Schelling Game</h1>
+        </Header>
         <div className="Home-logIn">
           {
            !(JSON.parse(localStorage.getItem('storageProfileSchellingGame'))) ? (
@@ -56,11 +54,11 @@ class Home extends PureComponent {
             )
           }
           <div className="Home-logIn-submitQuestion">
-            <Link to='/submit-question'>Submit a question</Link>
+            <Link to='/submit-question'><Words animate layer='success'>Submit a question</Words></Link>
           </div>
-          <div className="Home-logIn-submitQuestion">
+          <Footer animate>
             <Link to='/dashboard'>Dashboard</Link>
-          </div>
+          </Footer>
         </div>
       </div>
     )
