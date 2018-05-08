@@ -9,6 +9,8 @@ import * as profileActions from '../../actions/profile'
 
 import './home.css'
 
+const env = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV'
+
 class Home extends PureComponent {
   static propTypes = {
     // Action Dispatchers
@@ -36,7 +38,7 @@ class Home extends PureComponent {
            !(profile.data && profile.data.telegram_id) && (
               <TelegramLoginButton
                 dataOnauth={this.handleUserInfo}
-                botName="schelling_bot"
+                botName={`REACT_APP_${env}_TELEGRAM_BOT`}
               />
             )
           }
