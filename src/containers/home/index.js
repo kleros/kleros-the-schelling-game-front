@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
+import { Button } from 'arwes'
 
 import * as profileActions from '../../actions/profile'
 
@@ -51,7 +52,7 @@ class Home extends PureComponent {
                 botName={process.env[`REACT_APP_${env}_TELEGRAM_BOT`]}
               />
             ) : (
-              <button onClick={this.handleStart}>Start</button>
+              <Button animate show onClick={this.handleStart}>Start</Button>
             )
           }
           <div className="Home-logIn-submitQuestion">

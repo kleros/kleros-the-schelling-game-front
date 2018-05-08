@@ -32,7 +32,6 @@ body,
 
 // Scroll Root
 #scroll-root {
-  background: $background;
   display: flex;
   flex-direction: column;
   overflow: scroll;
@@ -40,8 +39,3 @@ body,
 }
 
 /* Element Overrides */
-
-// Horizontal Rule
-hr {
-  border: 1px solid #e6ebed;
-}

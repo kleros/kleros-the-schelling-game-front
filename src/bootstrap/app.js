@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import { Switch, Route } from 'react-router-dom'
+import { ThemeProvider, createTheme, withStyles, Arwes, Button } from 'arwes'
 
 import Home from '../containers/home'
 import Question from '../containers/question'
@@ -16,26 +17,40 @@ import GlobalComponents from './global-components'
 
 import './app.css'
 
+const styles = theme => ({
+  root: {
+    padding: [theme.padding, 0],
+    background: theme.background.primary.level0
+  },
+  title: {
+    textDecoration: 'underline'
+  }
+})
+
 const App = ({ store, history, testElement }) => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <div id="router-root">
-        <Helmet>
-          <title>Dapper</title>
-        </Helmet>
-        <div id="scroll-root">
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/game" component={Question} />
-            <Route exact path="/scores/:result?/:user?" component={Scores} />
-            <Route exact path="/submit-question" component={SubmitQuestion} />
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route component={PageNotFound} />
-          </Switch>
-        </div>
-        {testElement}
-        <Route exact path="*" component={GlobalComponents} />
-      </div>
+      <ThemeProvider theme={createTheme()}>
+        <Arwes animate show>
+          <div id="router-root">
+            <Helmet>
+              <title>SCHELLING GAME</title>
+            </Helmet>
+            <div id="scroll-root">
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/game" component={Question} />
+                <Route exact path="/scores/:result?/:user?" component={Scores} />
+                <Route exact path="/submit-question" component={SubmitQuestion} />
+                <Route exact path="/dashboard" component={Dashboard} />
+                <Route component={PageNotFound} />
+              </Switch>
+            </div>
+            {testElement}
+            <Route exact path="*" component={GlobalComponents} />
+          </div>
+        </Arwes>
+      </ThemeProvider>
     </ConnectedRouter>
   </Provider>
 )
