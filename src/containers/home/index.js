@@ -39,10 +39,12 @@ class Home extends PureComponent {
 
     return (
       <div className="Home">
-        <Header animate>
-          <h1 style={{ margin: 0 }}>Schelling Game</h1>
-        </Header>
-        <div className="Home-logIn">
+        <div>
+          <Header animate>
+            <h1 style={{ margin: 0 }}>Schelling Game</h1>
+          </Header>
+        </div>
+        <div className="start">
           {
            !(JSON.parse(localStorage.getItem('storageProfileSchellingGame'))) ? (
               <TelegramLoginButton
@@ -53,11 +55,10 @@ class Home extends PureComponent {
               <Button animate show onClick={this.handleStart}>Start</Button>
             )
           }
-          <div className="Home-logIn-submitQuestion">
-            <Link to='/submit-question'><Words animate layer='success'>Submit a question</Words></Link>
-          </div>
+        </div>
+        <div>
           <Footer animate>
-            <Link to='/dashboard'>Dashboard</Link>
+            © WTFPL - 2018 - <Link to='/submit-question'><Words animate layer='success'>Submit a question</Words></Link> | <Link to='/dashboard'><Words animate layer='success'>Dashboard</Words></Link>
           </Footer>
         </div>
       </div>
@@ -66,9 +67,7 @@ class Home extends PureComponent {
 }
 
 export default connect(
-  state => ({
-    profile: state.profile.profile
-  }),
+  state => ({}),
   {
     createProfile: profileActions.createProfile
   }

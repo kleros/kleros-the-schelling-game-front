@@ -1,4 +1,11 @@
 /* @define Home */
 .Home {
+  height: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
+  .start {
+    text-align: center;
+  }
 }

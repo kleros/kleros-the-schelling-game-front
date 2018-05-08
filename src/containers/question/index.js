@@ -7,7 +7,7 @@ import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
 import { toastr } from 'react-redux-toastr'
 import { ClipLoader } from 'react-spinners'
-import { Project, Words } from 'arwes'
+import { Project, Words, Button } from 'arwes'
 
 import * as questionActions from '../../actions/question'
 import * as voteActions from '../../actions/vote'
@@ -84,17 +84,18 @@ class Question extends PureComponent {
                 header={question.data.question}
               >
                 {anim => (
-                  <p>
+                  <div className="proposals">
                     {question.data.proposals.map((p, index) => (
-                      <div
-                        key={index}
-                        onClick={this.handleVote(index)}
-                        className="Question-content-proposals-proposal"
-                      >
-                        <Words animate show={anim.entered}>{p}</Words>
+                      <div className="proposal">
+                        <Button
+                          key={index}
+                          onClick={this.handleVote(index)}
+                        >
+                          <Words animate show={anim.entered}>{p}</Words>
+                        </Button>
                       </div>
                     ))}
-                  </p>
+                  </div>
                 )}
               </Project>
             ) : (

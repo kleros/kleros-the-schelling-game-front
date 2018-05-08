@@ -6,6 +6,7 @@ import { RenderIf } from 'lessdux'
 import { Redirect } from 'react-router'
 import queryString from 'query-string'
 import { Link } from 'react-router-dom'
+import { Table, Button, Words } from 'arwes'
 
 import * as profileActions from '../../actions/profile'
 import * as scoresActions from '../../actions/scores'
@@ -42,39 +43,24 @@ class Scores extends PureComponent {
             resource={scores}
             loading="Loading scores..."
             done={
-              scores.data && (
+              scores.data &&
                 <span>
-                  {scores.data.map((s, index) => (
-                    <span key={index}>
-                      {
-                        profile && s.username === profile.username && (
-                          <div className="Scores-content-username">
-                            <div><b>#{index+1}</b></div>
-                            <div>{s.username}</div>
-                            <div>{s.amount} PNK</div>
-                            <div>Best score: {s.best_score}</div>
-                          </div>
-                        )
-                      }
-                    </span>
-                  ))}
+                  <Table
+                    animate
+                    headers={['#', 'Username', 'Amount', 'Best score']}
+                    dataset={[...scores.data.map((s, index) => [`#${++index}`, s.username, s.amount, s.score])]}
+                  />
 
                   {msg === 'loose' && (
-                    <div className="Scores-content-replay">
-                      <Link to='/game'>Replay</Link>
+                    <div className="replay">
+                      <Button animate show>
+                        <Link to='/game'>
+                          <Words animate layer='success'>Replay</Words>
+                        </Link>
+                      </Button>
                     </div>
                   )}
-
-                  {scores.data.map((s, index) => (
-                    <div value={index} key={index} className={`Scores-content-scores ${profile && s.username === profile.username ? "Scores-target" : ""}`} id="target">
-                      <div><b>#{index+1}</b></div>
-                      <div>{s.username}</div>
-                      <div>{Number.parseFloat(s.amount).toPrecision(4)} PNK</div>
-                      <div>{s.best_score}</div>
-                    </div>
-                  ))}
                 </span>
-              )
             }
             failedLoading={
               <span>Fail to load scores</span>

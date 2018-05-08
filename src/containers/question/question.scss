@@ -1,6 +1,21 @@
 /* @define Question */
 .Question {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
 
+.proposals {
+  min-width: 80vw;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.proposal {
+  padding: 1em;
 }
 
 .loader {
