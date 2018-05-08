@@ -2,7 +2,6 @@ import { delay } from 'redux-saga'
 
 import { spawn, call, all } from 'redux-saga/effects'
 
-import walletSaga from './wallet'
 import questionSaga from './question'
 import profileSaga from './profile'
 import voteSaga from './vote'
@@ -36,7 +35,7 @@ export function makeRestartable(saga) {
   }
 }
 
-const rootSagas = [walletSaga, questionSaga, profileSaga, voteSaga, scoresSaga].map(
+const rootSagas = [questionSaga, profileSaga, voteSaga, scoresSaga].map(
   makeRestartable
 )
 
