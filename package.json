@@ -80,7 +80,6 @@
   "dependencies": {
     "arwes": "^1.0.0-alpha.5",
     "create-redux-form": "^0.1.2",
-    "ethjs": "^0.3.3",
     "history": "^4.7.2",
     "lessdux": "^0.4.1",
     "normalize.css": "^8.0.0",
