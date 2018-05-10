@@ -8,6 +8,7 @@ import questions from './questions'
 import profile from './profile'
 import vote from './vote'
 import scores from './scores'
+import wallet from './wallet'
 
 // Export root reducer
 export default combineReducers({
@@ -18,5 +19,6 @@ export default combineReducers({
   vote,
   scores,
   questions,
+  wallet,
   toastr
 })

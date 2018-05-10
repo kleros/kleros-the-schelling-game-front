@@ -5,7 +5,8 @@
   flex-direction: column;
   justify-content: space-between;
 
-  .start {
+  .start, .balance {
+    margin: 0 auto;
     text-align: center;
   }
 }

@@ -9,13 +9,7 @@ const profileApi = {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        id: profile.id,
-        username: profile.username,
-        hash: profile.hash,
-        auth_date: profile.auth_date,
-        photo_url: profile.photo_url,
-        first_name: profile.first_name,
-        last_name: profile.last_name
+        address: profile.address
       })
     })
       .then(statusHelper)

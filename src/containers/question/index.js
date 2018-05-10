@@ -30,11 +30,8 @@ class Question extends PureComponent {
   }
 
   componentDidMount() {
-    const { fetchQuestion } = this.props
-    const profile = JSON.parse(localStorage.getItem('storageProfileSchellingGame'))
-    if (profile) {
-      fetchQuestion(profile.hash)
-    }
+    const { fetchQuestion, profile } = this.props
+    fetchQuestion(profile.address)
   }
 
   handleVote = voteId => e => {
@@ -49,11 +46,9 @@ class Question extends PureComponent {
 
   render() {
     const { msg } = this.state
-    const { question, vote } = this.props
+    const { question, vote, profile } = this.props
 
-    const profile = JSON.parse(localStorage.getItem('storageProfileSchellingGame'))
-
-    if (!profile) {
+    if (!profile.data) {
       return <Redirect to="/" />
     }
 
@@ -109,7 +104,8 @@ class Question extends PureComponent {
 export default connect(
   state => ({
     question: state.question.question,
-    vote: state.vote.vote
+    vote: state.vote.vote,
+    profile: state.profile.profile
   }),
   {
     fetchQuestion: questionActions.fetchQuestion,
