@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
-import { Words, Heading, Button, Footer, Header } from 'arwes'
 
 import * as profileActions from '../../actions/profile'
 
@@ -24,7 +23,6 @@ class Home extends PureComponent {
 
   handleUserInfo = profile => {
     this.props.createProfile(profile)
-    localStorage.setItem('storageProfileSchellingGame', JSON.stringify(profile))
   }
 
   handleStart = () => this.setState({isStart: true})
@@ -40,26 +38,15 @@ class Home extends PureComponent {
     return (
       <div className="Home">
         <div>
-          <Header animate>
-            <h1 style={{ margin: 0 }}>Schelling Game</h1>
-          </Header>
+          <h1 style={{ margin: 0 }}>Schelling Game</h1>
         </div>
         <div className="start">
-          {
-           !(JSON.parse(localStorage.getItem('storageProfileSchellingGame'))) ? (
-              <TelegramLoginButton
-                dataOnauth={this.handleUserInfo}
-                botName={process.env[`REACT_APP_${env}_TELEGRAM_BOT`]}
-              />
-            ) : (
-              <Button animate show onClick={this.handleStart}>Start</Button>
-            )
-          }
+          <button onClick={this.handleUserInfo}>Start</button>
         </div>
         <div>
-          <Footer animate>
-            © WTFPL - 2018 - <Link to='/submit-question'><Words animate layer='success'>Submit a question</Words></Link> | <Link to='/dashboard'><Words animate layer='success'>Dashboard</Words></Link>
-          </Footer>
+          <footer>
+            © WTFPL - 2018 - <Link to='/submit-question'>Submit a question</Link> | <Link to='/dashboard'>Dashboard</Link>
+          </footer>
         </div>
       </div>
     )

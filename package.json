@@ -78,7 +78,6 @@
     "timezone-mock": "^0.0.7"
   },
   "dependencies": {
-    "arwes": "^1.0.0-alpha.5",
     "create-redux-form": "^0.1.2",
     "history": "^4.7.2",
     "lessdux": "^0.4.1",
@@ -93,7 +92,7 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
     "react-scripts": "1.1.1",
-    "react-spinners": "^0.2.6",
+    "react-spinners": "^0.3.2",
     "react-switch": "^2.3.2",
     "react-telegram-login": "^1.0.2-beta-6",
     "react-tooltip": "^3.4.0",
