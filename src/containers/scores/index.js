@@ -14,6 +14,10 @@ import * as voteActions from '../../actions/vote'
 import './score.css'
 
 class Scores extends PureComponent {
+  state = {
+    address: '',
+    msg: null
+  }
   static propTypes = {
     // Action Dispatchers
     fetchScores: PropTypes.func.isRequired,
@@ -22,15 +26,15 @@ class Scores extends PureComponent {
 
   componentDidMount() {
     const { fetchScores, clearVote } = this.props
+    const { address, msg } = queryString.parse(this.props.location.search)
     fetchScores()
     clearVote()
+    this.setState({address, msg})
   }
 
   render() {
-    const { scores } = this.props
-    const { username, msg } = queryString.parse(this.props.location.search)
-
-    const profile = JSON.parse(localStorage.getItem('storageProfileSchellingGame'))
+    const { scores, profile } = this.props
+    const { address, msg } = this.state
 
     return (
       <div className="Scores">
@@ -46,20 +50,16 @@ class Scores extends PureComponent {
                 <span>
                   {scores.data.map((s, index) => (
                     <span key={index}>
-                      {
-                        profile && s.username === profile.username && (
-                          <div className="Scores-content-username">
-                            <div><b>#{index+1}</b></div>
-                            <div>{s.username}</div>
-                            <div>{s.amount} PNK</div>
-                            <div>Best score: {s.best_score}</div>
-                          </div>
-                        )
-                      }
+                      <div className="Scores-content-address">
+                        <div><b>#{index+1}</b></div>
+                        <div>{s.address}</div>
+                        <div>{s.amount} PNK</div>
+                        <div>Best score: {s.best_score}</div>
+                      </div>
                     </span>
                   ))}
 
-                  {msg === 'loose' && (
+                  {msg === 'loose' && profile.data && (
                     <div className="replay">
                       <button>
                         <Link to='/game'>
@@ -82,7 +82,8 @@ class Scores extends PureComponent {
 
 export default connect(
   state => ({
-    scores: state.scores.scores
+    scores: state.scores.scores,
+    profile: state.profile.profile
   }),
   {
     fetchScores: scoresActions.fetchScores,

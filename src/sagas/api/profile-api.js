@@ -9,7 +9,8 @@ const profileApi = {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        address: profile.address
+        address: profile.address,
+        signMsg: profile.signMsg
       })
     })
       .then(statusHelper)

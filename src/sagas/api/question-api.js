@@ -1,8 +1,8 @@
 const env = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV'
 
 const questionApi = {
-  getQuestion (hash) {
-    return fetch(`${process.env[`REACT_APP_${env}_API`]}/questions/${hash}`)
+  getQuestion (signMsg) {
+    return fetch(`${process.env[`REACT_APP_${env}_API`]}/questions/${signMsg}`)
       .then(statusHelper)
       .then(response => response.json())
       .catch(err => err)

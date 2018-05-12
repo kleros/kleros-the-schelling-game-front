@@ -10,6 +10,8 @@ import * as walletActions from '../../actions/wallet'
 import * as walletSelectors from '../../reducers/wallet'
 import Identicon from '../../components/identicon'
 import * as profileActions from '../../actions/profile'
+import { web3 } from '../../bootstrap/dapp-api'
+
 
 import './home.css'
 
@@ -36,9 +38,8 @@ class Home extends PureComponent {
   }
 
   handleStart = () => {
-    const {profile, balance} = this.props
-    const {address} = this.state
-    this.props.createProfile({address})
+    const {profile} = this.props
+    this.props.createProfile()
   }
 
   handleChangeAddress = e => {
@@ -58,12 +59,15 @@ class Home extends PureComponent {
     return (
       <div className="Home">
         <div>
-          <h1 style={{ margin: 0 }}>Schelling Game</h1>
+          <h1 style={{ margin: 0 }}>Schelling Game and gravatar with balance</h1>
         </div>
         <div className="start">
-          To play enter your&nbsp;
-          <input name="address" onChange={this.handleChangeAddress} placeholder="Ethereum address" />
+          To play enter your&nbsp; // check if TC ok else you need more 1eth if else react
           <button onClick={this.handleStart}>Start</button>
+          <button>rules</button>
+        </div>
+        <div>
+          See rules
         </div>
         <div>
           <RenderIf

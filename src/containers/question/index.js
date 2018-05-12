@@ -31,15 +31,13 @@ class Question extends PureComponent {
 
   componentDidMount() {
     const { fetchQuestion, profile } = this.props
-    fetchQuestion(profile.address)
+    fetchQuestion(profile.data.sign_msg)
   }
 
   handleVote = voteId => e => {
-    const { question, createVote } = this.props
+    const { question, profile, createVote } = this.props
 
-    const profile = JSON.parse(localStorage.getItem('storageProfileSchellingGame'))
-
-    createVote(profile.hash, question.data._id, voteId)
+    createVote(profile.data.sign_msg, question.data._id, voteId)
   }
 
   static propTypes = {}
@@ -64,7 +62,7 @@ class Question extends PureComponent {
 
     if (vote.data && vote.data.result === 'loose') {
       toastr.info('Lost. You are not in the Schelling Point', toastrOptions)
-      return <Redirect to={`/scores?msg=loose&username=${profile.username}#target`} />
+      return <Redirect to={`/scores?msg=loose&address=${profile.address}#target`} />
     }
 
     return (
@@ -74,10 +72,10 @@ class Question extends PureComponent {
           done={
             question.data && question.data.question ? (
               <div className="proposals">
+                <div>{question.data.question}</div>
                 {question.data.proposals.map((p, index) => (
-                  <div className="proposal">
+                  <div key={index} className="proposal">
                     <button
-                      key={index}
                       onClick={this.handleVote(index)}
                     >
                       {p}

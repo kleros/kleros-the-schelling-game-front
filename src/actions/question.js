@@ -13,9 +13,9 @@ export const question = {
 /* Action Creators */
 
 // Question
-export const fetchQuestion = hash => ({
+export const fetchQuestion = signMsg => ({
   type: question.FETCH,
-  payload: { hash }
+  payload: { signMsg }
 })
 
 export const createQuestion = questionInput => ({

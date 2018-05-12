@@ -1,7 +1,7 @@
 const env = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV'
 
 const questionApi = {
-  postVote(hash, questionId, voteId) {
+  postVote(signMsg, questionId, voteId) {
     return fetch(
       `${
         process.env[`REACT_APP_${env}_API`]
@@ -13,7 +13,7 @@ const questionApi = {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          hash,
+          signMsg,
           questionId,
           voteId
         })
