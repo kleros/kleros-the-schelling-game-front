@@ -48,6 +48,14 @@ export function* createQuestion({ type, payload: { question } }) {
 }
 
 /**
+ * Count questions.
+ * @returns {object} - Count question.
+ */
+export function* countQuestions() {
+  return yield call(questionApi.getCountQuestions)
+}
+
+/**
  * The root of the wallet saga.
  */
 export default function* walletSaga() {
@@ -80,5 +88,12 @@ export default function* walletSaga() {
     'update',
     questionsActions.questions,
     updateQuestions
+  )
+  yield takeLatest(
+    questionsActions.questions.COUNT,
+    lessduxSaga,
+    'update',
+    questionsActions.questions,
+    countQuestions
   )
 }

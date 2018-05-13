@@ -13,6 +13,7 @@ import * as scoresActions from '../../actions/scores'
 import * as voteActions from '../../actions/vote'
 import * as walletActions from '../../actions/wallet'
 import * as walletSelectors from '../../reducers/wallet'
+import * as questionsActions from '../../actions/questions'
 import Identicon from '../../components/identicon'
 
 import './score.css'
@@ -31,8 +32,9 @@ class Scores extends PureComponent {
   }
 
   componentDidMount() {
-    const { fetchScores, clearVote, fetchBalance } = this.props
+    const { fetchScores, clearVote, fetchBalance, countQuestions } = this.props
     fetchBalance()
+    countQuestions()
     const { address, msg } = queryString.parse(this.props.location.search)
     fetchScores()
     clearVote()
@@ -44,7 +46,7 @@ class Scores extends PureComponent {
   })
 
   render() {
-    const { scores, profile, accounts, balance } = this.props
+    const { scores, profile, accounts, balance, questionCount } = this.props
     const { address, msg, isReplay } = this.state
 
     if (isReplay) {
@@ -63,7 +65,7 @@ class Scores extends PureComponent {
                     Schelling game
                   </Link>
                 </div>
-                {profile.data && (
+                {profile.data && questionCount.data && (
                   <div className="Scores-navbar-stats">
                     <div>
                       {scores.data.map((s, index) => (
@@ -85,7 +87,7 @@ class Scores extends PureComponent {
                       </div>
                     }
                     <div>
-                      Questions: {profile.data.questions.lenght} /
+                      Questions: {profile.data.votes.length} / {questionCount.data.count}
                     </div>
                     <div>
                       Reset questions in {Math.round((3600 * 1000 - (Date.now() - new Date(profile.data.lastVoteTime).getTime())) / 1000 / 60)}min
@@ -163,11 +165,13 @@ export default connect(
     scores: state.scores.scores,
     profile: state.profile.profile,
     balance: state.wallet.balance,
-    accounts: state.wallet.accounts
+    accounts: state.wallet.accounts,
+    questionCount: state.questions.questions
   }),
   {
     fetchScores: scoresActions.fetchScores,
     clearVote: voteActions.clearVote,
-        fetchBalance: walletActions.fetchBalance
+    countQuestions: questionsActions.countQuestions,
+    fetchBalance: walletActions.fetchBalance
   }
 )(Scores)

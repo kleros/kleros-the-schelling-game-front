@@ -15,6 +15,13 @@ const questionApi = {
       .catch(err => err)
       .then(data => data)
   },
+  getCountQuestions () {
+    return fetch(`${process.env[`REACT_APP_${env}_API`]}/questions/count`)
+      .then(statusHelper)
+      .then(response => response.json())
+      .catch(err => err)
+      .then(data => data)
+  },
   putQuestion (questionId, valid, password) {
     return fetch(`${process.env[`REACT_APP_${env}_API`]}/admin?password=${password}`, {
       method: 'POST',

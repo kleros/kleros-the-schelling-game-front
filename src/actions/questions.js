@@ -6,7 +6,8 @@ import { createActions } from 'lessdux'
 export const questions = {
   ...createActions('QUESTIONS', {
     withUpdate: true
-  })
+  }),
+  COUNT: 'COUNT_QUESTIONS'
 }
 
 /* Action Creators */
@@ -21,3 +22,6 @@ export const updateQuestions = (questionId, valid, password) => ({
   type: questions.UPDATE,
   payload: { questionId, valid, password }
 })
+
+// Count questions
+export const countQuestions = () => ({ type: questions.COUNT })
