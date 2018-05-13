@@ -7,6 +7,7 @@ import { Redirect } from 'react-router'
 import queryString from 'query-string'
 import { Link } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
+import { TwitterShareButton } from 'react-simple-share'
 
 import * as profileActions from '../../actions/profile'
 import * as scoresActions from '../../actions/scores'
@@ -17,6 +18,16 @@ import * as questionsActions from '../../actions/questions'
 import Identicon from '../../components/identicon'
 
 import './score.css'
+
+const OptionsExample = ({score}) => (
+  <TwitterShareButton
+    url="https://schellinggame.com"
+    color="#1da1f2"
+    size="40px"
+    text={`I scored ${score} on a game where you have to find Schelling points in the cryptospace. I hope win some PNK from @kleros_io, distribution after the 1st round.`}
+    hashtags="gamedrop,ethereum,blockchain"
+  />
+)
 
 class Scores extends PureComponent {
   state = {
@@ -53,6 +64,19 @@ class Scores extends PureComponent {
       return <Redirect to="/game" />
     }
 
+    let timeToReset
+    let countQuestionsUp
+
+    if (questionCount.data) {
+      countQuestionsUp = questionCount.data.count - 1
+    }
+
+    if (profile.data) {
+      timeToReset = Math.round((3600 * 1000 - (Date.now() - new Date(profile.data.lastVoteTime).getTime())) / 1000 / 60)
+      timeToReset = timeToReset < 0 ? 59 : timeToReset
+    }
+
+
     return (
       <RenderIf
         resource={scores}
@@ -76,6 +100,9 @@ class Scores extends PureComponent {
                         </div>
                       ))}
                     </div>
+                    <div className="Scores-navbar-stats-twitter">
+                      <OptionsExample score={42} />
+                    </div>
                     {!profile.data.telegram.startsWith('telegram-') &&
                       <div>
                         Telegram: {profile.data.telegram}
@@ -90,7 +117,7 @@ class Scores extends PureComponent {
                       Questions: {profile.data.votes.length} / {questionCount.data.count}
                     </div>
                     <div>
-                      Reset questions in {Math.round((3600 * 1000 - (Date.now() - new Date(profile.data.lastVoteTime).getTime())) / 1000 / 60)}min
+                      Reset in {timeToReset}min
                     </div>
                     {profile.data && (
                       <div>
