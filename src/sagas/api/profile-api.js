@@ -17,6 +17,23 @@ const profileApi = {
       .then(response => response.json())
       .catch(err => err)
       .then(data => data)
+  },
+  postTelegramProfile (profile) {
+    return fetch(`${process.env[`REACT_APP_${env}_API`]}/profiles/telegram`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        signMsg: profile.signMsg,
+        telegram: profile.telegram
+      })
+    })
+      .then(statusHelper)
+      .then(response => response.json())
+      .catch(err => err)
+      .then(data => data)
   }
 }
 

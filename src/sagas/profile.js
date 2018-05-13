@@ -1,4 +1,5 @@
 import { takeLatest, call } from 'redux-saga/effects'
+import { toastr } from 'react-redux-toastr'
 
 import * as profileActions from '../actions/profile'
 import { lessduxSaga } from '../utils/saga'
@@ -6,6 +7,10 @@ import { web3 } from '../bootstrap/dapp-api'
 import * as errorConstants from '../constants/error'
 
 import profileApi from './api/profile-api'
+
+const toastrOptions = {
+  timeOut: 3000
+}
 
 /**
  * Creates the profile.
@@ -35,6 +40,15 @@ export function* createProfile () {
 }
 
 /**
+ * Creates the profile.
+ * @returns {object} - The profile.
+ */
+export function* addTelegramProfile ({ type, payload: { profile } }) {
+  yield call(toastr.success, 'Telegram user registered.', toastrOptions)
+  return yield call(profileApi.postTelegramProfile, profile)
+}
+
+/**
  * The root of the wallet saga.
  */
 export default function* walletSaga() {
@@ -44,5 +58,12 @@ export default function* walletSaga() {
     'create',
     profileActions.profile,
     createProfile
+  )
+  yield takeLatest(
+    profileActions.profile.TELEGRAM,
+    lessduxSaga,
+    'update',
+    profileActions.profile,
+    addTelegramProfile
   )
 }

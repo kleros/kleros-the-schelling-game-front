@@ -20,7 +20,7 @@ import Identicon from '../../components/identicon'
 import telegram from './telegram.png'
 import './score.css'
 
-const OptionsExample = ({score}) => (
+const Twitter = ({score}) => (
   <TwitterShareButton
     url="https://schellinggame.com"
     color="#1da1f2"
@@ -45,12 +45,11 @@ class Scores extends PureComponent {
   }
 
   componentDidMount() {
-    const { fetchScores, clearVote, fetchBalance, countQuestions } = this.props
+    const { fetchScores, fetchBalance, countQuestions } = this.props
     fetchBalance()
     countQuestions()
     const { address, msg } = queryString.parse(this.props.location.search)
     fetchScores()
-    clearVote()
     this.setState({address, msg})
   }
 
@@ -60,11 +59,19 @@ class Scores extends PureComponent {
 
   handleTelegram = () => this.setState({addTelegram: true})
 
+  handleSubmit = () => {
+    const { addTelegram, profile } = this.props
+    addTelegram(profile.data.sign_msg, 'username')
+  }
+
+  telegramInputChange = v => v
+
   render() {
-    const { scores, profile, accounts, balance, questionCount } = this.props
+    const { scores, profile, accounts, balance, questionCount, vote, clearVote } = this.props
     const { address, msg, isReplay, addTelegram } = this.state
 
     if (isReplay) {
+      clearVote()
       return <Redirect to="/game" />
     }
 
@@ -78,6 +85,13 @@ class Scores extends PureComponent {
     if (profile.data) {
       timeToReset = Math.round((3600 * 1000 - (Date.now() - new Date(profile.data.lastVoteTime).getTime())) / 1000 / 60)
       timeToReset = timeToReset < 0 ? 59 : timeToReset
+    }
+
+    let votes
+    if (vote.data && vote.data.votes) {
+      votes = vote.data.votes
+    } else if (profile.data && profile.data.votes) {
+      votes = profile.data.votes
     }
 
     return (
@@ -107,7 +121,7 @@ class Scores extends PureComponent {
                       {Math.round(profile.data.amount * 100) / 100} PNK
                     </div>
                     <div className="Scores-navbar-stats-twitter">
-                      <OptionsExample score={42} />
+                      <Twitter score={42} />
                     </div>
                     {profile.data.telegram.startsWith('telegram-') && !addTelegram &&
                       <div>
@@ -118,8 +132,8 @@ class Scores extends PureComponent {
                     }
                     {addTelegram &&
                       <div>
-                        <input name="telegram" placeholder="Telegram username" />
-                        <button>Submit</button>
+                        <input name="telegram" placeholder="Telegram username" onChange={this.telegramInputChange} />
+                        <button className="btn-telegram">Submit</button>
                       </div>
                     }
                     {profile.data.affiliates.length > 0 &&
@@ -128,12 +142,12 @@ class Scores extends PureComponent {
                       </div>
                     }
                     <div>
-                      Questions: {profile.data.votes.length} / {questionCount.data.count}
+                      Questions: {votes.length} / {questionCount.data.count}
                     </div>
                     <div>
                       Reset in {timeToReset}min
                     </div>
-                    {profile.data && (
+                    {profile.data && questionCount.data.count - votes.length !== 0 && (
                       <div>
                         <button className="Scores-navbar-replay" onClick={this.handleReplay}>
                           Replay
@@ -203,6 +217,7 @@ class Scores extends PureComponent {
 
 export default connect(
   state => ({
+    vote: state.vote.vote,
     scores: state.scores.scores,
     profile: state.profile.profile,
     balance: state.wallet.balance,
@@ -213,6 +228,7 @@ export default connect(
     fetchScores: scoresActions.fetchScores,
     clearVote: voteActions.clearVote,
     countQuestions: questionsActions.countQuestions,
-    fetchBalance: walletActions.fetchBalance
+    fetchBalance: walletActions.fetchBalance,
+    addTelegram: profileActions.addTelegram
   }
 )(Scores)

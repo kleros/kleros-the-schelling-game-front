@@ -5,7 +5,8 @@ import { createActions } from 'lessdux'
 // post a profile
 export const profile = {
   ...createActions('PROFILE', {
-    withCreate: true
+    withCreate: true,
+    withUpdate: true
   }),
   TELEGRAM: 'TELEGRAM_PROFILE'
 }

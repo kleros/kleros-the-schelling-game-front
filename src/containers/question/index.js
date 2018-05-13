@@ -43,7 +43,7 @@ class Question extends PureComponent {
   static propTypes = {}
 
   render() {
-    const { msg } = this.state
+    const { msg, isLoose } = this.state
     const { question, vote, profile } = this.props
 
     if (!profile.data) {
@@ -62,7 +62,7 @@ class Question extends PureComponent {
 
     if (vote.data && vote.data.result === 'loose') {
       toastr.info('Lost. You are not in the Schelling Point', toastrOptions)
-      return <Redirect to={`/scores?msg=loose&address=${profile.address}#target`} />
+      return <Redirect to={`/scores?msg=loose`} />
     }
 
     return (

@@ -37,6 +37,21 @@
         top: 10px;
         border-radius: 12px;
       }
+      .btn-telegram {
+        background: #f5f5f5;
+        color: gray;
+        border: 1px #f5f5f5 solid;
+        border-bottom: none;
+        cursor: pointer;
+        color: #444;
+        font-size: 14px;
+      }
+      input {
+        border: 1px #f5f5f5 solid;
+        color: #444;
+        font-size: 14px;
+        padding-left: 0.3em;
+      }
     }
     &-balance {
       display:flex;
