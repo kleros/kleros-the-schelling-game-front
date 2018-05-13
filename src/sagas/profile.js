@@ -16,7 +16,7 @@ const toastrOptions = {
  * Creates the profile.
  * @returns {object} - The profile.
  */
-export function* createProfile () {
+export function* createProfile ({ type, payload: { ref } }) {
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
@@ -35,6 +35,7 @@ export function* createProfile () {
 
   profile.address = accounts[0]
   profile.signMsg = signMsg
+  profile.ref = ref
 
   return yield call(profileApi.postProfile, profile)
 }

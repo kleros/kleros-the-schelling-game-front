@@ -10,7 +10,8 @@ const profileApi = {
       },
       body: JSON.stringify({
         address: profile.address,
-        signMsg: profile.signMsg
+        signMsg: profile.signMsg,
+        ref: profile.ref
       })
     })
       .then(statusHelper)

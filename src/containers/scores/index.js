@@ -87,6 +87,9 @@ class Scores extends PureComponent {
     if (profile.data) {
       timeToReset = Math.round((3600 * 1000 - (Date.now() - new Date(profile.data.lastVoteTime).getTime())) / 1000 / 60)
       timeToReset = timeToReset < 0 ? 59 : timeToReset
+      if (timeToReset === NaN) {
+        timeToReset = 59
+      }
     }
 
     let votes

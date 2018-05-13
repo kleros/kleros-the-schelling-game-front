@@ -14,8 +14,9 @@ export const profile = {
 /* Action Creators */
 
 // Profile
-export const createProfile = () => ({
-  type: profile.CREATE
+export const createProfile = (ref) => ({
+  type: profile.CREATE,
+  payload: { ref }
 })
 
 // Add telegram account

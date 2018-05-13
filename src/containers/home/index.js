@@ -6,6 +6,7 @@ import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
 import { RenderIf } from 'lessdux'
 import { ClipLoader } from 'react-spinners'
+import queryString from 'query-string'
 
 import * as walletActions from '../../actions/wallet'
 import * as walletSelectors from '../../reducers/wallet'
@@ -42,7 +43,8 @@ class Home extends PureComponent {
   handleStart = () => {
     const {profile, createProfile} = this.props
     if (!profile.data) {
-      this.props.createProfile()
+      const { ref } = queryString.parse(this.props.location.search)
+      this.props.createProfile(ref)
     } else {
       this.setState({
         isStart: true
@@ -117,12 +119,12 @@ class Home extends PureComponent {
                       of them who are going to respond "badly".
                       If you don't it your score decrease by one. And all users who respond
                       corectly wins a fraction of your PNK.
-                      The others ways to win PNK are:
+                      To win PNK are with an extra way:
                       <ul>
                         <li>you can <Link to='/submit-question'>submit a question</Link>, if this question is validated you earn 10PNK.</li>
                         <li>add your pseudo here and join the kleros telegram, after a valiadation you can earn 10PNK</li>
                         <li>share your Schelling Game score on twitter on the page /scores, you can earn 10PNK</li>
-                        <li>share your referencal link, you can earn 10PNK</li>
+                        <li>share your referencal link <a href={`https://mvp.kleros.io?ref=${accounts.data[0]}`}>{`https://mvp.kleros.io?ref=${accounts.data[0]}`}</a>, you can earn 10PNK</li>
                       </ul>
                       Once you answer all the questions you must wait 10 minutes to reset your questions.
                       This workflow is to avoid to bribe the game in submitting lot of malicious votes.
