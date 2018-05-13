@@ -31,6 +31,12 @@
         position: relative;
         top: -3px;
       }
+      &-telegram {
+        height: 37px;
+        position: relative;
+        top: 10px;
+        border-radius: 12px;
+      }
     }
     &-balance {
       display:flex;

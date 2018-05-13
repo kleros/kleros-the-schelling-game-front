@@ -17,6 +17,7 @@ import * as walletSelectors from '../../reducers/wallet'
 import * as questionsActions from '../../actions/questions'
 import Identicon from '../../components/identicon'
 
+import telegram from './telegram.png'
 import './score.css'
 
 const OptionsExample = ({score}) => (
@@ -33,7 +34,8 @@ class Scores extends PureComponent {
   state = {
     address: '',
     msg: null,
-    isReplay: false
+    isReplay: false,
+    addTelegram: false
   }
   static propTypes = {
     // Action Dispatchers
@@ -56,9 +58,11 @@ class Scores extends PureComponent {
     isReplay: true
   })
 
+  handleTelegram = () => this.setState({addTelegram: true})
+
   render() {
     const { scores, profile, accounts, balance, questionCount } = this.props
-    const { address, msg, isReplay } = this.state
+    const { address, msg, isReplay, addTelegram } = this.state
 
     if (isReplay) {
       return <Redirect to="/game" />
@@ -75,7 +79,6 @@ class Scores extends PureComponent {
       timeToReset = Math.round((3600 * 1000 - (Date.now() - new Date(profile.data.lastVoteTime).getTime())) / 1000 / 60)
       timeToReset = timeToReset < 0 ? 59 : timeToReset
     }
-
 
     return (
       <RenderIf
@@ -100,12 +103,23 @@ class Scores extends PureComponent {
                         </div>
                       ))}
                     </div>
+                    <div>
+                      {Math.round(profile.data.amount * 100) / 100} PNK
+                    </div>
                     <div className="Scores-navbar-stats-twitter">
                       <OptionsExample score={42} />
                     </div>
-                    {!profile.data.telegram.startsWith('telegram-') &&
+                    {profile.data.telegram.startsWith('telegram-') && !addTelegram &&
                       <div>
-                        Telegram: {profile.data.telegram}
+                        <Link to="https://t.me/kleros" target="_blank">
+                          <img className="Scores-navbar-stats-telegram" src={telegram} alt="telegram" onClick={this.handleTelegram} />
+                        </Link>
+                      </div>
+                    }
+                    {addTelegram &&
+                      <div>
+                        <input name="telegram" placeholder="Telegram username" />
+                        <button>Submit</button>
                       </div>
                     }
                     {profile.data.affiliates.length > 0 &&
@@ -159,7 +173,7 @@ class Scores extends PureComponent {
 
                 <div className="Home-content-footer">
                   <footer>
-                    © WTFPL 2018 - propulsed by <a href="https://kleros.io">Kleros</a>
+                    © WTFPL 2018 - <i>Schelling game</i> propulsed by <a href="https://kleros.io">Kleros</a>
                   </footer>
                 </div>
               </div>

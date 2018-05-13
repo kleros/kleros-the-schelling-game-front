@@ -145,7 +145,7 @@ class Home extends PureComponent {
 
                 <div className="Home-content-footer">
                   <footer>
-                    © WTFPL 2018 - propulsed by <a href="https://kleros.io">Kleros</a>
+                    © WTFPL 2018 - <i>Schelling game</i> propulsed by <a href="https://kleros.io">Kleros</a>
                   </footer>
                 </div>
               </div>
