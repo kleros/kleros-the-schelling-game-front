@@ -43,9 +43,9 @@ export function* createProfile () {
  * Creates the profile.
  * @returns {object} - The profile.
  */
-export function* addTelegramProfile ({ type, payload: { profile } }) {
+export function* addTelegramProfile ({ type, payload: { signMsg, telegram } }) {
   yield call(toastr.success, 'Telegram user registered.', toastrOptions)
-  return yield call(profileApi.postTelegramProfile, profile)
+  return yield call(profileApi.postTelegramProfile, signMsg, telegram)
 }
 
 /**

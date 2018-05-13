@@ -35,7 +35,8 @@ class Scores extends PureComponent {
     address: '',
     msg: null,
     isReplay: false,
-    addTelegram: false
+    addTelegram: false,
+    telegram: ''
   }
   static propTypes = {
     // Action Dispatchers
@@ -61,10 +62,11 @@ class Scores extends PureComponent {
 
   handleSubmit = () => {
     const { addTelegram, profile } = this.props
-    addTelegram(profile.data.sign_msg, 'username')
+    const { telegram } = this.state
+    addTelegram(profile.data.sign_msg, telegram)
   }
 
-  telegramInputChange = v => v
+  telegramInputChange = e => this.setState({telegram: e.target.value})
 
   render() {
     const { scores, profile, accounts, balance, questionCount, vote, clearVote } = this.props
@@ -133,7 +135,7 @@ class Scores extends PureComponent {
                     {addTelegram &&
                       <div>
                         <input name="telegram" placeholder="Telegram username" onChange={this.telegramInputChange} />
-                        <button className="btn-telegram">Submit</button>
+                        <button className="btn-telegram" onClick={this.handleSubmit}>Submit</button>
                       </div>
                     }
                     {profile.data.affiliates.length > 0 &&
