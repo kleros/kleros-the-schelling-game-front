@@ -124,7 +124,7 @@ class Home extends PureComponent {
                         <li>you can <Link to='/submit-question'>submit a question</Link>, if this question is validated you earn 10PNK.</li>
                         <li>add your pseudo here and join the kleros telegram, after a valiadation you can earn 10PNK</li>
                         <li>share your Schelling Game score on twitter on the page /scores, you can earn 10PNK</li>
-                        <li>share your referencal link <a href={`https://mvp.kleros.io?ref=${accounts.data[0]}`}>{`https://mvp.kleros.io?ref=${accounts.data[0]}`}</a>, you can earn 10PNK</li>
+                        <li>share your referencal link <a href={`https://schellinggame.com?ref=${accounts.data[0]}`}>{`https://mvp.kleros.io?ref=${accounts.data[0]}`}</a>, you can earn 10PNK</li>
                       </ul>
                       Once you answer all the questions you must wait 10 minutes to reset your questions.
                       This workflow is to avoid to bribe the game in submitting lot of malicious votes.
