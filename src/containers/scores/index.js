@@ -77,7 +77,7 @@ class Scores extends PureComponent {
       return <Redirect to="/game" />
     }
 
-    let timeToReset
+    let timeToReset = 0
     let countQuestionsUp
 
     if (questionCount.data) {
@@ -87,10 +87,13 @@ class Scores extends PureComponent {
     if (profile.data) {
       timeToReset = Math.round((3600 * 1000 - (Date.now() - new Date(profile.data.lastVoteTime).getTime())) / 1000 / 60)
       timeToReset = timeToReset < 0 ? 59 : timeToReset
-      if (timeToReset === NaN) {
-        timeToReset = 59
-      }
     }
+
+    if (isNaN(timeToReset)) {
+      timeToReset = 59
+    }
+
+    console.log(timeToReset)
 
     let votes
     if (vote.data && vote.data.votes) {

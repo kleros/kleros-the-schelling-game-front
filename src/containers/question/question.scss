@@ -12,8 +12,24 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+  &-question {
+    font-size: 40px;
+    margin: 1em;
+  }
 }
 
 .proposal {
-  padding: 1em;
+  width: 400px;
+  margin-left: 10px;
+  line-height: 44px;
+  border: 1px solid lightgray;
+  background: #f5f5f5;
+  font-size: 20px;
+  font-weight: lighter;
+  cursor: pointer;
+  color: #444;
+  margin: 1em;
+  &:hover {
+    color: #4183c4;
+  }
 }

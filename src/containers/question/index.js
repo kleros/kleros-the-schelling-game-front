@@ -72,10 +72,11 @@ class Question extends PureComponent {
           done={
             question.data && question.data.question ? (
               <div className="proposals">
-                <div>{question.data.question}</div>
+                <div className="proposals-question">{question.data.question}</div>
                 {question.data.proposals.map((p, index) => (
-                  <div key={index} className="proposal">
+                  <div key={index}>
                     <button
+                      className="proposal"
                       onClick={this.handleVote(index)}
                     >
                       {p}
