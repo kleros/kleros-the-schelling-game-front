@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
 import { RenderIf } from 'lessdux'
+import { ClipLoader } from 'react-spinners'
 
 import * as walletActions from '../../actions/wallet'
 import * as walletSelectors from '../../reducers/wallet'
@@ -20,6 +21,7 @@ const env = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV'
 class Home extends PureComponent {
   state = {
     isStart: false,
+    goScores: false,
     address: ''
   }
 
@@ -38,11 +40,19 @@ class Home extends PureComponent {
   }
 
   handleStart = () => {
-    const {profile} = this.props
-    this.props.createProfile()
+    const {profile, createProfile} = this.props
+    if (!profile.data) {
+      this.props.createProfile()
+    } else {
+      this.setState({
+        isStart: true
+      })
+    }
   }
 
-  handleScores = v => v
+  handleScores = () => this.setState({
+    goScores: true
+  })
 
   handleChangeAddress = e => {
     this.setState({
@@ -51,22 +61,29 @@ class Home extends PureComponent {
   }
 
   render() {
-    const { isStart } = this.state
+    const { isStart, goScores } = this.state
     const { profile, balance, accounts } = this.props
 
-   if (profile.data) {
+   if (profile.data && isStart) {
      return <Redirect to="/game" />
+   }
+
+   if (goScores) {
+     return <Redirect to="/scores" />
    }
 
     return (
       <RenderIf
         resource={balance}
-        loading="Loading balance..."
         done={
           balance.data && accounts.data && (
             <div className="Home">
               <div className="Home-navbar">
-                <div className="Home-navbar-title">Schelling game</div>
+                <div className="Home-navbar-title">
+                  <Link to='/' className="Home-navbar-title-link">
+                    Schelling game
+                  </Link>
+                </div>
                 <div className="Home-navbar-balance">
                   <div className="Home-navbar-balance-identicon">
                     <Identicon
@@ -86,31 +103,41 @@ class Home extends PureComponent {
                     <img className="Home-content-subtitle-question" src={question} alt="question" />
                   </div>
                   <div className="Home-content-subtitle-buttons">
-                    <button onClick={this.handleStart} className="Home-content-subtitle-buttons-start">Start</button>
+                    <button onClick={this.handleStart} className="Home-content-subtitle-buttons-start">{profile.data ? 'Start' : 'Sign up'}</button>
                     <button onClick={this.handleScores} className="Home-content-subtitle-buttons-scores">Scores</button>
                   </div>
                   <div className="panel-wrapper">
-                    <a href="#show" className="show btn" id="show">Show Full Article</a>
-                    <a href="#hide" className="hide btn" id="hide">Hide Full Article</a>
+                    <a href="#show" className="show btn" id="show">Show full rules</a>
+                    <a href="#hide" className="hide btn" id="hide">Hide full rules</a>
                     <div className="panel">
                       To play you need a balance of 1eth of your Ethereum address and
                       sign a message to proove you are the owner of this address.
                       <br />The goal is to find the Schelling Point for each question.
-                      When you find it your score is increase by 1 and you'll win the PNK
+                      When you find it your score is increase by 1 and you'll win pinakions (PNK)
                       of them who are going to respond "badly".
                       If you don't it your score decrease by one. And all users who respond
                       corectly wins a fraction of your PNK.
                       The others ways to win PNK are:
                       <ul>
-                        <li>you can submitted a question, if this question is validated you earn 10PNK.</li>
-                        <li>add your pseudo here and join the kleros telegram</li>
-                        <li>share your Schelling Game score on twitter on the page /scores</li>
+                        <li>you can <Link to='/submit-question'>submit a question</Link>, if this question is validated you earn 10PNK.</li>
+                        <li>add your pseudo here and join the kleros telegram, after a valiadation you can earn 10PNK</li>
+                        <li>share your Schelling Game score on twitter on the page /scores, you can earn 10PNK</li>
+                        <li>share your referencal link, you can earn 10PNK</li>
                       </ul>
                       Once you answer all the questions you must wait 10 minutes to reset your questions.
                       This workflow is to avoid to bribe the game in submitting lot of malicious votes.
+
+                      The game is finished after the 15june (full bonus for the token sale).
+                      All players wins 10PNK and the 100 best players will receive his score in
+                      real PNK up to 1000PNK.
+
+                      The ranking is based on best score and the amount of pinakions.
+
                       For more information, you can read this article it explains the advantages
                       of a gamedrop and how it works.
-                      Have fun!
+                      <br />
+                      <br />
+                      <center>Have fun!</center>
                     </div>
                     <div className="fade"></div>
                     </div>
@@ -118,7 +145,7 @@ class Home extends PureComponent {
 
                 <div className="Home-content-footer">
                   <footer>
-                    © WTFPL - 2018 - <Link to='/submit-question'>Submit a question</Link> | <Link to='/dashboard'>Dashboard</Link>
+                    © WTFPL 2018 - propulsed by <a href="https://kleros.io">Kleros</a>
                   </footer>
                 </div>
               </div>
@@ -135,6 +162,11 @@ class Home extends PureComponent {
               MetaMask
             </a>{' '}
             is unlocked and refresh the page.
+          </div>
+        }
+        loading={
+          <div className="loader">
+            <ClipLoader color={'gray'} loading={true} />
           </div>
         }
       />

@@ -1,5 +1,5 @@
 /* @define submitQuestion */
-.submitQuestion {
+.submitTelegram {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -8,23 +8,11 @@
 
   &-content {
     min-width: 80vw;
-    &-question {
+    &-telegram {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
       margin-top: 1em;
-    }
-    &-proposals {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      margin-top: 2em;
-    }
-    &-address {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      margin-top: 2em;
     }
     &-submit {
       margin-top: 2em;

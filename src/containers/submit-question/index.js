@@ -31,12 +31,6 @@ class SubmitQuestion extends PureComponent {
     })
   }
 
-  handleChangeTelegramUsername = e => {
-    this.setState({
-      question: {...this.state.question, telegram: e.target.value}
-    })
-  }
-
   handleSubmitQuestion = () => this.props.createQuestion(this.state.question)
 
   handleChangeProposal = proposalIndex => e => {
@@ -65,9 +59,6 @@ class SubmitQuestion extends PureComponent {
                 )
               }
             </div>
-          </div>
-          <div className="submitQuestion-content-address">
-            <input placeholder="Telegram username (optional)" name="telegram-username" onChange={this.handleChangeTelegramUsername} />
           </div>
           <div className="submitQuestion-content-address">
             <input placeholder="Ethereum address (optional)" name="ethereum-address" onChange={this.handleChangeEthereumAddress} />
