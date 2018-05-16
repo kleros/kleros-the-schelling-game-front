@@ -56,12 +56,12 @@ class Question extends PureComponent {
     }
 
     if (question.data && (question.data.msg && question.data.msg === 'no question' || question.data.msg === 'You have answered all the questions. You can try tomorrow or add new question.')) {
-      toastr.success("Kudos! You have answered all the questions!", toastrOptions)
+      toastr.success('Kudos! You have answered all the questions!', toastrOptions)
       return <Redirect to={`/scores`} />
     }
 
     if (vote.data && vote.data.result === 'loose') {
-      toastr.info('Lost. You are not in the Schelling Point', toastrOptions)
+      toastr.warning('Lost. You are not in the Schelling Point', toastrOptions)
       return <Redirect to={`/scores?msg=loose`} />
     }
 

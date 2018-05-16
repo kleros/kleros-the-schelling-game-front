@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { RenderIf } from 'lessdux'
 import { ClipLoader } from 'react-spinners'
 import queryString from 'query-string'
+import { toastr } from 'react-redux-toastr'
 
 import * as walletActions from '../../actions/wallet'
 import * as walletSelectors from '../../reducers/wallet'
@@ -66,8 +67,10 @@ class Home extends PureComponent {
     const { isStart, goScores } = this.state
     const { profile, balance, accounts } = this.props
 
-   if (profile.data && isStart) {
+   if (profile.data && isStart && (Math.round(balance.data.toString() * 100) / 100) >= 1) {
      return <Redirect to="/game" />
+   } else if (profile.data && isStart && (Math.round(balance.data.toString() * 100) / 100) < 1) {
+     toastr.success('You need 1ETH on your balance to play.')
    }
 
    if (goScores) {
@@ -112,34 +115,56 @@ class Home extends PureComponent {
                     <a href="#show" className="show btn" id="show">Show full rules</a>
                     <a href="#hide" className="hide btn" id="hide">Hide full rules</a>
                     <div className="panel">
-                      To play you need a balance of 1eth of your Ethereum address and
-                      sign a message to proove you are the owner of this address.
-                      <br />The goal is to find the Schelling Point for each question.
-                      When you find it your score is increase by 1 and you'll win pinakions (PNK)
-                      of them who are going to respond "badly".
-                      If you don't it your score decrease by one. And all users who respond
-                      corectly wins a fraction of your PNK.
-                      To win PNK are with an extra way:
+                    To play you need a balance of 1eth and to sign the message
+                    proving you are the owner of this address and to prevent a
+                    sybil attack.
+                    <br />
+                    The goal is to find the Schelling Point for each question.
+
+                    When you find it your score will increase by 1 and you'll
+                    win pinakions (PNK) from those who respond "incoherently".
+
+                    If you don't find the Schelling point your score will
+                    decrease by one and users who respond coherently win a
+                    fraction of your PNK.
+                    <br /><br />
+                    Extra ways to win PNK:
                       <ul>
-                        <li>you can <Link to='/submit-question'>submit a question</Link>, if this question is validated you earn 10PNK.</li>
-                        <li>add your pseudo here and join the kleros telegram, after a valiadation you can earn 10PNK</li>
-                        <li>share your Schelling Game score on twitter on the page /scores, you can earn 10PNK</li>
-                        <li>share your referencal link <a href={`https://schellinggame.com?ref=${accounts.data[0]}`}>{`https://mvp.kleros.io?ref=${accounts.data[0]}`}</a>, you can earn 10PNK</li>
+                        <li>
+                          You can submit a question
+                          <Link to='/submit-question'>submit a question</Link>,
+                          if this question is validated you earn 10PNK
+                        </li>
+                        <li>
+                          Add your pseudo here and join the kleros telegram,
+                          after a valiadation you can earn 10PNK
+                        </li>
+                        <li>
+                          Share your Schelling Game score on twitter on the page
+                          /scores, you can earn 10PNK
+                        </li>
+                        <li>
+                          Share your reference link&nbsp;
+                          <a href={`https://schellinggame.com?ref=${accounts.data[0]}`}>{`https://mvp.kleros.io?ref=${accounts.data[0]}`}</a>,
+                          you can earn 10PNK
+                        </li>
                       </ul>
-                      Once you answer all the questions you must wait 10 minutes to reset your questions.
-                      This workflow is to avoid to bribe the game in submitting lot of malicious votes.
-
-                      The game is finished after the 15june (full bonus for the token sale).
-                      All players wins 10PNK and the 100 best players will receive his score in
-                      real PNK up to 1000PNK.
-
-                      The ranking is based on best score and the amount of pinakions.
-
-                      For more information, you can read this article it explains the advantages
-                      of a gamedrop and how it works.
+                      Once you answer all the questions you must wait 1 hour to
+                      reset your questions.
+                      This workflow is in order to avoid bribe attacks by
+                      submitting many malicious votes.
                       <br />
-                      <br />
-                      <center>Have fun!</center>
+                      The game is finished after the 15 June (full bonus for the
+                      token sale).
+                      <br /><br />
+                      All players win 10PNK and the 100 best players will
+                      receive their score in real PNK up to 1000PNK.
+                      <br /><br />
+                      The ranking is based on best score and the amount of
+                      pinakions. For more information, you can read this article
+                      it explains the advantages of a gamedrop and how it works.
+                      <br /><br />
+                      <center><b>Have fun!</b></center>
                     </div>
                     <div className="fade"></div>
                     </div>
