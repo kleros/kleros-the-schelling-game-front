@@ -20,12 +20,12 @@ import Identicon from '../../components/identicon'
 import telegram from './telegram.png'
 import './score.css'
 
-const Twitter = ({score}) => (
+const Twitter = ({ score }) => (
   <TwitterShareButton
     url="https://schellinggame.com"
     color="#1da1f2"
     size="40px"
-    text={`I scored ${score} on a game where you have to find Schelling points in the cryptospace. I hope win some PNK from @kleros_io, distribution after the 1st round.`}
+    text={`I scored ${score} on this cool game @Kleros_io made where you have to find Schelling Points for different questions. Try it now for a chance to win real PNK!`}
     hashtags="gamedrop,ethereum,blockchain"
   />
 )
@@ -51,14 +51,15 @@ class Scores extends PureComponent {
     countQuestions()
     const { address, msg } = queryString.parse(this.props.location.search)
     fetchScores()
-    this.setState({address, msg})
+    this.setState({ address, msg })
   }
 
-  handleReplay = () => this.setState({
-    isReplay: true
-  })
+  handleReplay = () =>
+    this.setState({
+      isReplay: true
+    })
 
-  handleTelegram = () => this.setState({addTelegram: true})
+  handleTelegram = () => this.setState({ addTelegram: true })
 
   handleSubmit = () => {
     const { addTelegram, profile } = this.props
@@ -66,10 +67,18 @@ class Scores extends PureComponent {
     addTelegram(profile.data.sign_msg, telegram)
   }
 
-  telegramInputChange = e => this.setState({telegram: e.target.value})
+  telegramInputChange = e => this.setState({ telegram: e.target.value })
 
   render() {
-    const { scores, profile, accounts, balance, questionCount, vote, clearVote } = this.props
+    const {
+      scores,
+      profile,
+      accounts,
+      balance,
+      questionCount,
+      vote,
+      clearVote
+    } = this.props
     const { address, msg, isReplay, addTelegram } = this.state
 
     if (isReplay) {
@@ -85,7 +94,12 @@ class Scores extends PureComponent {
     }
 
     if (profile.data) {
-      timeToReset = Math.round((3600 * 1000 - (Date.now() - new Date(profile.data.lastVoteTime).getTime())) / 1000 / 60)
+      timeToReset = Math.round(
+        (3600 * 1000 -
+          (Date.now() - new Date(profile.data.lastVoteTime).getTime())) /
+          1000 /
+          60
+      )
       timeToReset = timeToReset < 0 ? 59 : timeToReset
     }
 
@@ -106,70 +120,87 @@ class Scores extends PureComponent {
       <RenderIf
         resource={scores}
         done={
-          scores.data && balance.data && (
+          scores.data &&
+          balance.data && (
             <div className="Scores">
               <div className="Scores-navbar">
                 <div className="Scores-navbar-title">
-                  <Link to='/' className="Scores-navbar-title-link">
-                    Schelling game
+                  <Link to="/" className="Scores-navbar-title-link">
+                    Schelling Game
                   </Link>
                 </div>
-                {profile.data && questionCount.data && (
-                  <div className="Scores-navbar-stats">
-                    <div>
-                      {scores.data.map((s, index) => (
-                        <div key={index} className="Scores-content-table-items">
-                          {s.address === profile.data.address &&
-                            <b>#{index+1}</b>
-                          }
+                {profile.data &&
+                  questionCount.data && (
+                    <div className="Scores-navbar-stats">
+                      <div>
+                        {scores.data.map((s, index) => (
+                          <div
+                            key={index}
+                            className="Scores-content-table-items"
+                          >
+                            {s.address === profile.data.address && (
+                              <b>#{index + 1}</b>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                      <div>
+                        {Math.round(profile.data.amount * 100) / 100} PNK
+                      </div>
+                      <div className="Scores-navbar-stats-twitter">
+                        <Twitter score={42} />
+                      </div>
+                      {profile.data.telegram.startsWith('telegram-') &&
+                        !addTelegram && (
+                          <div>
+                            <Link to="https://t.me/kleros" target="_blank">
+                              <img
+                                className="Scores-navbar-stats-telegram"
+                                src={telegram}
+                                alt="telegram"
+                                onClick={this.handleTelegram}
+                              />
+                            </Link>
+                          </div>
+                        )}
+                      {addTelegram && (
+                        <div>
+                          <input
+                            name="telegram"
+                            placeholder="Telegram username"
+                            onChange={this.telegramInputChange}
+                          />
+                          <button
+                            className="btn-telegram"
+                            onClick={this.handleSubmit}
+                          >
+                            Submit
+                          </button>
                         </div>
-                      ))}
-                    </div>
-                    <div>
-                      {Math.round(profile.data.amount * 100) / 100} PNK
-                    </div>
-                    <div className="Scores-navbar-stats-twitter">
-                      <Twitter score={42} />
-                    </div>
-                    {profile.data.telegram.startsWith('telegram-') && !addTelegram &&
+                      )}
+                      {profile.data.affiliates.length > 0 && (
+                        <div>Affiliates: {profile.data.affiliates.length}</div>
+                      )}
                       <div>
-                        <Link to="https://t.me/kleros" target="_blank">
-                          <img className="Scores-navbar-stats-telegram" src={telegram} alt="telegram" onClick={this.handleTelegram} />
-                        </Link>
+                        Questions: {votes.length} / {questionCount.data.count}
                       </div>
-                    }
-                    {addTelegram &&
-                      <div>
-                        <input name="telegram" placeholder="Telegram username" onChange={this.telegramInputChange} />
-                        <button className="btn-telegram" onClick={this.handleSubmit}>Submit</button>
-                      </div>
-                    }
-                    {profile.data.affiliates.length > 0 &&
-                      <div>
-                        Affiliates: {profile.data.affiliates.length}
-                      </div>
-                    }
-                    <div>
-                      Questions: {votes.length} / {questionCount.data.count}
+                      <div>Play again in {timeToReset}min</div>
+                      {profile.data &&
+                        questionCount.data.count - votes.length !== 0 && (
+                          <div>
+                            <button
+                              className="Scores-navbar-replay"
+                              onClick={this.handleReplay}
+                            >
+                              Replay
+                            </button>
+                          </div>
+                        )}
                     </div>
-                    <div>
-                      Reset in {timeToReset}min
-                    </div>
-                    {profile.data && questionCount.data.count - votes.length !== 0 && (
-                      <div>
-                        <button className="Scores-navbar-replay" onClick={this.handleReplay}>
-                          Replay
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                )}
+                  )}
                 <div className="Scores-navbar-balance">
                   <div className="Scores-navbar-balance-identicon">
-                    <Identicon
-                      seed={accounts.data[0]}
-                      size={10}
-                    />
+                    <Identicon seed={accounts.data[0]} size={10} />
                   </div>
                   <div className="Scores-navbar-balance-amount">
                     {Math.round(balance.data.toString() * 100) / 100} ETH
@@ -178,29 +209,36 @@ class Scores extends PureComponent {
               </div>
 
               <div className="Scores-content">
-                <div className="Scores-content-subtitle">
-                  SCORES
-                </div>
+                <div className="Scores-content-subtitle">SCORES</div>
                 <div className="Scores-content-table">
                   {scores.data.map((s, index) => (
                     <div key={index} className="Scores-content-table-items">
-                      <div className="Scores-content-table-items-item index"><b>#{index+1}</b></div>
-                      <div className="Scores-content-table-items-item address">{s.address}</div>
-                      <div className="Scores-content-table-items-item pnk">{Math.round(s.amount.toString() * 100) / 100} PNK</div>
-                      <div className="Scores-content-table-items-item score ">{s.best_score}</div>
+                      <div className="Scores-content-table-items-item index">
+                        <b>#{index + 1}</b>
+                      </div>
+                      <div className="Scores-content-table-items-item address">
+                        {s.address}
+                      </div>
+                      <div className="Scores-content-table-items-item pnk">
+                        {Math.round(s.amount.toString() * 100) / 100} PNK
+                      </div>
+                      <div className="Scores-content-table-items-item score ">
+                        {s.best_score}
+                      </div>
                     </div>
                   ))}
                 </div>
 
-
                 <div className="Home-content-footer">
                   <footer>
-                    © WTFPL 2018 - <i>Schelling game</i> propulsed by <a href="https://kleros.io">Kleros</a>
+                    © WTFPL 2018 - <i>Schelling Game</i> propulsed by{' '}
+                    <a href="https://kleros.io">Kleros</a>
                   </footer>
                 </div>
               </div>
             </div>
-        )}
+          )
+        }
         failedLoading={
           <div>
             There was an error fetching your balance. Make sure{' '}

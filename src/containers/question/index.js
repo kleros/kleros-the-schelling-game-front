@@ -50,18 +50,33 @@ class Question extends PureComponent {
       return <Redirect to="/" />
     }
 
-    if (question.data && question.data.msg && question.data.msg === 'You made 10 sessions. Try tomorrow.') {
-      toastr.warning('You made 10 sessions. Try tomorrow.', toastrOptions)
+    if (
+      question.data &&
+      question.data.msg &&
+      question.data.msg === 'You made 10 sessions. Try tomorrow.'
+    ) {
+      toastr.warning(
+        'You have already answered 10 questions. You have to wait at least 1 hour to play again.',
+        toastrOptions
+      )
       return <Redirect to={`/scores`} />
     }
 
-    if (question.data && (question.data.msg && question.data.msg === 'no question' || question.data.msg === 'You have answered all the questions. You can try tomorrow or add new question.')) {
-      toastr.success('Kudos! You have answered all the questions!', toastrOptions)
+    if (
+      question.data &&
+      ((question.data.msg && question.data.msg === 'no question') ||
+        question.data.msg ===
+          'You have answered all the questions. You can try tomorrow or add new question.')
+    ) {
+      toastr.success(
+        'Kudos! You have answered all the questions!',
+        toastrOptions
+      )
       return <Redirect to={`/scores`} />
     }
 
     if (vote.data && vote.data.result === 'loose') {
-      toastr.warning('Lost. You are not in the Schelling Point', toastrOptions)
+      toastr.warning('You failed to find the Schelling Point.', toastrOptions)
       return <Redirect to={`/scores?msg=loose`} />
     }
 
@@ -72,7 +87,9 @@ class Question extends PureComponent {
           done={
             question.data && question.data.question ? (
               <div className="proposals">
-                <div className="proposals-question">{question.data.question}</div>
+                <div className="proposals-question">
+                  {question.data.question}
+                </div>
                 {question.data.proposals.map((p, index) => (
                   <div key={index}>
                     <button
@@ -85,7 +102,7 @@ class Question extends PureComponent {
                 ))}
               </div>
             ) : (
-              <div></div>
+              <div />
             )
           }
           failedLoading={<span />}

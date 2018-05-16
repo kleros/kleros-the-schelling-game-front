@@ -19,7 +19,8 @@ class SubmitTelegram extends PureComponent {
     updateProfile: PropTypes.func.isRequired
   }
 
-  handleChangeTelegram = e => this.setState({telegramUsername: e.target.value})
+  handleChangeTelegram = e =>
+    this.setState({ telegramUsername: e.target.value })
 
   render() {
     const { telegramUsername } = this.state
@@ -27,32 +28,36 @@ class SubmitTelegram extends PureComponent {
       <div className="SubmitTelegram">
         <div className="SubmitTelegram-content">
           <div className="SubmitTelegram-content-title">
-            <h1>SUBSCRIBE TO THE KLEROS TELEGRAM</h1>
+            <h1>JOIN THE KLEROS TELEGRAM</h1>
           </div>
           <div className="SubmitTelegram-content-username">
-            <input name="telegramUser" onChange={this.handleChangeTelegram} placeholder="Question?" />
+            <input
+              name="telegramUser"
+              onChange={this.handleChangeTelegram}
+              placeholder="User"
+            />
           </div>
           <div className="SubmitTelegram-content-address">
-            <input placeholder="Telegram username (optional)" name="telegram-username" onChange={this.handleChangeTelegramUsername} />
+            <input
+              placeholder="Username (optional)"
+              name="telegram-username"
+              onChange={this.handleChangeTelegramUsername}
+            />
           </div>
-          {
-            telegramUsername &&
+          {telegramUsername && (
             <div className="SubmitTelegram-content-submit">
               <button onClick={this.handleSubmitTelegram}>SUBMIT</button>
             </div>
-          }
+          )}
         </div>
         <div className="SubmitTelegram-content-back">
-          <Link to='/'>← Back</Link>
+          <Link to="/">← Back</Link>
         </div>
       </div>
     )
   }
 }
 
-export default connect(
-  state => ({}),
-  {
-    updateProfile: profileActions.updateProfile
-  }
-)(SubmitTelegram)
+export default connect(state => ({}), {
+  updateProfile: profileActions.updateProfile
+})(SubmitTelegram)

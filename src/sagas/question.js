@@ -31,7 +31,10 @@ export function* fetchQuestions({ type, payload: { password } }) {
  * Updates questions.
  * @returns {array} - Questions.
  */
-export function* updateQuestions({ type, payload: { questionId, valid, password } }) {
+export function* updateQuestions({
+  type,
+  payload: { questionId, valid, password }
+}) {
   return yield call(questionApi.putQuestion, questionId, valid, password)
 }
 
@@ -42,7 +45,11 @@ export function* updateQuestions({ type, payload: { questionId, valid, password 
 export function* createQuestion({ type, payload: { question } }) {
   const questionRes = yield call(questionApi.postQuestion, question)
 
-  yield call(toastr.success, 'Thanks for your contribution. The question is awaiting moderation.', toastrOptions)
+  yield call(
+    toastr.success,
+    'Thanks for your contribution. The question is pending validation.',
+    toastrOptions
+  )
 
   return questionRes
 }

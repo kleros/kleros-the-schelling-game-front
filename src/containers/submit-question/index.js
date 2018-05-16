@@ -21,13 +21,13 @@ class SubmitQuestion extends PureComponent {
 
   handleChangeQuestion = e => {
     this.setState({
-      question: {...this.state.question, question: e.target.value}
+      question: { ...this.state.question, question: e.target.value }
     })
   }
 
   handleChangeEthereumAddress = e => {
     this.setState({
-      question: {...this.state.question, address: e.target.value}
+      question: { ...this.state.question, address: e.target.value }
     })
   }
 
@@ -35,7 +35,7 @@ class SubmitQuestion extends PureComponent {
 
   handleChangeProposal = proposalIndex => e => {
     this.setState({
-      question: {...this.state.question, [proposalIndex]: e.target.value}
+      question: { ...this.state.question, [proposalIndex]: e.target.value }
     })
   }
 
@@ -49,38 +49,48 @@ class SubmitQuestion extends PureComponent {
             <h1>SUBMIT A QUESTION</h1>
           </div>
           <div className="submitQuestion-content-question">
-            <input name="question" onChange={this.handleChangeQuestion} placeholder="Question?" />
+            <input
+              name="question"
+              onChange={this.handleChangeQuestion}
+              placeholder="Question"
+            />
             <div className="submitQuestion-content-proposals">
-              {
-                [0,1,2,3].map(index =>
-                  <div key={index}>
-                    <input placeholder={`Proposal ${index}`} name="proposal-{i}" onChange={this.handleChangeProposal(index)} />
-                  </div>
-                )
-              }
+              {[0, 1, 2, 3].map(index => (
+                <div key={index}>
+                  <input
+                    placeholder={`Proposal ${index}`}
+                    name="proposal-{i}"
+                    onChange={this.handleChangeProposal(index)}
+                  />
+                </div>
+              ))}
             </div>
           </div>
           <div className="submitQuestion-content-address">
-            <input placeholder="Ethereum address (optional)" name="ethereum-address" onChange={this.handleChangeEthereumAddress} />
+            <input
+              placeholder="Ethereum address (optional)"
+              name="ethereum-address"
+              onChange={this.handleChangeEthereumAddress}
+            />
           </div>
-          {
-            question.question && question[0] && question[1] && question[2] && question[3] &&
-            <div className="submitQuestion-content-submit">
-              <button onClick={this.handleSubmitQuestion}>SUBMIT</button>
-            </div>
-          }
+          {question.question &&
+            question[0] &&
+            question[1] &&
+            question[2] &&
+            question[3] && (
+              <div className="submitQuestion-content-submit">
+                <button onClick={this.handleSubmitQuestion}>SUBMIT</button>
+              </div>
+            )}
         </div>
         <div className="submitQuestion-content-back">
-          <Link to='/'>← Back</Link>
+          <Link to="/">← Back</Link>
         </div>
       </div>
     )
   }
 }
 
-export default connect(
-  state => ({}),
-  {
-    createQuestion: questionActions.createQuestion
-  }
-)(SubmitQuestion)
+export default connect(state => ({}), {
+  createQuestion: questionActions.createQuestion
+})(SubmitQuestion)
