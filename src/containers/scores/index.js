@@ -20,14 +20,16 @@ import Identicon from '../../components/identicon'
 import telegram from './telegram.png'
 import './score.css'
 
-const Twitter = ({score}) => (
-  <TwitterShareButton
-    url="https://schellinggame.com"
-    color="#1da1f2"
-    size="40px"
-    text={`I scored ${score} on a game where you have to find Schelling points in the cryptospace. I hope win some PNK from @kleros_io, distribution after the 1st round.`}
-    hashtags="gamedrop,ethereum,blockchain"
-  />
+const Twitter = ({score, cbOnClick}) => (
+  <span onClick={cbOnClick}>
+    <TwitterShareButton
+      url="https://schellinggame.com"
+      color="#1da1f2"
+      size="40px"
+      text={`I scored ${score} on a game where you have to find Schelling points in the cryptospace. I hope win some PNK from @kleros_io, distribution after the 1st round.`}
+      hashtags="gamedrop,ethereum,blockchain"
+    />
+  </span>
 )
 
 class Scores extends PureComponent {
@@ -42,7 +44,9 @@ class Scores extends PureComponent {
     // Action Dispatchers
     fetchScores: PropTypes.func.isRequired,
     fetchBalance: PropTypes.func.isRequired,
-    clearVote: PropTypes.func.isRequired
+    clearVote: PropTypes.func.isRequired,
+    addTelegram: PropTypes.func.isRequired,
+    addTwitter: PropTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -59,6 +63,11 @@ class Scores extends PureComponent {
   })
 
   handleTelegram = () => this.setState({addTelegram: true})
+
+  handleTwitter = () => {
+    const { addTwitter, profile } = this.props
+    addTwitter(profile.data.sign_msg)
+  }
 
   handleSubmit = () => {
     const { addTelegram, profile } = this.props
@@ -93,8 +102,6 @@ class Scores extends PureComponent {
       timeToReset = 59
     }
 
-    console.log(timeToReset)
-
     let votes
     if (vote.data && vote.data.votes) {
       votes = vote.data.votes
@@ -128,9 +135,11 @@ class Scores extends PureComponent {
                     <div>
                       {Math.round(profile.data.amount * 100) / 100} PNK
                     </div>
-                    <div className="Scores-navbar-stats-twitter">
-                      <Twitter score={42} />
-                    </div>
+                    {!profile.data.twitter &&
+                      <div className="Scores-navbar-stats-twitter">
+                        <Twitter score={profile.data.best_score} cbOnClick={this.handleTwitter} />
+                      </div>
+                    }
                     {profile.data.telegram.startsWith('telegram-') && !addTelegram &&
                       <div>
                         <Link to="https://t.me/kleros" target="_blank">
@@ -237,6 +246,7 @@ export default connect(
     clearVote: voteActions.clearVote,
     countQuestions: questionsActions.countQuestions,
     fetchBalance: walletActions.fetchBalance,
-    addTelegram: profileActions.addTelegram
+    addTelegram: profileActions.addTelegram,
+    addTwitter: profileActions.addTwitter
   }
 )(Scores)

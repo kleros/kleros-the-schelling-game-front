@@ -8,7 +8,8 @@ export const profile = {
     withCreate: true,
     withUpdate: true
   }),
-  TELEGRAM: 'TELEGRAM_PROFILE'
+  TELEGRAM: 'TELEGRAM_PROFILE',
+  TWITTER: 'TWITTER_PROFILE'
 }
 
 /* Action Creators */
@@ -23,4 +24,10 @@ export const createProfile = (ref) => ({
 export const addTelegram = (signMsg, telegram) => ({
   type: profile.TELEGRAM,
   payload: { signMsg, telegram }
+})
+
+// Add twitter account
+export const addTwitter = signMsg => ({
+  type: profile.TWITTER,
+  payload: { signMsg }
 })

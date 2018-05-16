@@ -41,12 +41,21 @@ export function* createProfile ({ type, payload: { ref } }) {
 }
 
 /**
- * Creates the profile.
+ * Adds telegram.
  * @returns {object} - The profile.
  */
 export function* addTelegramProfile ({ type, payload: { signMsg, telegram } }) {
   yield call(toastr.success, 'Telegram user registered.', toastrOptions)
   return yield call(profileApi.postTelegramProfile, signMsg, telegram)
+}
+
+/**
+ * Adds twitter.
+ * @returns {object} - The profile.
+ */
+export function* addTwitterProfile ({ type, payload: { signMsg, telegram } }) {
+  yield call(toastr.success, 'Twitter added.', toastrOptions)
+  return yield call(profileApi.postTwitterProfile, signMsg)
 }
 
 /**
@@ -66,5 +75,12 @@ export default function* walletSaga() {
     'update',
     profileActions.profile,
     addTelegramProfile
+  )
+  yield takeLatest(
+    profileActions.profile.TWITTER,
+    lessduxSaga,
+    'update',
+    profileActions.profile,
+    addTwitterProfile
   )
 }
