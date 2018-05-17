@@ -35,6 +35,22 @@ const profileApi = {
       .then(response => response.json())
       .catch(err => err)
       .then(data => data)
+  },
+  postTwitterProfile (signMsg) {
+    return fetch(`${process.env[`REACT_APP_${env}_API`]}/profiles/twitter`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        signMsg
+      })
+    })
+      .then(statusHelper)
+      .then(response => response.json())
+      .catch(err => err)
+      .then(data => data)
   }
 }
 

@@ -20,14 +20,16 @@ import Identicon from '../../components/identicon'
 import telegram from './telegram.png'
 import './score.css'
 
-const Twitter = ({ score }) => (
-  <TwitterShareButton
-    url="https://schellinggame.com"
-    color="#1da1f2"
-    size="40px"
-    text={`I scored ${score} on this cool game @Kleros_io made where you have to find Schelling Points for different questions. Try it now for a chance to win real PNK!`}
-    hashtags="gamedrop,ethereum,blockchain"
-  />
+const Twitter = ({score, cbOnClick}) => (
+  <span onClick={cbOnClick}>
+    <TwitterShareButton
+      url="https://schellinggame.com"
+      color="#1da1f2"
+      size="40px"
+      text={`I scored ${score} on this cool game @Kleros_io made where you have to find Schelling Points for different questions. Try it now for a chance to win real PNK!`}
+      hashtags="gamedrop,ethereum,blockchain"
+    />
+  </span>
 )
 
 class Scores extends PureComponent {
@@ -42,7 +44,9 @@ class Scores extends PureComponent {
     // Action Dispatchers
     fetchScores: PropTypes.func.isRequired,
     fetchBalance: PropTypes.func.isRequired,
-    clearVote: PropTypes.func.isRequired
+    clearVote: PropTypes.func.isRequired,
+    addTelegram: PropTypes.func.isRequired,
+    addTwitter: PropTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -60,6 +64,11 @@ class Scores extends PureComponent {
     })
 
   handleTelegram = () => this.setState({ addTelegram: true })
+
+  handleTwitter = () => {
+    const { addTwitter, profile } = this.props
+    addTwitter(profile.data.sign_msg)
+  }
 
   handleSubmit = () => {
     const { addTelegram, profile } = this.props
@@ -107,8 +116,6 @@ class Scores extends PureComponent {
       timeToReset = 59
     }
 
-    console.log(timeToReset)
-
     let votes
     if (vote.data && vote.data.votes) {
       votes = vote.data.votes
@@ -129,9 +136,26 @@ class Scores extends PureComponent {
                     Schelling Game
                   </Link>
                 </div>
-                {profile.data &&
-                  questionCount.data && (
-                    <div className="Scores-navbar-stats">
+                {profile.data && questionCount.data && (
+                  <div className="Scores-navbar-stats">
+                    <div>
+                      {scores.data.map((s, index) => (
+                        <div key={index} className="Scores-content-table-items">
+                          {s.address === profile.data.address &&
+                            <b>#{index+1}</b>
+                          }
+                        </div>
+                      ))}
+                    </div>
+                    <div>
+                      {Math.round(profile.data.amount * 100) / 100} PNK
+                    </div>
+                    {!profile.data.twitter &&
+                      <div className="Scores-navbar-stats-twitter">
+                        <Twitter score={profile.data.best_score} cbOnClick={this.handleTwitter} />
+                      </div>
+                    }
+                    {profile.data.telegram.startsWith('telegram-') && !addTelegram &&
                       <div>
                         {scores.data.map((s, index) => (
                           <div
@@ -275,6 +299,7 @@ export default connect(
     clearVote: voteActions.clearVote,
     countQuestions: questionsActions.countQuestions,
     fetchBalance: walletActions.fetchBalance,
-    addTelegram: profileActions.addTelegram
+    addTelegram: profileActions.addTelegram,
+    addTwitter: profileActions.addTwitter
   }
 )(Scores)
