@@ -174,18 +174,6 @@ class Home extends PureComponent {
                           Share your Schelling Game score on twitter from the
                           page /scores to earn 10 virtual PNK.
                         </li>
-                        <br />
-                        <li>
-                          Share your reference link&nbsp;
-                          <a
-                            href={`https://schellinggame.com?ref=${
-                              accounts.data[0]
-                            }`}
-                          >{`https://mvp.kleros.io?ref=${
-                            accounts.data[0]
-                          }`}</a>{' '}
-                          to earn 10 virtual PNK.
-                        </li>
                       </ul>
                       After answering all questions, you must wait at least 1
                       hour before being able to play again. This is to stop
