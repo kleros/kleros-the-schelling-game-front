@@ -96,7 +96,10 @@ class Home extends PureComponent {
               <div className="Home-navbar">
                 <div className="Home-navbar-title">
                   <Link to="/" className="Home-navbar-title-link">
-                    Schelling Game
+                    Schelling Game&nbsp;
+                    <sup>
+                      <b className="Home-navbar-title-link-alpha">ALPHA</b>
+                    </sup>
                   </Link>
                 </div>
                 <div className="Home-navbar-balance">
