@@ -155,7 +155,7 @@ class Scores extends PureComponent {
                         <Twitter score={profile.data.best_score} cbOnClick={this.handleTwitter} />
                       </div>
                     }
-                    {profile.data.telegram.startsWith('telegram-') && !addTelegram &&
+                    {profile.data.telegram.startsWith('telegram-') && !addTelegram && (
                       <div>
                         {scores.data.map((s, index) => (
                           <div
@@ -168,25 +168,26 @@ class Scores extends PureComponent {
                           </div>
                         ))}
                       </div>
-                      <div>
-                        {Math.round(profile.data.amount * 100) / 100} PNK
-                      </div>
-                      <div className="Scores-navbar-stats-twitter">
-                        <Twitter score={42} />
-                      </div>
-                      {profile.data.telegram.startsWith('telegram-') &&
-                        !addTelegram && (
-                          <div>
-                            <Link to="https://t.me/kleros" target="_blank">
-                              <img
-                                className="Scores-navbar-stats-telegram"
-                                src={telegram}
-                                alt="telegram"
-                                onClick={this.handleTelegram}
-                              />
-                            </Link>
-                          </div>
-                        )}
+                    )}
+                    <div>
+                      {Math.round(profile.data.amount * 100) / 100} PNK
+                    </div>
+                    <div className="Scores-navbar-stats-twitter">
+                      <Twitter score={42} />
+                    </div>
+                    {profile.data.telegram.startsWith('telegram-') &&
+                      !addTelegram && (
+                        <div>
+                          <Link to="https://t.me/kleros" target="_blank">
+                            <img
+                              className="Scores-navbar-stats-telegram"
+                              src={telegram}
+                              alt="telegram"
+                              onClick={this.handleTelegram}
+                            />
+                          </Link>
+                        </div>
+                      )}
                       {addTelegram && (
                         <div>
                           <input
