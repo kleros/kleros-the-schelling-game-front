@@ -16,7 +16,7 @@ const toastrOptions = {
  * Creates the profile.
  * @returns {object} - The profile.
  */
-export function* createProfile ({ type, payload: { ref } }) {
+export function* createProfile({ type, payload: { ref } }) {
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
@@ -25,11 +25,7 @@ export function* createProfile ({ type, payload: { ref } }) {
     'Shelling_Game + @kleros_io + YOU = <3'
   )
 
-  const signMsg = yield call(
-    web3.eth.personal.sign,
-    msg,
-    accounts[0]
-  )
+  const signMsg = yield call(web3.eth.personal.sign, msg, accounts[0])
 
   let profile = {}
 
@@ -44,8 +40,12 @@ export function* createProfile ({ type, payload: { ref } }) {
  * Adds telegram.
  * @returns {object} - The profile.
  */
-export function* addTelegramProfile ({ type, payload: { signMsg, telegram } }) {
-  yield call(toastr.success, 'Telegram user registered.', toastrOptions)
+export function* addTelegramProfile({ type, payload: { signMsg, telegram } }) {
+  yield call(
+    toastr.success,
+    'Telegram user registered successfully.',
+    toastrOptions
+  )
   return yield call(profileApi.postTelegramProfile, signMsg, telegram)
 }
 

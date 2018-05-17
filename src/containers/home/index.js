@@ -42,7 +42,7 @@ class Home extends PureComponent {
   }
 
   handleStart = () => {
-    const {profile, createProfile} = this.props
+    const { profile, createProfile } = this.props
     if (!profile.data) {
       const { ref } = queryString.parse(this.props.location.search)
       this.props.createProfile(ref)
@@ -53,9 +53,10 @@ class Home extends PureComponent {
     }
   }
 
-  handleScores = () => this.setState({
-    goScores: true
-  })
+  handleScores = () =>
+    this.setState({
+      goScores: true
+    })
 
   handleChangeAddress = e => {
     this.setState({
@@ -67,34 +68,40 @@ class Home extends PureComponent {
     const { isStart, goScores } = this.state
     const { profile, balance, accounts } = this.props
 
-   if (profile.data && isStart && (Math.round(balance.data.toString() * 100) / 100) >= 1) {
-     return <Redirect to="/game" />
-   } else if (profile.data && isStart && (Math.round(balance.data.toString() * 100) / 100) < 1) {
-     toastr.success('You need 1ETH on your balance to play.')
-   }
+    if (
+      profile.data &&
+      isStart &&
+      Math.round(balance.data.toString() * 100) / 100 >= 1
+    ) {
+      return <Redirect to="/game" />
+    } else if (
+      profile.data &&
+      isStart &&
+      Math.round(balance.data.toString() * 100) / 100 < 1
+    ) {
+      toastr.success('You need a balance of at least 1 ETH to play.')
+    }
 
-   if (goScores) {
-     return <Redirect to="/scores" />
-   }
+    if (goScores) {
+      return <Redirect to="/scores" />
+    }
 
     return (
       <RenderIf
         resource={balance}
         done={
-          balance.data && accounts.data && (
+          balance.data &&
+          accounts.data && (
             <div className="Home">
               <div className="Home-navbar">
                 <div className="Home-navbar-title">
-                  <Link to='/' className="Home-navbar-title-link">
-                    Schelling game
+                  <Link to="/" className="Home-navbar-title-link">
+                    Schelling Game
                   </Link>
                 </div>
                 <div className="Home-navbar-balance">
                   <div className="Home-navbar-balance-identicon">
-                    <Identicon
-                      seed={accounts.data[0]}
-                      size={10}
-                    />
+                    <Identicon seed={accounts.data[0]} size={10} />
                   </div>
                   <div className="Home-navbar-balance-amount">
                     {Math.round(balance.data.toString() * 100) / 100} ETH
@@ -105,74 +112,108 @@ class Home extends PureComponent {
                 <div className="Home-content-subtitle">
                   WILL YOU FIND THE SCHELLING POINT?
                   <div>
-                    <img className="Home-content-subtitle-question" src={question} alt="question" />
+                    <img
+                      className="Home-content-subtitle-question"
+                      src={question}
+                      alt="question"
+                    />
                   </div>
                   <div className="Home-content-subtitle-buttons">
-                    <button onClick={this.handleStart} className="Home-content-subtitle-buttons-start">{profile.data ? 'Start' : 'Sign up'}</button>
-                    <button onClick={this.handleScores} className="Home-content-subtitle-buttons-scores">Scores</button>
+                    <button
+                      onClick={this.handleStart}
+                      className="Home-content-subtitle-buttons-start"
+                    >
+                      {profile.data ? 'Start' : 'Sign up'}
+                    </button>
+                    <button
+                      onClick={this.handleScores}
+                      className="Home-content-subtitle-buttons-scores"
+                    >
+                      Scores
+                    </button>
                   </div>
                   <div className="panel-wrapper">
-                    <a href="#show" className="show btn" id="show">Show full rules</a>
-                    <a href="#hide" className="hide btn" id="hide">Hide full rules</a>
+                    <a href="#show" className="show btn" id="show">
+                      Show full rules
+                    </a>
+                    <a href="#hide" className="hide btn" id="hide">
+                      Hide full rules
+                    </a>
                     <div className="panel">
-                    To play you need a balance of 1eth and to sign the message
-                    proving you are the owner of this address and to prevent a
-                    sybil attack.
-                    <br />
-                    The goal is to find the Schelling Point for each question.
-
-                    When you find it your score will increase by 1 and you'll
-                    win pinakions (PNK) from those who respond "incoherently".
-
-                    If you don't find the Schelling point your score will
-                    decrease by one and users who respond coherently win a
-                    fraction of your PNK.
-                    <br /><br />
-                    Extra ways to win PNK:
+                      To play, you will sign a message using your Web3 account.
+                      We require that you have a balance of at least 1 ETH in
+                      the account you sign with, in order to avoid sybil
+                      attacks.
+                      <br />
+                      <br />
+                      The goal is to find the Schelling Point for each question.
+                      If you find it, your score will increase by 1 and you'll
+                      win virtual Pinakions (PNK) from those who didn't. If you
+                      don't find it, your score will decrease by 1 and users who
+                      did find it win a fraction of your virtual PNK.
+                      <br />
+                      <br />
+                      Other ways to earn virtual PNK:
                       <ul>
                         <li>
-                          You can submit a question
-                          <Link to='/submit-question'>submit a question</Link>,
-                          if this question is validated you earn 10PNK
+                          You can{' '}
+                          <Link to="/submit-question">submit a question</Link>.
+                          If this question is validated, you earn 10 virtual
+                          PNK.
                         </li>
+                        <br />
                         <li>
-                          Add your pseudo here and join the kleros telegram,
-                          after a valiadation you can earn 10PNK
+                          Add your username here and join the Kleros Telegram.
+                          After validation, you earn 10 virtual PNK.
                         </li>
+                        <br />
                         <li>
-                          Share your Schelling Game score on twitter on the page
-                          /scores, you can earn 10PNK
+                          Share your Schelling Game score on twitter from the
+                          page /scores to earn 10 virtual PNK.
                         </li>
+                        <br />
                         <li>
                           Share your reference link&nbsp;
-                          <a href={`https://schellinggame.com?ref=${accounts.data[0]}`}>{`https://mvp.kleros.io?ref=${accounts.data[0]}`}</a>,
-                          you can earn 10PNK
+                          <a
+                            href={`https://schellinggame.com?ref=${
+                              accounts.data[0]
+                            }`}
+                          >{`https://mvp.kleros.io?ref=${
+                            accounts.data[0]
+                          }`}</a>{' '}
+                          to earn 10 virtual PNK.
                         </li>
                       </ul>
-                      Once you answer all the questions you must wait 1 hour to
-                      reset your questions.
-                      This workflow is in order to avoid bribe attacks by
-                      submitting many malicious votes.
+                      After answering all questions, you must wait at least 1
+                      hour before being able to play again. This is to stop
+                      people from spam-answering questions and to make it harder
+                      for them to collude.
                       <br />
-                      The game is finished after the 15 June (full bonus for the
-                      token sale).
-                      <br /><br />
-                      All players win 10PNK and the 100 best players will
-                      receive their score in real PNK up to 1000PNK.
-                      <br /><br />
-                      The ranking is based on best score and the amount of
-                      pinakions. For more information, you can read this article
-                      it explains the advantages of a gamedrop and how it works.
-                      <br /><br />
-                      <center><b>Have fun!</b></center>
+                      The game finishes on the 15th of June (the end of the full
+                      bonus phase in our token sale).
+                      <br />
+                      <br />
+                      All players win 10 real PNK and additionally, the top 100
+                      players will receive their virtual PNK score in real PNK,
+                      up to 1000 PNK.
+                      <br />
+                      <br />
+                      For more information, you can read this article. It
+                      explains the advantages of a "gamedrop" and how it works.
+                      <br />
+                      <br />
+                      <center>
+                        <b>Have fun!</b>
+                      </center>
                     </div>
-                    <div className="fade"></div>
-                    </div>
+                    <div className="fade" />
+                  </div>
                 </div>
 
                 <div className="Home-content-footer">
                   <footer>
-                    © WTFPL 2018 - <i>Schelling game</i> propulsed by <a href="https://kleros.io">Kleros</a>
+                    © WTFPL 2018 - <i>Schelling Game</i> propulsed by{' '}
+                    <a href="https://kleros.io">Kleros</a>
                   </footer>
                 </div>
               </div>
