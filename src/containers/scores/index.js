@@ -155,26 +155,6 @@ class Scores extends PureComponent {
                         <Twitter score={profile.data.best_score} cbOnClick={this.handleTwitter} />
                       </div>
                     }
-                    {profile.data.telegram.startsWith('telegram-') && !addTelegram && (
-                      <div>
-                        {scores.data.map((s, index) => (
-                          <div
-                            key={index}
-                            className="Scores-content-table-items"
-                          >
-                            {s.address === profile.data.address && (
-                              <b>#{index + 1}</b>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    <div>
-                      {Math.round(profile.data.amount * 100) / 100} PNK
-                    </div>
-                    <div className="Scores-navbar-stats-twitter">
-                      <Twitter score={42} />
-                    </div>
                     {profile.data.telegram.startsWith('telegram-') &&
                       !addTelegram && (
                         <div>
