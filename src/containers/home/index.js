@@ -172,7 +172,20 @@ class Home extends PureComponent {
                         <br />
                         <li>
                           Share your Schelling Game score on twitter from the
-                          page /scores to earn 10 virtual PNK.
+                          page <Link to="/scores">score</Link> to earn 10
+                          virtual PNK.
+                        </li>
+                        <br />
+                        <li>
+                          Share your reference link&nbsp;
+                          <a
+                            href={`https://game.kleros.io?ref=${
+                              accounts.data[0].toLowerCase()
+                            }`}
+                          >{`https://game.kleros.io?ref=${
+                            accounts.data[0].toLowerCase()
+                          }`}</a>{' '}
+                          to earn 10 virtual PNK.
                         </li>
                       </ul>
                       After answering all questions, you must wait at least 1
