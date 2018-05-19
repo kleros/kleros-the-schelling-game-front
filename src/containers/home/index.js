@@ -71,15 +71,15 @@ class Home extends PureComponent {
     if (
       profile.data &&
       isStart &&
-      Math.round(balance.data.toString() * 100) / 100 >= 1
+      Math.round(balance.data.toString() * 100) / 100 >= 0.1
     ) {
       return <Redirect to="/game" />
     } else if (
       profile.data &&
       isStart &&
-      Math.round(balance.data.toString() * 100) / 100 < 1
+      Math.round(balance.data.toString() * 100) / 100 < 0.1
     ) {
-      toastr.success('You need a balance of at least 1 ETH to play.')
+      toastr.success('You need a balance of at least 0.1 ETH to play.')
     }
 
     if (goScores) {
@@ -124,7 +124,7 @@ class Home extends PureComponent {
                   <div className="Home-content-subtitle-buttons">
                     <button
                       onClick={this.handleStart}
-                      className="Home-content-subtitle-buttons-start"
+                      className={`Home-content-subtitle-buttons-start ${profile.data ? 'Home-content-subtitle-buttons-start-valid' : ''}`}
                     >
                       {profile.data ? 'Start' : 'Sign up'}
                     </button>
@@ -144,7 +144,7 @@ class Home extends PureComponent {
                     </a>
                     <div className="panel">
                       To play, you will sign a message using your Web3 account.
-                      We require that you have a balance of at least 1 ETH in
+                      We require that you have a balance of at least 0.1 ETH in
                       the account you sign with, in order to avoid sybil
                       attacks.
                       <br />

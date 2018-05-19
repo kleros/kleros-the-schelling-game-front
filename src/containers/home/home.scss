@@ -66,6 +66,10 @@
           font-weight: lighter;
           cursor: pointer;
           margin-right: 10px;
+          &-valid {
+            background: #5cb85c;
+            border: 1px solid #5cb85c;
+          }
           &:hover {
             background: #4183c4;
             border: 1px solid #4183c4;
