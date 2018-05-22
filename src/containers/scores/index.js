@@ -189,9 +189,8 @@ class Scores extends PureComponent {
                       <div>
                         Questions: {votes.length} / {questionCount.data.count}
                       </div>
-                      <div>Play again in {timeToReset}min</div>
                       {profile.data &&
-                        questionCount.data.count - votes.length !== 0 && (
+                        questionCount.data.count - votes.length > 0 ? (
                           <div>
                             <button
                               className="Scores-navbar-replay"
@@ -200,6 +199,8 @@ class Scores extends PureComponent {
                               Replay
                             </button>
                           </div>
+                        ) : (
+                          <div>Play again in {timeToReset}min</div>
                         )}
                     </div>
                   )}
