@@ -132,8 +132,11 @@ class Scores extends PureComponent {
             <div className="Scores">
               <div className="Scores-navbar">
                 <div className="Scores-navbar-title">
-                  <Link to="/" className="Scores-navbar-title-link">
-                    Schelling Game
+                <Link to="/" className="Home-navbar-title-link">
+                    Schelling Game&nbsp;
+                    <sup>
+                      <b className="Home-navbar-title-link-alpha">ALPHA</b>
+                    </sup>
                   </Link>
                 </div>
                 {profile.data && questionCount.data && (
