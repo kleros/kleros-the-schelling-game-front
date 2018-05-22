@@ -124,7 +124,11 @@ class Home extends PureComponent {
                   <div className="Home-content-subtitle-buttons">
                     <button
                       onClick={this.handleStart}
-                      className={`Home-content-subtitle-buttons-start ${profile.data ? 'Home-content-subtitle-buttons-start-valid' : ''}`}
+                      className={`Home-content-subtitle-buttons-start ${
+                        profile.data
+                          ? 'Home-content-subtitle-buttons-start-valid'
+                          : ''
+                      }`}
                     >
                       {profile.data ? 'Start' : 'Sign up'}
                     </button>
@@ -179,12 +183,8 @@ class Home extends PureComponent {
                         <li>
                           Share your reference link&nbsp;
                           <a
-                            href={`https://game.kleros.io?ref=${
-                              accounts.data[0].toLowerCase()
-                            }`}
-                          >{`https://game.kleros.io?ref=${
-                            accounts.data[0].toLowerCase()
-                          }`}</a>{' '}
+                            href={`https://game.kleros.io?ref=${accounts.data[0].toLowerCase()}`}
+                          >{`https://game.kleros.io?ref=${accounts.data[0].toLowerCase()}`}</a>{' '}
                           to earn 10 virtual PNK.
                         </li>
                       </ul>
@@ -202,8 +202,11 @@ class Home extends PureComponent {
                       up to 1000 PNK.
                       <br />
                       <br />
-                      For more information, you can read this article. It
-                      explains the advantages of a "gamedrop" and how it works.
+                      For more information, you can read{' '}
+                      <a href="https://medium.com/kleros/gamedrop-an-alternative-to-the-airdrop-fdf2bb94a0e6">
+                        this article
+                      </a>. It explains the advantages of a "gamedrop" and how
+                      it works.
                       <br />
                       <br />
                       <center>
