@@ -237,13 +237,12 @@ class Scores extends PureComponent {
                     </div>
                   ))}
                 </div>
-
-                <div className="Home-content-footer">
-                  <footer>
-                    © WTFPL 2018 - <i>Schelling Game</i> propulsed by{' '}
-                    <a href="https://kleros.io">Kleros</a>
-                  </footer>
-                </div>
+              </div>
+              <div className="Scores-footer">
+                <footer>
+                  © WTFPL 2018 - <i>Schelling Game</i> propulsed by{' '}
+                  <a href="https://kleros.io">Kleros</a>
+                </footer>
               </div>
             </div>
           )

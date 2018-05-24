@@ -1,8 +1,8 @@
 /* @define Scores */
 .Scores {
-  min-height: 100%;
   display: flex;
   flex-direction: column;
+  height: 100vh;
 
   &-navbar {
     display:flex;
@@ -86,10 +86,6 @@
     }
   }
   &-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
     flex: 1;
     &-subtitle {
       text-align: center;
@@ -101,12 +97,14 @@
     &-table {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      flex: 1;
       &-items {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         &-item {
-          padding: 1em;
+          line-height: 50px;
         }
         .index {
           width: 50px;
@@ -122,21 +120,22 @@
         }
       }
     }
-    &-footer {
-      margin-top: 40px;
-      width: 100vw;
-      background: #f2f2f3;
-      padding: 20px 0;
+
+  }
+  &-footer {
+    margin-top: 40px;
+    width: 100vw;
+    background: #f2f2f3;
+    padding: 20px 0;
+    color: gray;
+    font-size: 18px;
+    a {
+      font-weight: bold;
+      text-decoration: none;
       color: gray;
-      font-size: 18px;
-      a {
-        font-weight: bold;
-        text-decoration: none;
-        color: gray;
-      }
-      a:hover {
-        cursor: pointer;
-      }
+    }
+    a:hover {
+      cursor: pointer;
     }
   }
 }
