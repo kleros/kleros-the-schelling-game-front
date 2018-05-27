@@ -15,8 +15,9 @@ const toastrOptions = {
  * Fetches the question.
  * @returns {object} - The question.
  */
-export function* fetchQuestion({ type, payload: { signMsg } }) {
-  return yield call(questionApi.getQuestion, signMsg)
+export function* fetchQuestion({ type, payload: { signMsg, theme } }) {
+  console.log('ewfewf',theme)
+  return yield call(questionApi.getQuestion, signMsg, theme)
 }
 
 /**

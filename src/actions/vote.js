@@ -13,9 +13,9 @@ export const vote = {
 /* Action Creators */
 
 // Create vote
-export const createVote = (signMsg, questionId, voteId) => ({
+export const createVote = (signMsg, theme, questionId, voteId) => ({
   type: vote.CREATE,
-  payload: { signMsg, questionId, voteId }
+  payload: { signMsg, theme, questionId, voteId }
 })
 
 // Clear vote

@@ -13,6 +13,7 @@ import * as walletActions from '../../actions/wallet'
 import * as walletSelectors from '../../reducers/wallet'
 import Identicon from '../../components/identicon'
 import * as profileActions from '../../actions/profile'
+import * as themeActions from '../../actions/theme'
 import { web3 } from '../../bootstrap/dapp-api'
 
 import question from './question.png'
@@ -42,15 +43,21 @@ class Home extends PureComponent {
   }
 
   handleStart = () => {
-    const { profile, createProfile } = this.props
-    if (!profile.data) {
-      const { ref } = queryString.parse(this.props.location.search)
-      this.props.createProfile(ref)
-    } else {
-      this.setState({
-        isStart: true
-      })
-    }
+    const { createProfile } = this.props
+    const { ref } = queryString.parse(this.props.location.search)
+    this.props.createProfile(ref)
+  }
+
+  handleStartFootball = () => {
+    const { setTheme } = this.props
+    setTheme('football')
+    this.setState({isStart: true})
+  }
+
+  handleStartCrypto = () => {
+    const { setTheme } = this.props
+    setTheme('crypto')
+    this.setState({isStart: true})
   }
 
   handleScores = () =>
@@ -122,22 +129,37 @@ class Home extends PureComponent {
                     />
                   </div>
                   <div className="Home-content-subtitle-buttons">
-                    <button
-                      onClick={this.handleStart}
-                      className={`Home-content-subtitle-buttons-start ${
-                        profile.data
-                          ? 'Home-content-subtitle-buttons-start-valid'
-                          : ''
-                      }`}
-                    >
-                      {profile.data ? 'Start' : 'Sign up'}
-                    </button>
-                    <button
-                      onClick={this.handleScores}
-                      className="Home-content-subtitle-buttons-scores"
-                    >
-                      Scores
-                    </button>
+                    {profile.data ? (
+                      <div>
+                        <button
+                          onClick={this.handleStartFootball}
+                          className="Home-content-subtitle-buttons-start"
+                        >
+                          Play Football
+                        </button>
+                        <button
+                          onClick={this.handleStartCrypto}
+                          className="Home-content-subtitle-buttons-start"
+                        >
+                          Play Crypto
+                        </button>
+                      </div>
+                    ) : (
+                      <div>
+                        <button
+                          onClick={this.handleStart}
+                          className="Home-content-subtitle-buttons-start"
+                        >
+                          Sign up
+                        </button>
+                        <button
+                          onClick={this.handleScores}
+                          className="Home-content-subtitle-buttons-scores"
+                        >
+                          Scores
+                        </button>
+                      </div>
+                    )}
                   </div>
                   <div className="panel-wrapper">
                     <a href="#show" className="show btn" id="show">
@@ -249,14 +271,17 @@ class Home extends PureComponent {
   }
 }
 
+
 export default connect(
   state => ({
     profile: state.profile.profile,
     balance: state.wallet.balance,
-    accounts: state.wallet.accounts
+    accounts: state.wallet.accounts,
+    theme: state.theme
   }),
   {
     createProfile: profileActions.createProfile,
-    fetchBalance: walletActions.fetchBalance
+    fetchBalance: walletActions.fetchBalance,
+    setTheme: themeActions.setTheme
   }
 )(Home)

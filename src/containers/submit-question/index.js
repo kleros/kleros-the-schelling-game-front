@@ -19,6 +19,12 @@ class SubmitQuestion extends PureComponent {
     createQuestion: PropTypes.func.isRequired
   }
 
+  handleChangeTheme = e => {
+    this.setState({
+      question: { ...this.state.question, theme: e.target.value }
+    })
+  }
+
   handleChangeQuestion = e => {
     this.setState({
       question: { ...this.state.question, question: e.target.value }
@@ -49,6 +55,13 @@ class SubmitQuestion extends PureComponent {
             <h1>SUBMIT A QUESTION</h1>
           </div>
           <div className="submitQuestion-content-question">
+            <div  className="submitQuestion-content-theme">
+              <select name="theme" onChange={this.handleChangeTheme}>
+                <option>Theme</option>
+                <option value="crypto">Crypto</option>
+                <option value="football">Football</option>
+              </select>
+            </div>
             <input
               name="question"
               onChange={this.handleChangeQuestion}
@@ -73,7 +86,8 @@ class SubmitQuestion extends PureComponent {
               onChange={this.handleChangeEthereumAddress}
             />
           </div>
-          {question.question &&
+          {question.theme &&
+            question.question &&
             question[0] &&
             question[1] &&
             question[2] &&

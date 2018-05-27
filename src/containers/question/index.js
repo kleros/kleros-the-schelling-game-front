@@ -30,14 +30,14 @@ class Question extends PureComponent {
   }
 
   componentDidMount() {
-    const { fetchQuestion, profile } = this.props
-    fetchQuestion(profile.data.sign_msg)
+    const { fetchQuestion, profile, theme } = this.props
+    fetchQuestion(profile.data.sign_msg, theme)
   }
 
   handleVote = voteId => e => {
-    const { question, profile, createVote } = this.props
+    const { question, profile, createVote, theme } = this.props
 
-    createVote(profile.data.sign_msg, question.data._id, voteId)
+    createVote(profile.data.sign_msg, theme, question.data._id, voteId)
   }
 
   static propTypes = {}
@@ -69,7 +69,7 @@ class Question extends PureComponent {
           'You have answered all the questions. You can try tomorrow or add new question.')
     ) {
       toastr.success(
-        'Kudos! You have answered all the questions!',
+        'Kudos! You have answered all the questions for this theme!',
         toastrOptions
       )
       return <Redirect to={`/scores`} />
@@ -121,7 +121,8 @@ export default connect(
   state => ({
     question: state.question.question,
     vote: state.vote.vote,
-    profile: state.profile.profile
+    profile: state.profile.profile,
+    theme: state.theme
   }),
   {
     fetchQuestion: questionActions.fetchQuestion,

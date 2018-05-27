@@ -72,6 +72,10 @@ class Dashboard extends PureComponent {
                       </div>
 
                       <div>
+                        <i>{q.category}</i>
+                      </div>
+
+                      <div>
                         <label htmlFor="normal-switch">
                           <Switch
                             onChange={this.handleChangeValid(q._id, q.valid)}

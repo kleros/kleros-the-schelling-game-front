@@ -8,6 +8,12 @@
 
   &-content {
     min-width: 80vw;
+    &-theme {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      margin: 1em 0;
+    }
     &-question {
       display: flex;
       flex-direction: column;

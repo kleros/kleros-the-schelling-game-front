@@ -9,6 +9,7 @@ import profile from './profile'
 import vote from './vote'
 import scores from './scores'
 import wallet from './wallet'
+import theme from './theme'
 
 // Export root reducer
 export default combineReducers({
@@ -20,5 +21,6 @@ export default combineReducers({
   scores,
   questions,
   wallet,
+  theme,
   toastr
 })
