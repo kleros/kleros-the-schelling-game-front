@@ -189,9 +189,6 @@ class Scores extends PureComponent {
                       {profile.data.affiliates.length > 0 && (
                         <div>Affiliates: {profile.data.affiliates.length}</div>
                       )}
-                      <div>
-                        Questions: {votes.length} / {questionCount.data.count}
-                      </div>
                       {profile.data &&
                         questionCount.data.count - votes.length > 0 ? (
                           <div>
