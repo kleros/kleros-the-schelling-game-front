@@ -120,7 +120,7 @@ class Home extends PureComponent {
               </div>
               <div className="Home-content">
                 <div className="Home-content-subtitle">
-                  WILL YOU FIND THE SCHELLING POINT?
+                  <b>WORK IN PROGRESS (to the beta version)</b>
                   <div>
                     <img
                       className="Home-content-subtitle-question"
@@ -150,7 +150,7 @@ class Home extends PureComponent {
                           onClick={this.handleStart}
                           className="Home-content-subtitle-buttons-start"
                         >
-                          Sign up
+                          Sign up (not available)
                         </button>
                         <button
                           onClick={this.handleScores}
