@@ -135,7 +135,7 @@ class Scores extends PureComponent {
                 <Link to="/" className="Home-navbar-title-link">
                     Schelling Game&nbsp;
                     <sup>
-                      <b className="Home-navbar-title-link-alpha">ALPHA</b>
+                      <b className="Home-navbar-title-link-alpha">BETA</b>
                     </sup>
                   </Link>
                 </div>

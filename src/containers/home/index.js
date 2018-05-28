@@ -105,7 +105,7 @@ class Home extends PureComponent {
                   <Link to="/" className="Home-navbar-title-link">
                     Schelling Game&nbsp;
                     <sup>
-                      <b className="Home-navbar-title-link-alpha">ALPHA</b>
+                      <b className="Home-navbar-title-link-alpha">BETA</b>
                     </sup>
                   </Link>
                 </div>
@@ -120,7 +120,7 @@ class Home extends PureComponent {
               </div>
               <div className="Home-content">
                 <div className="Home-content-subtitle">
-                  <b>WORK IN PROGRESS (to the beta version)</b>
+                  WILL YOU FIND THE SCHELLING POINT?
                   <div>
                     <img
                       className="Home-content-subtitle-question"
@@ -150,7 +150,7 @@ class Home extends PureComponent {
                           onClick={this.handleStart}
                           className="Home-content-subtitle-buttons-start"
                         >
-                          Sign up (not available)
+                          Sign up
                         </button>
                         <button
                           onClick={this.handleScores}
