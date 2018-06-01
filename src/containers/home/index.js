@@ -38,7 +38,8 @@ class Home extends PureComponent {
   }
 
   componentDidMount() {
-    const { fetchBalance } = this.props
+    const { fetchBalance, clearTheme } = this.props
+    clearTheme()
     fetchBalance()
   }
 
@@ -282,6 +283,7 @@ export default connect(
   {
     createProfile: profileActions.createProfile,
     fetchBalance: walletActions.fetchBalance,
+    clearTheme: themeActions.clearTheme,
     setTheme: themeActions.setTheme
   }
 )(Home)

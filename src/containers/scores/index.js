@@ -50,7 +50,8 @@ class Scores extends PureComponent {
   }
 
   componentDidMount() {
-    const { fetchScores, fetchBalance, countQuestions } = this.props
+    const { fetchScores, fetchBalance, countQuestions, clearVote } = this.props
+    clearVote()
     fetchBalance()
     countQuestions()
     const { address, msg } = queryString.parse(this.props.location.search)
@@ -85,13 +86,11 @@ class Scores extends PureComponent {
       accounts,
       balance,
       questionCount,
-      vote,
-      clearVote
+      vote
     } = this.props
     const { address, msg, isReplay, addTelegram } = this.state
 
     if (isReplay) {
-      clearVote()
       return <Redirect to="/game" />
     }
 
