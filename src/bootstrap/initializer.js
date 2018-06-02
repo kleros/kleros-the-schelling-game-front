@@ -24,7 +24,7 @@ class Initializer extends PureComponent {
     ]).isRequired
   }
 
-  state = { isWeb3Loaded: web3.eth.accounts !== undefined }
+  state = { isWeb3Loaded: web3 !== undefined && web3.eth !== undefined && web3.eth.accounts !== undefined }
 
   componentDidMount() {
     const { fetchAccounts } = this.props
