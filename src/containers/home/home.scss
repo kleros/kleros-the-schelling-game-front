@@ -57,6 +57,10 @@
         opacity: 0.2;
       }
       &-buttons {
+        &-content {
+          display: flex;
+          flex-direction: column;
+        }
         &-start {
           width: 220px;
           line-height: 44px;

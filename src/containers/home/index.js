@@ -49,6 +49,12 @@ class Home extends PureComponent {
     this.props.createProfile(ref)
   }
 
+  handleStartGeneral = () => {
+    const { setTheme } = this.props
+    setTheme('general')
+    this.setState({isStart: true})
+  }
+
   handleStartFootball = () => {
     const { setTheme } = this.props
     setTheme('football')
@@ -132,6 +138,12 @@ class Home extends PureComponent {
                   <div className="Home-content-subtitle-buttons">
                     {profile.data ? (
                       <div>
+                        <button
+                          onClick={this.handleStartGeneral}
+                          className="Home-content-subtitle-buttons-start"
+                        >
+                          Play General
+                        </button>
                         <button
                           onClick={this.handleStartFootball}
                           className="Home-content-subtitle-buttons-start"
