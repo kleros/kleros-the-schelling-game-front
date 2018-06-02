@@ -58,7 +58,7 @@ class SubmitQuestion extends PureComponent {
             <div  className="submitQuestion-content-theme">
               <select name="theme" onChange={this.handleChangeTheme}>
                 <option>Theme</option>
-                <option value="crypto">General</option>
+                <option value="general">General</option>
                 <option value="crypto">Crypto</option>
                 <option value="football">Football</option>
               </select>
