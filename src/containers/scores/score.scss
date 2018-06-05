@@ -99,25 +99,39 @@
       flex-direction: column;
       align-items: center;
       flex: 1;
+      margin-top: 3em;
       &-items {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        border: 1px lightgray solid;
+        border-bottom: none;
         &-item {
           line-height: 50px;
         }
         .index {
-          width: 50px;
+          width: 80px;
+          padding-left: 20px;
         }
         .address {
           width: 400px;
         }
         .pnk {
-          width: 150px;
+          width: 120px;
         }
         .score {
-          width: 50px;
+          width: 100px;
         }
+        &:last-child {
+          border-bottom: 1px lightgray solid;
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+      }
+      .header {
+        background: #f0f0f0;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
       }
     }
 

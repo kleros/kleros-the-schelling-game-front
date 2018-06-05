@@ -214,8 +214,21 @@ class Scores extends PureComponent {
               </div>
 
               <div className="Scores-content">
-                <div className="Scores-content-subtitle">SCORES</div>
                 <div className="Scores-content-table">
+                  <div className="Scores-content-table-items header">
+                    <div className="Scores-content-table-items-item index">
+                      <b>#</b>
+                    </div>
+                    <div className="Scores-content-table-items-item address">
+                      <b>Address</b>
+                    </div>
+                    <div className="Scores-content-table-items-item pnk">
+                      <b>Virtual PNK</b>
+                    </div>
+                    <div className="Scores-content-table-items-item score ">
+                      <b>Best score</b>
+                    </div>
+                  </div>
                   {scores.data.map((s, index) => (
                     <div key={index} className="Scores-content-table-items">
                       <div className="Scores-content-table-items-item index">
