@@ -23,7 +23,7 @@ import './score.css'
 const Twitter = ({score, cbOnClick}) => (
   <span onClick={cbOnClick}>
     <TwitterShareButton
-      url="https://schellinggame.com"
+      url="https://game.kleros.io"
       color="#1da1f2"
       size="40px"
       text={`I scored ${score} on this cool game @Kleros_io made where you have to find Schelling Points for different questions. Try it now for a chance to win real PNK!`}
