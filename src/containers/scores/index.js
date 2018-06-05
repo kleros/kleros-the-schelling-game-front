@@ -142,7 +142,7 @@ class Scores extends PureComponent {
                   <div className="Scores-navbar-stats">
                     <div>
                       {scores.data.map((s, index) => (
-                        <div key={index} className="Scores-content-table-items">
+                        <div key={index}>
                           {s.address === profile.data.address &&
                             <b>#{index+1}</b>
                           }
