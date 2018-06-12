@@ -19,27 +19,21 @@ import './app.css'
 
 const App = ({ store, history, testElement }) => (
   <Provider store={store}>
-    <Initializer>
-      <ConnectedRouter history={history}>
-        <div id="router-root">
-          <Helmet>
-            <title>SCHELLING GAME</title>
-          </Helmet>
-          <div id="scroll-root">
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/game" component={Question} />
-              <Route exact path="/scores/:result?/:user?" component={Scores} />
-              <Route exact path="/submit-question" component={SubmitQuestion} />
-              <Route exact path="/dashboard" component={Dashboard} />
-              <Route component={PageNotFound} />
-            </Switch>
-          </div>
-          {testElement}
-          <Route exact path="*" component={GlobalComponents} />
+    <ConnectedRouter history={history}>
+      <div id="router-root">
+        <Helmet>
+          <title>Schelling game -> dogelist</title>
+        </Helmet>
+        <div id="scroll-root">
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route component={PageNotFound} />
+          </Switch>
         </div>
-      </ConnectedRouter>
-    </Initializer>
+        {testElement}
+        <Route exact path="*" component={GlobalComponents} />
+      </div>
+    </ConnectedRouter>
   </Provider>
 )
 

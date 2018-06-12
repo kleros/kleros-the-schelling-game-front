@@ -16,7 +16,7 @@ import * as profileActions from '../../actions/profile'
 import * as themeActions from '../../actions/theme'
 import { web3 } from '../../bootstrap/dapp-api'
 
-import question from './question.png'
+import gamedrop from './gamedrop.png'
 import './home.css'
 
 const env = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV'
@@ -24,7 +24,7 @@ const env = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV'
 class Home extends PureComponent {
   state = {
     isStart: false,
-    goScores: false,
+    goSale: false,
     address: ''
   }
 
@@ -67,9 +67,9 @@ class Home extends PureComponent {
     this.setState({isStart: true})
   }
 
-  handleScores = () =>
+  handleSale = () =>
     this.setState({
-      goScores: true
+      goSale: true
     })
 
   handleChangeAddress = e => {
@@ -79,8 +79,8 @@ class Home extends PureComponent {
   }
 
   render() {
-    const { isStart, goScores } = this.state
-    const { profile, balance, accounts } = this.props
+    const { isStart, goSale } = this.state
+    const { profile, balance } = this.props
 
     if (
       profile.data &&
@@ -96,190 +96,52 @@ class Home extends PureComponent {
       toastr.success('You need a balance of at least 0.1 ETH to play.')
     }
 
-    if (goScores) {
-      return <Redirect to="/scores" />
+    if (goSale) {
+      return <Redirect to="https://kleros.io/token-sale" />
     }
 
     return (
-      <RenderIf
-        resource={balance}
-        done={
-          balance.data &&
-          accounts.data && (
-            <div className="Home">
-              <div className="Home-navbar">
-                <div className="Home-navbar-title">
-                  <Link to="/" className="Home-navbar-title-link">
-                    Schelling Game&nbsp;
-                    <sup>
-                      <b className="Home-navbar-title-link-alpha">BETA</b>
-                    </sup>
-                  </Link>
-                </div>
-                <div className="Home-navbar-balance">
-                  <div className="Home-navbar-balance-identicon">
-                    <Identicon seed={accounts.data[0]} size={10} />
-                  </div>
-                  <div className="Home-navbar-balance-amount">
-                    {Math.round(balance.data.toString() * 100) / 100} ETH
-                  </div>
-                </div>
-              </div>
-              <div className="Home-content">
-                <div className="Home-content-subtitle">
-                  WILL YOU FIND THE SCHELLING POINT?
-                  <div>
-                    <img
-                      className="Home-content-subtitle-question"
-                      src={question}
-                      alt="question"
-                    />
-                  </div>
-                  <div className="Home-content-subtitle-buttons">
-                    {profile.data ? (
-                      <div>
-                        <button
-                          onClick={this.handleStartGeneral}
-                          className="Home-content-subtitle-buttons-start"
-                        >
-                          Play General
-                        </button>
-                        <button
-                          onClick={this.handleStartFootball}
-                          className="Home-content-subtitle-buttons-start"
-                        >
-                          Play Football
-                        </button>
-                        <button
-                          onClick={this.handleStartCrypto}
-                          className="Home-content-subtitle-buttons-start"
-                        >
-                          Play Crypto
-                        </button>
-                      </div>
-                    ) : (
-                      <div>
-                        <button
-                          onClick={this.handleStart}
-                          className="Home-content-subtitle-buttons-start"
-                        >
-                          Sign up
-                        </button>
-                        <button
-                          onClick={this.handleScores}
-                          className="Home-content-subtitle-buttons-scores"
-                        >
-                          Scores
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                  <div className="panel-wrapper">
-                    <a href="#show" className="show btn" id="show">
-                      Show full rules
-                    </a>
-                    <a href="#hide" className="hide btn" id="hide">
-                      Hide full rules
-                    </a>
-                    <div className="panel">
-                      To play, you will sign a message using your Web3 account.
-                      We require that you have a balance of at least 0.1 ETH in
-                      the account you sign with, in order to avoid sybil
-                      attacks.
-                      <br />
-                      <br />
-                      The goal is to find the Schelling Point for each question.
-                      If you find it, your score will increase by 1 and you'll
-                      win virtual Pinakions (PNK) from those who didn't. If you
-                      don't find it, your score will decrease by 1 and users who
-                      did find it win a fraction of your virtual PNK.
-                      <br />
-                      <br />
-                      Other ways to earn virtual PNK:
-                      <ul>
-                        <li>
-                          You can{' '}
-                          <Link to="/submit-question">submit a question</Link>.
-                          If this question is validated, you earn 10 virtual
-                          PNK.
-                        </li>
-                        <br />
-                        <li>
-                          Add your username here and join the Kleros Telegram.
-                          After validation, you earn 10 virtual PNK.
-                        </li>
-                        <br />
-                        <li>
-                          Share your Schelling Game score on twitter from the
-                          page <Link to="/scores">score</Link> to earn 10
-                          virtual PNK.
-                        </li>
-                        <br />
-                        <li>
-                          Share your reference link&nbsp;
-                          <a
-                            href={`https://game.kleros.io?ref=${accounts.data[0].toLowerCase()}`}
-                          >{`https://game.kleros.io?ref=${accounts.data[0].toLowerCase()}`}</a>{' '}
-                          to earn 10 virtual PNK.
-                        </li>
-                      </ul>
-                      After answering all questions, you must wait at least 1
-                      hour before being able to play again. This is to stop
-                      people from spam-answering questions and to make it harder
-                      for them to collude.
-                      <br />
-                      The game finishes on the 15th of June (the end of the full
-                      bonus phase in our token sale).
-                      <br />
-                      <br />
-                      All players win 10 real PNK and additionally, the top 100
-                      players will receive their virtual PNK score in real PNK,
-                      up to 1000 PNK.
-                      <br />
-                      <br />
-                      For more information, you can read{' '}
-                      <a href="https://medium.com/kleros/gamedrop-an-alternative-to-the-airdrop-fdf2bb94a0e6">
-                        this article
-                      </a>. It explains the advantages of a "gamedrop" and how
-                      it works.
-                      <br />
-                      <br />
-                      <center>
-                        <b>Have fun!</b>
-                      </center>
-                    </div>
-                    <div className="fade" />
-                  </div>
-                </div>
+      <div className="Home">
+        <div className="Home-content">
+          <h1>Schelling Game over!</h1>
+          <img
+            className="Home-content-gamedrop-img"
+            src={gamedrop}
+            alt="gamedrop"
+          />
+          The Shelling game is finished. <b>Kudos to all participants!</b><br /><br />
+          The results are published on <a href="https://t.co/8iqT44pumw">https://t.co/8iqT44pumw</a>.<br /><br />
+          <b>The token distribution will be made after the first round of sale.</b>
+          <br />
+          <br />
+          We start a new experiment, it's a <b>dogelist</b>.<br /><br />
+          The objective is to test Kleros to create a curated list containing only dogs.<br />
 
-                <div className="Home-content-footer">
-                  <footer>
-                    © WTFPL 2018 - <i>Schelling Game</i> propulsed by{' '}
-                    <a href="https://kleros.io">Kleros</a>
-                  </footer>
-                </div>
-              </div>
-            </div>
-          )
-        }
-        failedLoading={
-          <div>
-            There was an error fetching your balance. Make sure{' '}
-            <a
-              className="Balance-message-link"
-              href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
-            >
-              MetaMask
-            </a>{' '}
-            is unlocked and refresh the page.
-          </div>
-        }
-        loading={
-          <div className="loader">
-            <ClipLoader color={'gray'} loading={true} />
-          </div>
-        }
-      />
+          If someone succed to publish another thing than a doge like a cat, he wins.<br />
+
+          So we will easily see how effective Kleros is at creating a curated list by 
+          listing all pictures that are not dogs at the end of the pilot.<br />
+          <br />
+          This dapp is designed to deploy on the <b>mainet in July</b>.<br />
+          <br />
+          If this experiment is successful, we'll can use Kleros for lot of curated lists:
+          <ul>
+            <li>domain names list</li>
+            <li>comments in social media</li>
+            <li>filter curicculum vitae</li>
+          </ul>
+
+          To be part of Kleros and <b>become a Kleros juror</b> to arbitrate these different disputes, 
+          you can participate in the sale:
+          <br /><br />
+          <center>
+            <a class="default large pill" href="https://kleros.io/token-sale">JOIN KLEROS TOKEN SALE</a>
+          </center>
+          <footer>
+            &copy; Kleros 2018
+          </footer>
+        </div>
+      </div>
     )
   }
 }

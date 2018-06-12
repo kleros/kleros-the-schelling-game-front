@@ -2,7 +2,8 @@
 .Home {
   min-height: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-around;
 
   &-navbar {
     display:flex;
@@ -41,11 +42,9 @@
     }
   }
   &-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    flex: 1;
+    margin-top: 2%;
+    width: 500px;
+    font-size: 1.1em;
     &-subtitle {
       text-align: center;
       font-variant: small-caps;
@@ -95,6 +94,11 @@
         }
       }
     }
+    &-gamedrop-img {
+      margin: 2em 0;
+      width: 500px;
+      border-radius: 10px;
+    }
     &-footer {
       margin-top: 40px;
       width: 100vw;
@@ -113,6 +117,12 @@
       }
     }
   }
+}
+
+footer {
+  padding: 3em 0;
+  color: gray;
+  text-align: center;
 }
 
 .panel-wrapper {
